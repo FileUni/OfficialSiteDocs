@@ -1,0 +1,69 @@
+---
+import { Icon } from '@astrojs/starlight/components';
+
+const currentPath = Astro.url.pathname;
+const isZhPath = currentPath === '/zh-cn' || currentPath.startsWith('/zh-cn/');
+const currentLang = isZhPath ? 'zh' : 'en';
+---
+
+<starlight-lang-select>
+  <button
+    type="button"
+    class="fu-lang-toggle"
+    data-current-lang={currentLang}
+    aria-label={Astro.locals.t('languageSelect.accessibleLabel')}
+  >
+    <span class="fu-lang-code">{currentLang.toUpperCase()}</span>
+    <Icon name="translate" />
+  </button>
+</starlight-lang-select>
+
+<script>
+  const LANG_COOKIE_KEY = 'lang';
+
+  const toZhPath = (pathname) => {
+    if (pathname === '/zh-cn' || pathname.startsWith('/zh-cn/')) {
+      return pathname;
+    }
+    if (pathname === '/') {
+      return '/zh-cn/';
+    }
+    return `/zh-cn${pathname}`;
+  };
+
+  const toEnPath = (pathname) => {
+    if (pathname === '/zh-cn') {
+      return '/';
+    }
+    if (pathname.startsWith('/zh-cn/')) {
+      const unprefixed = pathname.slice('/zh-cn'.length);
+      return unprefixed || '/';
+    }
+    return pathname;
+  };
+
+  class StarlightLanguageSelect extends HTMLElement {
+    constructor() {
+      super();
+      const button = this.querySelector('button.fu-lang-toggle');
+      if (!button) {
+        return;
+      }
+
+      button.addEventListener('click', () => {
+        const currentLang =
+          window.location.pathname === '/zh-cn' || window.location.pathname.startsWith('/zh-cn/')
+            ? 'zh'
+            : 'en';
+        const targetLang = currentLang === 'zh' ? 'en' : 'zh';
+        window.FileUniPreferenceCookie?.write?.(LANG_COOKIE_KEY, targetLang);
+        const targetPath =
+          targetLang === 'zh' ? toZhPath(window.location.pathname) : toEnPath(window.location.pathname);
+        window.location.pathname = targetPath;
+      });
+    }
+  }
+  if (!customElements.get('starlight-lang-select')) {
+    customElements.define('starlight-lang-select', StarlightLanguageSelect);
+  }
+</script>

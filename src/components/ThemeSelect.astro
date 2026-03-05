@@ -1,0 +1,87 @@
+---
+import { Icon } from '@astrojs/starlight/components';
+
+const options = [
+  { label: Astro.locals.t('themeSelect.light'), value: 'light', icon: 'sun' },
+  { label: Astro.locals.t('themeSelect.dark'), value: 'dark', icon: 'moon' },
+  { label: Astro.locals.t('themeSelect.auto'), value: 'auto', icon: 'laptop' },
+] as const;
+---
+
+<starlight-theme-select>
+  <div class="fu-theme-toggle" role="group" aria-label={Astro.locals.t('themeSelect.accessibleLabel')}>
+    {
+      options.map((option) => (
+        <button
+          type="button"
+          class="fu-theme-option"
+          data-theme-value={option.value}
+          aria-label={option.label}
+          title={option.label}
+        >
+          <Icon name={option.icon} />
+        </button>
+      ))
+    }
+  </div>
+</starlight-theme-select>
+
+<script is:inline>
+  if (window.StarlightThemeProvider?.updatePickers) {
+    window.StarlightThemeProvider.updatePickers();
+  }
+</script>
+
+<script>
+  const THEME_COOKIE_KEY = 'theme';
+
+  const parseTheme = (theme) =>
+    theme === 'auto' || theme === 'dark' || theme === 'light' ? theme : null;
+
+  const getCookieTheme = () => {
+    const cookieApi = window.FileUniPreferenceCookie;
+    return parseTheme(cookieApi?.read?.(THEME_COOKIE_KEY));
+  };
+
+  const saveCookieTheme = (theme) => {
+    const cookieApi = window.FileUniPreferenceCookie;
+    cookieApi?.write?.(THEME_COOKIE_KEY, theme);
+  };
+
+  const getPreferredColorScheme = () =>
+    matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+
+  function onThemeChange(theme) {
+    const parsedTheme = parseTheme(theme) || 'auto';
+    document.documentElement.dataset.theme =
+      parsedTheme === 'auto' ? getPreferredColorScheme() : parsedTheme;
+    saveCookieTheme(parsedTheme);
+    if (window.StarlightThemeProvider?.updatePickers) {
+      window.StarlightThemeProvider.updatePickers(parsedTheme);
+    }
+  }
+
+  matchMedia('(prefers-color-scheme: light)').addEventListener('change', () => {
+    if ((getCookieTheme() || 'auto') === 'auto') {
+      onThemeChange('auto');
+    }
+  });
+
+  class StarlightThemeSelect extends HTMLElement {
+    constructor() {
+      super();
+      onThemeChange(getCookieTheme() || 'auto');
+      this.querySelectorAll('[data-theme-value]').forEach((button) => {
+        button.addEventListener('click', (event) => {
+          if (!(event.currentTarget instanceof HTMLButtonElement)) {
+            return;
+          }
+          onThemeChange(event.currentTarget.dataset.themeValue || 'auto');
+        });
+      });
+    }
+  }
+  if (!customElements.get('starlight-theme-select')) {
+    customElements.define('starlight-theme-select', StarlightThemeSelect);
+  }
+</script>

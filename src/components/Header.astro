@@ -1,0 +1,43 @@
+---
+import config from 'virtual:starlight/user-config';
+
+import LanguageSelect from 'virtual:starlight/components/LanguageSelect';
+import Search from 'virtual:starlight/components/Search';
+import SiteTitle from 'virtual:starlight/components/SiteTitle';
+import ThemeSelect from 'virtual:starlight/components/ThemeSelect';
+
+const shouldRenderSearch =
+  config.pagefind || config.components.Search !== '@astrojs/starlight/components/Search.astro';
+
+const locale = Astro.locals.starlightRoute.locale;
+const isZh = locale === 'zh-cn';
+
+const homeHref = isZh ? 'https://fileuni.com/zh/' : 'https://fileuni.com/';
+const featuresHref = `${homeHref}#features`;
+const docsHref = isZh ? '/zh-cn/' : '/';
+const loginHref = isZh ? 'https://fileuni.com/zh/user/login' : 'https://fileuni.com/user/login';
+const registerHref = isZh ? 'https://fileuni.com/zh/user/register' : 'https://fileuni.com/user/register';
+---
+
+<div class="fu-docs-header sl-flex">
+  <div class="fu-docs-header-left sl-flex">
+    <SiteTitle />
+    <nav class="fu-docs-nav" aria-label="Primary navigation">
+      <a href={homeHref}>{isZh ? '首页' : 'Home'}</a>
+      <a href={featuresHref}>{isZh ? '特性' : 'Features'}</a>
+      <a href={docsHref} class="is-active">{isZh ? '文档' : 'Docs'}</a>
+    </nav>
+  </div>
+
+  <div class="fu-docs-header-right sl-flex print:hidden">
+    {shouldRenderSearch && (
+      <div class="fu-docs-search">
+        <Search />
+      </div>
+    )}
+    <ThemeSelect />
+    <LanguageSelect />
+    <a href={loginHref} class="fu-auth-link fu-auth-login">{isZh ? '登录' : 'Login'}</a>
+    <a href={registerHref} class="fu-auth-link fu-auth-register">{isZh ? '立即开始' : 'Get Started'}</a>
+  </div>
+</div>

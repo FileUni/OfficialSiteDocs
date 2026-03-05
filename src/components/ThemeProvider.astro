@@ -1,0 +1,131 @@
+---
+---
+
+<script is:inline>
+  const FILEUNI_THEME_KEY = 'theme';
+  const FILEUNI_LANG_KEY = 'lang';
+  const COOKIE_MAX_AGE_SECONDS = 60 * 60 * 24 * 365;
+
+  const getCookieDomain = (hostname) => {
+    const normalizedHost = hostname.toLowerCase();
+    if (normalizedHost === 'fileuni.com' || normalizedHost.endsWith('.fileuni.com')) {
+      return '.fileuni.com';
+    }
+    if (normalizedHost.endsWith('.workers.dev')) {
+      const labels = normalizedHost.split('.');
+      if (labels.length >= 5) {
+        return `.${labels.slice(-4).join('.')}`;
+      }
+      if (labels.length === 4) {
+        return `.${labels.slice(-3).join('.')}`;
+      }
+    }
+    return '';
+  };
+
+  const readCookie = (name) => {
+    const prefix = `${name}=`;
+    const cookies = document.cookie.split(';');
+    for (const rawCookie of cookies) {
+      const cookie = rawCookie.trim();
+      if (cookie.startsWith(prefix)) {
+        return decodeURIComponent(cookie.slice(prefix.length));
+      }
+    }
+    return null;
+  };
+
+  const writeCookie = (name, value) => {
+    const domain = getCookieDomain(window.location.hostname);
+    const domainPart = domain ? `; domain=${domain}` : '';
+    const securePart = window.location.protocol === 'https:' ? '; Secure' : '';
+    document.cookie = `${name}=${encodeURIComponent(value)}; path=/; max-age=${COOKIE_MAX_AGE_SECONDS}; SameSite=Lax${securePart}${domainPart}`;
+  };
+
+  const parseTheme = (theme) =>
+    theme === 'auto' || theme === 'dark' || theme === 'light' ? theme : null;
+
+  const parseLang = (lang) => {
+    if (lang === 'en' || lang === 'zh') {
+      return lang;
+    }
+    if (lang === 'zh-cn' || lang === 'zh-CN') {
+      return 'zh';
+    }
+    return null;
+  };
+
+  const isZhPath = (pathname) => pathname === '/zh-cn' || pathname.startsWith('/zh-cn/');
+
+  const toZhPath = (pathname) => {
+    if (pathname === '/zh-cn' || pathname.startsWith('/zh-cn/')) {
+      return pathname;
+    }
+    if (pathname === '/') {
+      return '/zh-cn/';
+    }
+    return `/zh-cn${pathname}`;
+  };
+
+  const toEnPath = (pathname) => {
+    if (pathname === '/zh-cn') {
+      return '/';
+    }
+    if (pathname.startsWith('/zh-cn/')) {
+      const unprefixed = pathname.slice('/zh-cn'.length);
+      return unprefixed || '/';
+    }
+    return pathname;
+  };
+
+  const currentPath = window.location.pathname;
+  const cookieLang = parseLang(readCookie(FILEUNI_LANG_KEY));
+  const currentLang = isZhPath(currentPath) ? 'zh' : 'en';
+
+  if (!cookieLang) {
+    writeCookie(FILEUNI_LANG_KEY, currentLang);
+  } else if (cookieLang !== currentLang) {
+    const targetPath = cookieLang === 'zh' ? toZhPath(currentPath) : toEnPath(currentPath);
+    if (targetPath !== currentPath) {
+      window.location.replace(`${targetPath}${window.location.search}${window.location.hash}`);
+    }
+  }
+
+  const getPreferredColorScheme = () =>
+    window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+
+  const resolveTheme = (theme) => (theme === 'auto' ? getPreferredColorScheme() : theme);
+
+  const storedTheme = parseTheme(readCookie(FILEUNI_THEME_KEY)) || 'auto';
+  if (!parseTheme(readCookie(FILEUNI_THEME_KEY))) {
+    writeCookie(FILEUNI_THEME_KEY, 'auto');
+  }
+  document.documentElement.dataset.theme = resolveTheme(storedTheme);
+
+  window.FileUniPreferenceCookie = {
+    read: readCookie,
+    write: writeCookie,
+    parseTheme,
+    parseLang,
+  };
+
+  window.StarlightThemeProvider = {
+    updatePickers(theme = storedTheme) {
+      const parsedTheme = parseTheme(theme) || 'auto';
+      document.querySelectorAll('starlight-theme-select').forEach((picker) => {
+        const select = picker.querySelector('select');
+        if (select) {
+          select.value = parsedTheme;
+        }
+        picker.querySelectorAll('[data-theme-value]').forEach((option) => {
+          if (!(option instanceof HTMLButtonElement)) {
+            return;
+          }
+          const isActive = option.dataset.themeValue === parsedTheme;
+          option.classList.toggle('is-active', isActive);
+          option.setAttribute('aria-pressed', String(isActive));
+        });
+      });
+    },
+  };
+</script>

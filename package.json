@@ -1,0 +1,20 @@
+{
+  "name": "official-site-docs",
+  "version": "0.1.0",
+  "private": false,
+  "type": "module",
+  "scripts": {
+    "dev": "XDG_CONFIG_HOME=.wrangler-home astro dev",
+    "build": "XDG_CONFIG_HOME=.wrangler-home astro build && echo '_worker.js\n_routes.json' > dist/.assetsignore",
+    "preview": "XDG_CONFIG_HOME=.wrangler-home astro preview"
+  },
+
+  "dependencies": {
+    "@astrojs/cloudflare": "^12.1.2",
+    "astro": "^5.2.5",
+    "@astrojs/starlight": "^0.32.0"
+  },
+  "devDependencies": {
+    "wrangler": "^3.107.3"
+  }
+}

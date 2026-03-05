@@ -1,0 +1,230 @@
+:root {
+  --sl-nav-height: 4rem;
+  --sl-color-accent-low: #dcf2fb;
+  --sl-color-accent: #0092c7;
+  --sl-color-accent-high: #005d80;
+  --sl-color-white: #0f172a;
+  --sl-color-gray-1: #1e293b;
+  --sl-color-gray-2: #334155;
+  --sl-color-gray-3: #475569;
+  --sl-color-gray-4: #64748b;
+  --sl-color-gray-5: #94a3b8;
+  --sl-color-gray-6: #d6dfeb;
+  --sl-color-gray-7: #edf3f9;
+  --sl-color-black: #f8fbff;
+  --sl-color-bg-nav: rgba(248, 251, 255, 0.9);
+  --sl-color-bg-sidebar: #f8fbff;
+}
+
+:root[data-theme='dark'] {
+  --sl-color-accent-low: #052335;
+  --sl-color-accent: #16b5f3;
+  --sl-color-accent-high: #87d8ff;
+  --sl-color-white: #f3f8ff;
+  --sl-color-gray-1: #dbe8f8;
+  --sl-color-gray-2: #b7c8dd;
+  --sl-color-gray-3: #90a6bf;
+  --sl-color-gray-4: #6d849f;
+  --sl-color-gray-5: #47586f;
+  --sl-color-gray-6: #2a3342;
+  --sl-color-gray-7: #182332;
+  --sl-color-black: #0a111c;
+  --sl-color-bg-nav: rgba(10, 17, 28, 0.88);
+  --sl-color-bg-sidebar: #0a111c;
+}
+
+.header {
+  backdrop-filter: blur(12px);
+}
+
+.fu-docs-header {
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  height: 100%;
+}
+
+.fu-docs-header-left {
+  align-items: center;
+  gap: 1.5rem;
+  min-width: 0;
+}
+
+.fu-site-title {
+  align-items: center;
+  gap: 0.65rem;
+  color: var(--sl-color-text-accent);
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+}
+
+.fu-site-title img {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.55rem;
+  box-shadow: 0 6px 14px rgba(0, 146, 199, 0.2);
+}
+
+.fu-docs-nav {
+  display: none;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.fu-docs-nav a {
+  color: var(--sl-color-gray-2);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.fu-docs-nav a:hover,
+.fu-docs-nav a.is-active {
+  color: var(--sl-color-accent);
+}
+
+.fu-docs-header-right {
+  align-items: center;
+  gap: 0.5rem;
+  margin-inline-start: auto;
+}
+
+.fu-docs-search {
+  display: none;
+}
+
+.fu-docs-search button {
+  min-height: 2.2rem;
+  border: 1px solid var(--sl-color-gray-6);
+  border-radius: 0.6rem;
+  background: transparent;
+}
+
+.fu-auth-link {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  padding: 0.45rem 0.85rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.fu-auth-login {
+  color: var(--sl-color-gray-2);
+}
+
+.fu-auth-login:hover {
+  color: var(--sl-color-accent);
+}
+
+.fu-auth-register {
+  background: var(--sl-color-accent);
+  color: #ffffff;
+}
+
+.fu-auth-register:hover {
+  filter: brightness(0.95);
+}
+
+starlight-theme-select,
+starlight-lang-select {
+  display: inline-flex;
+  align-items: center;
+}
+
+.fu-theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.16rem;
+  padding: 0.2rem;
+  border: 1px solid var(--sl-color-gray-6);
+  border-radius: 0.58rem;
+  background: transparent;
+}
+
+.fu-theme-toggle:hover {
+  border-color: var(--sl-color-gray-5);
+}
+
+.fu-theme-option {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.4rem;
+  height: 1.4rem;
+  border: 0;
+  border-radius: 0.4rem;
+  background: transparent;
+  color: var(--sl-color-gray-3);
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.fu-theme-option svg {
+  font-size: 0.82rem;
+}
+
+.fu-theme-option:hover {
+  background: var(--sl-color-gray-7);
+  color: var(--sl-color-gray-1);
+}
+
+.fu-theme-option.is-active {
+  background: var(--sl-color-accent);
+  color: #ffffff;
+}
+
+.fu-theme-option:focus-visible,
+.fu-lang-toggle:focus-visible {
+  outline: 2px solid var(--sl-color-accent);
+  outline-offset: 2px;
+}
+
+.fu-lang-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.34rem;
+  min-height: 2rem;
+  border: 1px solid var(--sl-color-gray-6);
+  border-radius: 0.58rem;
+  padding: 0.38rem 0.52rem;
+  background: transparent;
+  color: var(--sl-color-gray-2);
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+}
+
+.fu-lang-toggle svg {
+  font-size: 0.82rem;
+}
+
+.fu-lang-toggle:hover {
+  border-color: var(--sl-color-gray-5);
+  color: var(--sl-color-gray-1);
+  background: var(--sl-color-gray-7);
+}
+
+@media (min-width: 50rem) {
+  .fu-docs-nav {
+    display: flex;
+  }
+
+  .fu-docs-search {
+    display: block;
+  }
+}
+
+@media (min-width: 72rem) {
+  .fu-auth-link {
+    display: inline-flex;
+  }
+}
