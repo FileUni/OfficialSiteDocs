@@ -14,7 +14,7 @@ FileUni 当前提供两条配合使用的安装路径：
 安装脚本不会写死发布链接。脚本会读取下面这个公开元数据地址，而官网后端负责从 GitHub Releases 生成这个 JSON：
 
 ```text
-https://fileuni.com/api/downloads/releases.json
+https://fileuni.com/api/downloads/releases
 ```
 
 ## 在线安装

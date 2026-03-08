@@ -2,7 +2,7 @@
 
 set -eu
 
-RELEASES_JSON_URL="${FILEUNI_RELEASES_JSON_URL:-https://fileuni.com/api/downloads/releases.json}"
+RELEASES_JSON_URL="${FILEUNI_RELEASES_JSON_URL:-https://fileuni.com/api/downloads/releases}"
 CHANNEL="${FILEUNI_CHANNEL:-auto}"
 INSTALL_DIR="${FILEUNI_INSTALL_DIR:-}"
 

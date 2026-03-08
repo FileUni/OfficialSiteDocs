@@ -25,7 +25,7 @@ function fail(text) {
 function parseArgs() {
   var result = {
     channel: getEnv("FILEUNI_CHANNEL", "auto"),
-    releasesJsonUrl: getEnv("FILEUNI_RELEASES_JSON_URL", "https://fileuni.com/api/downloads/releases.json"),
+    releasesJsonUrl: getEnv("FILEUNI_RELEASES_JSON_URL", "https://fileuni.com/api/downloads/releases"),
     installDir: getEnv("FILEUNI_INSTALL_DIR", ""),
   };
 

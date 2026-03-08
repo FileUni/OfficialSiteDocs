@@ -14,7 +14,7 @@ FileUni provides two coordinated install paths:
 The installer scripts do not hardcode release URLs. They read the public metadata endpoint below, and the website backend generates that JSON from GitHub Releases:
 
 ```text
-https://fileuni.com/api/downloads/releases.json
+https://fileuni.com/api/downloads/releases
 ```
 
 ## Online Install
