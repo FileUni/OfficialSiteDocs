@@ -1,0 +1,50 @@
+name: General Pull Request
+description: Submit a pull request for OfficialSiteDocs
+title: "[PR]: "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        > Please read [CLA](https://github.com/FileUni/FileUni-Project/blob/main/CLA.md) and [CONTRIBUTING.md](../CONTRIBUTING.md) before submitting.
+
+  - type: input
+    id: related-issue
+    attributes:
+      label: Related Issue
+      description: Link to the related issue (if any)
+      placeholder: "#123"
+    validations:
+      required: false
+
+  - type: input
+    id: related-discussion
+    attributes:
+      label: Related Discussion
+      description: Link to related discussion (required for feature or improvement scope)
+      placeholder: "#456"
+    validations:
+      required: false
+
+  - type: textarea
+    id: doc-changes
+    attributes:
+      label: Documentation Changes
+      description: Describe what documentation changes you made
+      placeholder: |
+        - 
+        - 
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: self-check
+    attributes:
+      label: Self-Check List
+      description: Please check all items that apply
+      options:
+        - label: `bun run check` passes with no errors
+        - label: `bun run format` executed
+        - label: Links and references verified
+        - label: Spelling and grammar checked
+        - label: i18n updated (zh-cn/en) if applicable
