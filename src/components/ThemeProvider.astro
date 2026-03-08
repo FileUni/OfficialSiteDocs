@@ -78,13 +78,16 @@
     return pathname;
   };
 
+  const isLocaleRootPath = (pathname) =>
+    pathname === '/' || pathname === '/zh-cn' || pathname === '/zh-cn/';
+
   const currentPath = window.location.pathname;
   const cookieLang = parseLang(readCookie(FILEUNI_LANG_KEY));
   const currentLang = isZhPath(currentPath) ? 'zh' : 'en';
 
   if (!cookieLang) {
     writeCookie(FILEUNI_LANG_KEY, currentLang);
-  } else if (cookieLang !== currentLang) {
+  } else if (cookieLang !== currentLang && isLocaleRootPath(currentPath)) {
     const targetPath = cookieLang === 'zh' ? toZhPath(currentPath) : toEnPath(currentPath);
     if (targetPath !== currentPath) {
       window.location.replace(`${targetPath}${window.location.search}${window.location.hash}`);
