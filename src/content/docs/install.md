@@ -9,9 +9,13 @@ order: 3
 FileUni provides two coordinated install paths:
 
 1. One-line installer scripts hosted on `docs.fileuni.com`
-2. A website download page that reads GitHub Releases in real time and links directly to GitHub assets
+2. A website download page that reads a public releases JSON and links directly to GitHub assets
 
-The installer scripts do not hardcode release URLs. They call the FileUni website resolver API, and the website API normalizes data from GitHub Releases.
+The installer scripts do not hardcode release URLs. They read the public metadata endpoint below, and the website backend generates that JSON from GitHub Releases:
+
+```text
+https://fileuni.com/api/downloads/releases.json
+```
 
 ## Online Install
 
@@ -42,16 +46,16 @@ curl -fsSL https://docs.fileuni.com/install.sh | sh -s -- --to "$HOME/.local/bin
 ### Windows CMD
 
 ```bat
-curl.exe -fsSL -o "%TEMP%\fileuni-install.cmd" https://docs.fileuni.com/install.cmd && cmd /c "%TEMP%\fileuni-install.cmd"
+set "I=%TEMP%\fileuni-install.cmd" && certutil -urlcache -split -f https://docs.fileuni.com/install.cmd "%I%" >nul && cmd /c "%I%"
 ```
 
 Install the prerelease channel explicitly:
 
 ```bat
-curl.exe -fsSL -o "%TEMP%\fileuni-install.cmd" https://docs.fileuni.com/install.cmd && cmd /c "%TEMP%\fileuni-install.cmd pre"
+set "I=%TEMP%\fileuni-install.cmd" && certutil -urlcache -split -f https://docs.fileuni.com/install.cmd "%I%" >nul && cmd /c "%I%" pre
 ```
 
-The Windows installer downloads the current CLI package through the website resolver API and extracts `fileuni.exe` into `%USERPROFILE%\AppData\Local\FileUni\bin` by default.
+The Windows installer reads the same public releases JSON, downloads the current CLI ZIP, and extracts `fileuni.exe` into `%USERPROFILE%\AppData\Local\FileUni\bin` by default.
 
 ## Download Page
 
@@ -79,7 +83,7 @@ Environment variables:
 
 - `FILEUNI_CHANNEL`
 - `FILEUNI_INSTALL_DIR`
-- `FILEUNI_API_BASE`
+- `FILEUNI_RELEASES_JSON_URL`
 
 ### `install.cmd`
 
@@ -93,7 +97,7 @@ Environment variables:
 
 - `FILEUNI_CHANNEL`
 - `FILEUNI_INSTALL_DIR`
-- `FILEUNI_API_BASE`
+- `FILEUNI_RELEASES_JSON_URL`
 
 ## After Installation
 

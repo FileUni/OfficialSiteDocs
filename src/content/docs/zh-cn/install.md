@@ -9,9 +9,13 @@ order: 3
 FileUni 当前提供两条配合使用的安装路径：
 
 1. 托管在 `docs.fileuni.com` 的在线安装脚本
-2. 官网实时读取 GitHub Releases 的下载页，并直接跳转到 GitHub 资产
+2. 官网读取公开 releases JSON 的下载页，并直接跳转到 GitHub 资产
 
-安装脚本不会写死发布链接。脚本会调用 FileUni 官网的解析 API，而官网 API 负责查询并规范化 GitHub Releases 数据。
+安装脚本不会写死发布链接。脚本会读取下面这个公开元数据地址，而官网后端负责从 GitHub Releases 生成这个 JSON：
+
+```text
+https://fileuni.com/api/downloads/releases.json
+```
 
 ## 在线安装
 
@@ -42,16 +46,16 @@ curl -fsSL https://docs.fileuni.com/install.sh | sh -s -- --to "$HOME/.local/bin
 ### Windows CMD
 
 ```bat
-curl.exe -fsSL -o "%TEMP%\fileuni-install.cmd" https://docs.fileuni.com/install.cmd && cmd /c "%TEMP%\fileuni-install.cmd"
+set "I=%TEMP%\fileuni-install.cmd" && certutil -urlcache -split -f https://docs.fileuni.com/install.cmd "%I%" >nul && cmd /c "%I%"
 ```
 
 明确安装预发布版：
 
 ```bat
-curl.exe -fsSL -o "%TEMP%\fileuni-install.cmd" https://docs.fileuni.com/install.cmd && cmd /c "%TEMP%\fileuni-install.cmd pre"
+set "I=%TEMP%\fileuni-install.cmd" && certutil -urlcache -split -f https://docs.fileuni.com/install.cmd "%I%" >nul && cmd /c "%I%" pre
 ```
 
-Windows 安装脚本会通过官网解析 API 下载当前 CLI 包，并默认解压到 `%USERPROFILE%\AppData\Local\FileUni\bin` 下。
+Windows 安装脚本会读取同一个公开 releases JSON，下载当前 CLI ZIP，并默认解压到 `%USERPROFILE%\AppData\Local\FileUni\bin` 下。
 
 ## 下载页面
 
@@ -79,7 +83,7 @@ sh install.sh [--channel auto|stable|pre] [--to DIR]
 
 - `FILEUNI_CHANNEL`
 - `FILEUNI_INSTALL_DIR`
-- `FILEUNI_API_BASE`
+- `FILEUNI_RELEASES_JSON_URL`
 
 ### `install.cmd`
 
@@ -93,7 +97,7 @@ sh install.sh [--channel auto|stable|pre] [--to DIR]
 
 - `FILEUNI_CHANNEL`
 - `FILEUNI_INSTALL_DIR`
-- `FILEUNI_API_BASE`
+- `FILEUNI_RELEASES_JSON_URL`
 
 ## 安装后
 

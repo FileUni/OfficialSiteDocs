@@ -2,7 +2,7 @@
 
 set -eu
 
-API_BASE="${FILEUNI_API_BASE:-https://fileuni.com/api/downloads/resolve}"
+RELEASES_JSON_URL="${FILEUNI_RELEASES_JSON_URL:-https://fileuni.com/api/downloads/releases.json}"
 CHANNEL="${FILEUNI_CHANNEL:-auto}"
 INSTALL_DIR="${FILEUNI_INSTALL_DIR:-}"
 
@@ -14,9 +14,9 @@ Usage:
   sh install.sh [--channel auto|stable|pre] [--to DIR]
 
 Environment:
-  FILEUNI_CHANNEL      Preferred release channel
-  FILEUNI_INSTALL_DIR  Installation directory
-  FILEUNI_API_BASE     Override website resolver API
+  FILEUNI_CHANNEL            Preferred release channel
+  FILEUNI_INSTALL_DIR        Installation directory
+  FILEUNI_RELEASES_JSON_URL  Override public releases JSON URL
 EOF
 }
 
@@ -143,14 +143,27 @@ OS_NAME="$(detect_os)"
 ARCH_NAME="$(detect_arch)"
 LIBC_NAME="$(detect_libc)"
 
-QUERY="${API_BASE}?channel=${CHANNEL}&kind=cli&os=${OS_NAME}&arch=${ARCH_NAME}"
+json_get_string() {
+  key_escaped="$(printf '%s' "$1" | sed 's/[][(){}.^$?+*|/]/\\&/g')"
+  printf '%s' "$JSON_CONTENT" | tr -d '\n' | sed -n "s/.*\"${key_escaped}\"[[:space:]]*:[[:space:]]*\"\\([^\"]*\\)\".*/\\1/p"
+}
+
+TARGET_KEY="cli-${OS_NAME}-${ARCH_NAME}"
 if [ -n "$LIBC_NAME" ]; then
-  QUERY="${QUERY}&libc=${LIBC_NAME}"
+  TARGET_KEY="${TARGET_KEY}-${LIBC_NAME}"
 fi
 
-DOWNLOAD_URL="$(fetch_text "$QUERY" | tr -d '\r\n')"
+CHANNEL_KEY="recommended"
+if [ "$CHANNEL" = "stable" ]; then
+  CHANNEL_KEY="stable"
+elif [ "$CHANNEL" = "pre" ]; then
+  CHANNEL_KEY="prerelease"
+fi
+
+JSON_CONTENT="$(fetch_text "$RELEASES_JSON_URL")"
+DOWNLOAD_URL="$(json_get_string "${TARGET_KEY}.${CHANNEL_KEY}")"
 if [ -z "$DOWNLOAD_URL" ]; then
-  echo "Unable to resolve a FileUni download URL." >&2
+  echo "Unable to resolve a FileUni download URL from ${RELEASES_JSON_URL}." >&2
   exit 1
 fi
 
@@ -173,7 +186,8 @@ case "$DOWNLOAD_URL" in
     ;;
 esac
 
-echo "Resolved channel: ${CHANNEL}"
+echo "Release metadata: ${RELEASES_JSON_URL}"
+echo "Resolved channel: ${CHANNEL_KEY}"
 echo "Target platform: ${OS_NAME}/${ARCH_NAME}${LIBC_NAME:+/${LIBC_NAME}}"
 echo "Installing to: ${INSTALL_DIR}"
 
@@ -204,9 +218,6 @@ fi
 install -m 755 "$BINARY_PATH" "${INSTALL_DIR}/fileuni"
 
 echo "FileUni installed at ${INSTALL_DIR}/fileuni"
-if "${INSTALL_DIR}/fileuni" --version >/dev/null 2>&1; then
-  "${INSTALL_DIR}/fileuni" --version
-fi
 
 case ":${PATH}:" in
   *:"${INSTALL_DIR}":*)
