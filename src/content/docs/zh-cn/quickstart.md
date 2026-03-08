@@ -15,14 +15,14 @@ order: 2
 在终端中运行以下命令：
 
 ```bash
-curl -fsSL https://fileuni.com/install.sh | sh
+curl -fsSL https://docs.fileuni.com/install.sh | sh
 ```
 
-安装完成后，系统会自动启动服务。
+安装脚本会把 `fileuni` 二进制安装到本机。安装完成后，可先执行 `fileuni --help`，然后继续下面的初始化步骤。
 
 ### 方式二：下载预编译版本
 
-1. 访问 [下载页面](https://fileuni.com/download)
+1. 访问 [下载页面](https://fileuni.com/zh-cn/download)
 2. 根据您的设备选择对应版本：
    - Windows：下载 `.exe` 文件
    - Mac：下载 `.dmg` 文件

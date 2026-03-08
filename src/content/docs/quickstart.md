@@ -15,10 +15,10 @@ This guide will help you set up your FileUni file server in just a few minutes.
 Run the following command in your terminal:
 
 ```bash
-curl -fsSL https://fileuni.com/install.sh | sh
+curl -fsSL https://docs.fileuni.com/install.sh | sh
 ```
 
-The service will start automatically after installation.
+The installer places the `fileuni` binary on your machine. After installation, run `fileuni --help` or continue with the setup steps below.
 
 ### Method 2: Download Pre-built Binaries
 

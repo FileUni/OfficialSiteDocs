@@ -38,6 +38,7 @@ export default defineConfig({
           items: [
             { label: 'Introduction', slug: 'introduction' },
             { label: 'Quick Start', slug: 'quickstart' },
+            { label: 'Install FileUni', slug: 'install' },
             { label: 'Features', slug: 'features' },
             { label: 'File Management', slug: 'file-management' },
             { label: 'Sharing', slug: 'sharing' },
