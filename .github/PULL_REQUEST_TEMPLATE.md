@@ -1,4 +1,4 @@
-> 📖 **Please read [CONTRIBUTING.md](https://github.com/fileuni/fileuni/blob/main/CONTRIBUTING.md) before submitting.**
+> 📖 **Please read [CONTRIBUTING.md](https://github.com/FileUni/FileUni-Project/blob/main/CONTRIBUTING.md) before submitting.**
 
 ### 🔗 Related Information
 - Related Issue: #
