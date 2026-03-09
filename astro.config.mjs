@@ -70,7 +70,7 @@ export default defineConfig({
         LanguageSelect: './src/components/LanguageSelect.astro',
       },
       editLink: {
-        baseUrl: 'https://github.com/FileUni/OfficialSiteDocs/edit/main/src/content/docs/',
+        baseUrl: 'https://github.com/FileUni/OfficialSiteDocs/edit/main/',
       },
       social: {
         github: 'https://github.com/FileUni/OfficialSiteDocs',
