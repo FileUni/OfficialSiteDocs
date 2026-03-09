@@ -28,34 +28,33 @@ fileuni service <ACTION> [OPTIONS]
 
 ## Quick Installation
 
-To install FileUni as a service with default settings, ensure you specify the configuration and data directories:
+To install FileUni as a service, you must explicitly specify the configuration and data directories. These paths will be persisted within the service configuration.
 
 ```bash
 # Example for Linux/macOS
-sudo fileuni -c /etc/fileuni -A /var/lib/fileuni service install
+# Use -c for config directory and -A for app data directory
+sudo ./fileuni -c /etc/fileuni -A /var/lib/fileuni service install
 
 # Example for Windows (Run as Administrator)
-fileuni.exe -c C:\FileUni\config -A C:\FileUni\data service install
+.\fileuni.exe -c C:\FileUni\config -A C:\FileUni\data service install
 ```
 
-## Advanced Options
+> **Important**: Always use **absolute paths** for `-c` and `-A` when installing as a service. This ensures the service can correctly locate its data upon system reboot.
 
-When installing, you can customize how the service runs:
+## Advanced Service Options
 
-| Option | Description | Default |
-|--------|-------------|---------|
-| `--service-label` | Custom name for the service | `io.fileuni.server` |
-| `--service-user` | User account to run the service | Current user |
-| `--service-level` | Service level: `system` or `user` | `system` |
-| `--service-autostart` | Start service on boot: `true` or `false` | `true` |
-| `--service-workdir` | Working directory for the service | Binary location |
+FileUni's `service install` supports additional flags for fine-grained control:
 
-### Example: Installing as a User Service
+- `--service-label <LABEL>`: Change the internal service name (Default: `io.fileuni.server`).
+- `--service-user <USER>`: Specify which OS user should run the process (System-level only).
+- `--service-level <system|user>`: Choose between a global system service or a per-user service.
+- `--service-autostart <true|false>`: Enable or disable automatic start on boot.
+- `--service-workdir <DIR>`: Set a custom working directory.
 
-If you don't have root/admin access, you can install it for your user account only:
+### Example: Custom Service Label
 
 ```bash
-fileuni -c ~/fileuni/config -A ~/fileuni/data service install --service-level user
+sudo ./fileuni -c /etc/fileuni -A /data service install --service-label custom.fileuni.node
 ```
 
 ## Troubleshooting

@@ -28,34 +28,33 @@ fileuni service <操作> [选项]
 
 ## 快速安装
 
-要使用默认设置安装服务，请务必指定配置和数据目录：
+安装服务时，您必须显式指定配置目录和数据目录。这些路径将被持久化记录在服务配置中。
 
 ```bash
 # Linux/macOS 示例
+# 使用 -c 指定配置目录，-A 指定应用数据目录
 sudo ./fileuni -c /etc/fileuni -A /var/lib/fileuni service install
 
 # Windows 示例 (需以管理员身份运行)
-fileuni.exe -c C:\FileUni\config -A C:\FileUni\data service install
+.\fileuni.exe -c C:\FileUni\config -A C:\FileUni\data service install
 ```
 
-## 高级选项
+> **重要提示**：安装服务时请务必为 `-c` 和 `-A` 使用 **绝对路径**。这能确保系统重启后服务依然能正确定位到相关目录。
 
-在执行 `install` 操作时，您可以自定义服务运行方式：
+## 高级服务选项
 
-| 选项 | 说明 | 默认值 |
-|--------|-------------|---------|
-| `--service-label` | 自定义服务名称 | `io.fileuni.server` |
-| `--service-user` | 运行服务的用户账号 | 当前用户 |
-| `--service-level` | 服务等级：`system` (系统) 或 `user` (用户) | `system` |
-| `--service-autostart` | 是否开机自启：`true` 或 `false` | `true` |
-| `--service-workdir` | 服务的工作目录 | 程序所在位置 |
+FileUni 的 `service install` 命令支持以下参数进行精细化控制：
 
-### 示例：安装为用户级服务
+- `--service-label <名称>`：自定义系统服务名称（默认：`io.fileuni.server`）。
+- `--service-user <用户>`：指定运行服务的系统账号（仅限系统级服务）。
+- `--service-level <system|user>`：选择安装为全局系统服务或仅当前用户服务。
+- `--service-autostart <true|false>`：是否在开机时自动启动。
+- `--service-workdir <目录>`：设置服务运行时的起始工作目录。
 
-如果您没有 root/管理员权限，可以仅为当前用户安装服务：
+### 示例：自定义服务标签
 
 ```bash
-fileuni -c ~/fileuni/config -A ~/fileuni/data service install --service-level user
+sudo ./fileuni -c /etc/fileuni -A /data service install --service-label my.fileuni.node
 ```
 
 ## 常见问题
