@@ -1,46 +1,94 @@
 ---
 title: 快速开始
-description: 只需几分钟，搭建您的私人文件服务器
+description: 基于当前 FileUni 项目的启动说明。
 order: 2
 ---
 
-# 快速开始指南
+# 快速开始
 
-本指南将帮助您在几分钟内搭建起 FileUni 文件服务器。
+本页只说明当前仓库里已经存在的运行方式和入口。
 
-## 1. 获取 FileUni
+## 1. 选择运行入口
 
-访问 [下载页面](https://fileuni.com/zh-cn/download) 并选择适合您设备的版本。
+FileUni 目前主要有两个入口：
 
-### 建议
-- **Windows**: 优先使用 **桌面版** 以获得最佳的初始设置体验。
-- **Linux / macOS / FreeBSD**: 可以使用 **一键安装** 命令：
-  ```bash
-  curl -fsSL https://docs.fileuni.com/install.sh | sh
-  ```
-- **Docker**: 容器爱好者请使用：
-  ```bash
-  docker run -d --name fileuni -p 19000:19000 fileuni/fileuni:alpine
-  ```
+- `fileuni` CLI：用于启动服务、进入设置模式、管理系统服务、重置管理员密码、导入导出备份。
+- `fileuni-gui`：基于 Tauri 的桌面壳层，和 CLI 共用同一套核心能力。
 
-## 2. 首次配置
+如果是服务器部署，优先使用 CLI。若是本机桌面使用场景，可以从[下载页面](https://fileuni.com/zh-cn/download)获取 GUI 构建。
 
-首次启动时，FileUni 将进入配置向导（您也可以通过 `--setup` 参数强制进入）：
+## 2. 准备运行目录
 
-1.  **选择存储**：选择用于存储文件的目录。
-2.  **创建管理员**：设置您的管理员用户名和密码（至少 8 位）。
-3.  **运行模式**：根据您的硬件性能选择等级（最低支持 32MB 内存）。
+当前项目采用双目录运行模型：
 
-## 3. 访问您的服务器
+- `-c` / `--config-date`：配置目录
+- `-A` / `--AppDataDir`：应用数据目录
 
-配置完成后，打开浏览器访问：
+固定配置文件位置为：
+
+```text
+{config-dir}/config.toml
 ```
+
+示例：
+
+```bash
+mkdir -p ./config ./appdata
+./fileuni -c ./config -A ./appdata
+```
+
+如果后续要安装成系统服务，请把这两个目录改成绝对路径。
+
+## 3. 准备 `config.toml` 里引用的依赖服务
+
+FileUni 不允许把环境变量作为配置来源，运行参数都必须来自 `config.toml`。
+
+按当前项目的实现，部署时通常需要先准备好该文件里引用的依赖，尤其是：
+
+- 数据库连接
+- KV 服务连接
+- VFS 所需的存储路径
+
+首次启动时如果缺少 `config.toml`，程序可以创建该文件；但后续如果必填项缺失、为空或无效，启动会被拒绝。
+
+## 4. 进入设置模式或直接启动
+
+显式进入设置模式：
+
+```bash
+./fileuni --setup -c ./config -A ./appdata
+```
+
+只校验配置、不启动完整服务：
+
+```bash
+./fileuni --configtest -c ./config -A ./appdata
+```
+
+正常启动：
+
+```bash
+./fileuni -c ./config -A ./appdata
+```
+
+## 5. 打开 WebUI
+
+启动成功后，FileUni 会输出当前可用地址，包括：
+
+- WebUI：`http://<host>:<port>/ui`
+- HTTP API：`http://<host>:<port>`
+- OpenAPI JSON：`http://<host>:<port>/api/v1/openapi.json`
+
+当前项目内置使用的本地默认 WebUI 地址是：
+
+```text
 http://localhost:19000/ui
 ```
-如果是从其他设备访问，请将 `localhost` 替换为服务器的 IP 地址。
+
+如果配置里启用了相关协议，还会同时开放 S3、FTP、SFTP 等访问入口。
 
 ## 下一步
 
-- 了解如何[安装为服务](./install-service)以实现后台运行。
-- 探索核心[功能特性](./features)。
-
+- [功能特性](./features)
+- [访问方式与文件操作](./file-management)
+- [安装为系统服务](./install-service)

@@ -1,11 +1,11 @@
 ---
 title: Reset Admin Password
-description: How to reset administrator password via command line or setup mode
+description: Reset the built-in administrator password for the current FileUni deployment.
 ---
 
 # Reset Admin Password
 
-If you have forgotten your administrator password, you can reset it using the command line interface. Regular users should use the "Forgot Password" feature on the login page.
+If you lose access to the administrator account, the supported recovery path in the current project is the CLI reset command.
 
 ## Method 1: Command Line Reset
 
@@ -36,7 +36,7 @@ fileuni -c /etc/fileuni -A /var/lib/fileuni -a MyNewP@ss123
 
 - You must have command line access to the server running FileUni
 - Use `-c/--config-date` and `-A/--AppDataDir` when explicit runtime directories are needed
-- The new password must be at least 8 characters long
+- The target deployment must be able to load its current configuration and database connection
 
 ## Method 2: Setup Mode
 
@@ -51,17 +51,10 @@ fileuni --setup -c /path/to/config-dir -A /path/to/app-data-dir
 ```
 
 In setup mode, you can:
-- Reconfigure storage locations
-- Create a new administrator account
-- Adjust system settings
+- Reopen the setup flow for the current runtime directories
+- Revisit installation-time configuration steps
 
-> ⚠️ **Warning**: Setup mode is typically used for initial installation. Running it on an existing system may affect your configuration.
-
-## Password Requirements
-
-- Minimum 8 characters
-- Recommended: Use a combination of letters, numbers, and special characters
-- Avoid using common passwords like "admin888" or "123456"
+> **Warning**: Setup mode is mainly an installation and recovery tool. Use it carefully on an existing deployment.
 
 ## Troubleshooting
 
@@ -69,15 +62,16 @@ In setup mode, you can:
 
 This error usually occurs when:
 1. The database connection is not available
-2. The run data directory is incorrect
-3. There are no admin accounts in the system
+2. The runtime directories are incorrect
+3. The deployment configuration cannot be loaded correctly
 
 **Solution**: 
-- Verify the run data directory is correct and contains `config.toml`
+- Verify the config directory contains the correct `config.toml`
+- Verify the app data directory points to the same deployment
 - Ensure the database service is running
 - Check the logs for detailed error messages
 
-### "Runtime data directory is invalid"
+### "Runtime directories are invalid"
 
 Make sure you specify the correct runtime directories using `-c` and `-A` parameters:
 
@@ -87,10 +81,9 @@ fileuni -c /path/to/your/config-dir -A /path/to/your/app-data-dir -a NewPassword
 
 ## Security Recommendations
 
-1. **Change default password immediately**: If you're using the default password `admin888`, change it as soon as possible
-2. **Use strong passwords**: Combine uppercase, lowercase, numbers, and special characters
-3. **Regular password updates**: Consider changing your password periodically
-4. **Secure command history**: The password may appear in your shell history. Consider clearing it after reset:
+When no administrator account exists, the current startup flow creates a default admin account `admin / admin888`. Change that password immediately on real deployments.
+
+The password passed to `-a` appears in shell history on many systems. Consider rotating shell history or using a temporary shell session for recovery work:
 
 ```bash
 # Reset password
@@ -103,4 +96,4 @@ history -c
 ## Related Topics
 
 - [Quick Start Guide](./quickstart) - Initial setup instructions
-- [User Management](./user-management) - Managing users and permissions
+- [Install as Service](./install-service) - Keep the deployment running in the background

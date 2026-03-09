@@ -1,11 +1,11 @@
 ---
 title: Install as Service
-description: Guide on how to install FileUni as a system service for background execution.
+description: Install and manage FileUni as an operating system service.
 ---
 
 # Install FileUni as a Service
 
-FileUni provides built-in commands to manage its lifecycle as a system service on Windows, macOS, and Linux.
+FileUni includes built-in service management for Windows, macOS, and Linux. The CLI is the authoritative entry point for these operations, and the GUI wraps the same service controls.
 
 ## Service Commands
 
@@ -28,7 +28,7 @@ fileuni service <ACTION> [OPTIONS]
 
 ## Quick Installation
 
-To install FileUni as a service, you must explicitly specify the configuration and data directories. These paths will be persisted within the service configuration.
+To install FileUni as a service, you must explicitly specify both runtime directories. The install step persists these paths into the service definition.
 
 ```bash
 # Example for Linux/macOS
@@ -60,5 +60,5 @@ sudo ./fileuni -c /etc/fileuni -A /data service install --service-label custom.f
 ## Troubleshooting
 
 - **Permissions**: Installing system-level services typically requires **Root** (Linux/macOS) or **Administrator** (Windows) privileges.
-- **Paths**: Always use **absolute paths** for `-c` and `-A` when installing a service to ensure the system can locate directories on boot.
-- **Logs**: If the service fails to start, check system logs (`journalctl -u fileuni` on Linux, Event Viewer on Windows).
+- **Paths**: `service install` requires valid `-c/--config-date` and `-A/--AppDataDir` paths.
+- **Logs**: If the service fails to start, check system logs such as `journalctl` on Linux or Event Viewer on Windows.

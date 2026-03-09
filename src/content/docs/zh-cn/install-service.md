@@ -1,11 +1,11 @@
 ---
 title: 安装为系统服务
-description: 如何将 FileUni 安装为系统服务以实现后台持久运行。
+description: 将 FileUni 安装并管理为操作系统服务。
 ---
 
 # 将 FileUni 安装为服务
 
-FileUni 内置了服务管理命令，支持在 Windows、macOS 和 Linux 上将其安装为系统后台服务。
+FileUni 内置了服务管理能力，支持在 Windows、macOS 和 Linux 上以系统服务方式运行。CLI 是这些操作的权威入口，GUI 只是复用同一套服务控制逻辑。
 
 ## 服务管理命令
 
@@ -28,7 +28,7 @@ fileuni service <操作> [选项]
 
 ## 快速安装
 
-安装服务时，您必须显式指定配置目录和数据目录。这些路径将被持久化记录在服务配置中。
+安装服务时，必须显式传入两个运行目录，这些路径会被持久化写入服务定义。
 
 ```bash
 # Linux/macOS 示例
@@ -60,5 +60,5 @@ sudo ./fileuni -c /etc/fileuni -A /data service install --service-label my.fileu
 ## 常见问题
 
 - **权限问题**：安装系统级服务通常需要 **Root** (Linux/macOS) 或 **管理员** (Windows) 权限。
-- **路径要求**：安装服务时，建议为 `-c` 和 `-A` 使用 **绝对路径**，确保系统重启后仍能正确定位目录。
-- **查看日志**：如果服务无法启动，请检查系统日志（Linux 使用 `journalctl -u fileuni`，Windows 查看事件查看器）。
+- **路径要求**：`service install` 必须配合有效的 `-c/--config-date` 与 `-A/--AppDataDir` 使用。
+- **查看日志**：如果服务无法启动，请检查系统日志，例如 Linux 上的 `journalctl` 或 Windows 事件查看器。

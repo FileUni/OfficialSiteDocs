@@ -30,14 +30,11 @@ export default defineConfig({
             {
               label: 'Documentation',
               items: [
-                { label: 'Introduction', slug: 'introduction' },
                 { label: 'Quick Start', slug: 'quickstart' },
                 { label: 'Install FileUni', link: 'https://fileuni.com/download' },
-                { label: 'Install as Service', slug: 'install-service' },
                 { label: 'Features', slug: 'features' },
-                { label: 'File Management', slug: 'file-management' },
-                { label: 'Sharing', slug: 'sharing' },
-                { label: 'User Management', slug: 'user-management' },
+                { label: 'Access and File Operations', slug: 'file-management' },
+                { label: 'Install as Service', slug: 'install-service' },
                 { label: 'Reset Admin Password', slug: 'get-admin-passwd' },
               ],
             },
@@ -54,14 +51,11 @@ export default defineConfig({
             {
               label: '使用文档',
               items: [
-                { label: '产品介绍', slug: 'zh-cn/introduction' },
                 { label: '快速开始', slug: 'zh-cn/quickstart' },
                 { label: '下载与安装', link: 'https://fileuni.com/zh-cn/download' },
-                { label: '安装为系统服务', slug: 'zh-cn/install-service' },
                 { label: '功能特性', slug: 'zh-cn/features' },
-                { label: '文件管理', slug: 'zh-cn/file-management' },
-                { label: '文件分享', slug: 'zh-cn/sharing' },
-                { label: '用户管理', slug: 'zh-cn/user-management' },
+                { label: '访问方式与文件操作', slug: 'zh-cn/file-management' },
+                { label: '安装为系统服务', slug: 'zh-cn/install-service' },
                 { label: '重置管理员密码', slug: 'zh-cn/get-admin-passwd' },
               ],
             },
@@ -76,10 +70,10 @@ export default defineConfig({
         LanguageSelect: './src/components/LanguageSelect.astro',
       },
       editLink: {
-        baseUrl: 'https://github.com/fileuni/official-site-docs/edit/main/src/content/docs/',
+        baseUrl: 'https://github.com/FileUni/OfficialSiteDocs/edit/main/src/content/docs/',
       },
       social: {
-        github: 'https://github.com/fileuni/official-site-docs',
+        github: 'https://github.com/FileUni/OfficialSiteDocs',
       },
       pagination: true,
       lastUpdated: true,

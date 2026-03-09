@@ -1,24 +1,37 @@
 ---
 title: FileUni 文档中心
-description: FileUni 官方文档。
+description: 以当前 FileUni 项目为准的实用文档。
 order: 0
 ---
 
 # FileUni 文档中心
 
-欢迎使用 FileUni 文档。
+这里的内容以当前仓库里的实际实现为准，不再保留脱离项目现状的产品化描述。
+
+当前的 FileUni 主要包含这些已落地能力：
+
+- CLI 与 Tauri GUI 共用的 Rust 核心
+- 通过 `/ui` 提供的 Web 界面
+- 通过 `/api/v1/openapi.json` 暴露的 OpenAPI 描述
+- 按配置启用的 WebDAV、S3、FTP、SFTP 访问
+- 配置目录与应用数据目录分离的运行时模型
 
 ## 快捷入口
 
-- [返回 FileUni 官网](https://fileuni.com)
-- [用户中心](https://fileuni.com/user/)
-- [管理后台](https://fileuni.com/admin/)
-
-## 从这里开始
-
-- [产品介绍](./introduction)
 - [快速开始](./quickstart)
-- [核心功能](./features)
-- [文件管理](./file-management)
-- [文件分享](./sharing)
-- [用户管理](./user-management)
+- [下载与安装](https://fileuni.com/zh-cn/download)
+- [功能特性](./features)
+- [访问方式与文件操作](./file-management)
+- [安装为系统服务](./install-service)
+- [重置管理员密码](./get-admin-passwd)
+
+## 当前文档范围
+
+目前文档只保留能被源码或现有项目结构直接证明的内容：
+
+- 本地部署与首次启动
+- 运行目录和系统服务安装
+- WebUI、API 与标准协议访问
+- 管理员维护操作
+
+与当前项目状态不一致的产品介绍、用户管理等页面暂时移除。
