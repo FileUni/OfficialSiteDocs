@@ -8,123 +8,39 @@ order: 2
 
 This guide will help you set up your FileUni file server in just a few minutes.
 
-## Installation Methods
+## 1. Get FileUni
 
-### Method 1: One-Line Install (Recommended)
+Visit the [Download Page](https://fileuni.com/download) and select the version suitable for your device.
 
-Run the following command in your terminal:
+### Recommendation
+- **Windows**: Use the **Desktop Version** for the best setup experience.
+- **Linux / macOS / FreeBSD**: You can use the **One-line Install** command:
+  ```bash
+  curl -fsSL https://docs.fileuni.com/install.sh | sh
+  ```
+- **Docker**: For container enthusiasts:
+  ```bash
+  docker run -d --name fileuni -p 19000:19000 fileuni/fileuni:alpine
+  ```
 
-```bash
-curl -fsSL https://docs.fileuni.com/install.sh | sh
-```
+## 2. First-Time Setup
 
-The installer places the `fileuni` binary on your machine. After installation, run `fileuni --help` or continue with the setup steps below.
+On the first launch, FileUni will enter a setup wizard (or you can force it with `--setup` flag):
 
-### Method 2: Download Pre-built Binaries
+1.  **Choose Storage**: Select the directory where your files will be stored.
+2.  **Create Admin**: Set up your administrator username and password (min 8 characters).
+3.  **Running Mode**: Select a performance tier based on your hardware (32MB RAM+).
 
-1. Visit the [Download Page](https://fileuni.com/download)
-2. Select the version for your device:
-   - Windows: Download `.exe` file
-   - Mac: Download `.dmg` file
-   - Linux: Download binary for your architecture
-   - Router/ARM devices: Choose ARM version
-3. Extract and run the program
+## 3. Access Your Server
 
-### Method 3: Docker Deployment
-
-If you're familiar with Docker, use this command:
-
-```bash
-docker run -d \
-  --name FileUni \
-  -p 19000:19000 \
-  -v /your/data/path:/data \
-  fileuni/fileuni:latest
-```
-
-## First-Time Setup Wizard
-
-On first launch, the system will guide you through a simple configuration:
-
-### Step 1: Choose Storage Location
-
-Select the folder where you want to store files:
-- Can be internal hard drive
-- Can be external USB drive
-- Choose a disk with plenty of space
-
-### Step 2: Create Admin Account
-
-Set up your administrator username and password:
-- Username: Use something memorable (not an email)
-- Password: Use at least 8 characters with letters and numbers
-
-> 💡 **Tip**: This is the highest privilege account. Please keep the password secure.
-
-### Step 3: Select Running Mode
-
-Choose based on your device's performance:
-
-| Mode | Suitable For | Characteristics |
-|------|-------------|-----------------|
-| **Power Saving** | Routers, old phones | Limits concurrency, reduces resource usage |
-| **Standard** | Regular computers | Balanced performance and resource use |
-| **Performance** | Dedicated servers | Full hardware utilization |
-
-## Access Your Server
-
-After configuration, you can access FileUni in several ways:
-
-### Web Browser
-Open your browser and enter:
+After setup, open your browser and navigate to:
 ```
 http://localhost:19000/ui
 ```
+Replace `localhost` with your server's IP if accessing from another device.
 
-If accessing from another device, replace `localhost` with the server IP address.
+## Next Steps
 
-### Mobile Apps
-FileUni supports standard protocols. You can use these apps:
-- **Android**: Solid Explorer, MiXplorer
-- **iOS**: Documents, FileBrowser
+- Learn how to [Install as a Service](./install-service) for background execution.
+- Explore core [Features](./features).
 
-Connect using WebDAV or SFTP protocol, enter the server address and credentials. (Note: FTP only supports plaintext; SFTP is recommended for secure transfers)
-
-## Basic Operations
-
-### Upload Files
-1. Log in to the web interface
-2. Click the "Upload" button
-3. Select files or folders to upload
-4. Wait for the upload to complete
-
-### Create Folder
-1. Click the "New Folder" button
-2. Enter folder name
-3. Click confirm
-
-### Share Files
-1. Select the file or folder to share
-2. Click the "Share" button
-3. Set sharing password and expiration
-4. Copy the share link and send to others
-
-## FAQ
-
-**Q: Forgot admin password?**
-A: Run on the server: `fileuni -a newpassword` to reset the password
-
-**Q: How to access from outside my network?**
-A: You need to configure port forwarding or DDNS. See [Remote Access Guide](./remote-access)
-
-**Q: How to backup data?**
-A: Regularly backup your storage folder, or use the system export function
-
-## Getting Help
-
-Need help? You can:
-- 📖 Browse full documentation
-- 💬 Join community discussions
-- 🐛 Submit feedback
-
-Next, learn more about FileUni [Features](./features).

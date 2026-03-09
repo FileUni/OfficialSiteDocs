@@ -42,6 +42,7 @@ export default defineConfig({
               label: 'Install FileUni',
               link: 'https://fileuni.com/download',
             },
+            { label: 'Install as Service', slug: 'install-service' },
             { label: 'Features', slug: 'features' },
             { label: 'File Management', slug: 'file-management' },
             { label: 'Sharing', slug: 'sharing' },
