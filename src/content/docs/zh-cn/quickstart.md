@@ -15,7 +15,10 @@ FileUni 目前主要有两个入口：
 - `fileuni` CLI：用于启动服务、进入设置模式、管理系统服务、重置管理员密码、导入导出备份。
 - `fileuni-gui`：基于 Tauri 的桌面壳层，和 CLI 共用同一套核心能力。
 
-如果是服务器部署，优先使用 CLI。若是本机桌面使用场景，可以从[下载页面](https://fileuni.com/zh-cn/download)获取 GUI 构建。
+请先从[下载页面](https://fileuni.com/zh-cn/download)获取对应构建包。
+
+- 服务器部署请选择 CLI 包。
+- 本机桌面使用请选择 GUI 包。
 
 ## 2. 准备运行目录
 
@@ -30,11 +33,11 @@ FileUni 目前主要有两个入口：
 {config-dir}/config.toml
 ```
 
-示例：
+示例运行目录结构：
 
-```bash
-mkdir -p ./config ./appdata
-./fileuni -c ./config -A ./appdata
+```text
+./config
+./appdata
 ```
 
 如果后续要安装成系统服务，请把这两个目录改成绝对路径。

@@ -15,7 +15,10 @@ FileUni currently has two main entry points:
 - `fileuni` CLI: used to start the server, run setup mode, manage services, reset the admin password, and export or import backups.
 - `fileuni-gui`: a Tauri desktop wrapper around the same core library, with service control and configuration editing.
 
-If you are deploying on a server, start with the CLI binary. If you want a local desktop workflow, start with the GUI build from the [download page](https://fileuni.com/download).
+Get the appropriate package from the [download page](https://fileuni.com/download).
+
+- For server deployment, choose the CLI package.
+- For local desktop use, choose the GUI package.
 
 ## 2. Prepare Runtime Directories
 
@@ -30,11 +33,11 @@ The fixed configuration file path is:
 {config-dir}/config.toml
 ```
 
-Example:
+Example runtime layout:
 
-```bash
-mkdir -p ./config ./appdata
-./fileuni -c ./config -A ./appdata
+```text
+./config
+./appdata
 ```
 
 For service installation, use absolute paths instead of relative paths.
