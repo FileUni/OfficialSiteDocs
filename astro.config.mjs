@@ -22,38 +22,52 @@ export default defineConfig({
         root: {
           label: 'English',
           lang: 'en',
+          sidebar: [
+            {
+              label: 'Back to FileUni',
+              link: 'https://fileuni.com',
+            },
+            {
+              label: 'Documentation',
+              items: [
+                { label: 'Introduction', slug: 'introduction' },
+                { label: 'Quick Start', slug: 'quickstart' },
+                { label: 'Install FileUni', link: 'https://fileuni.com/download' },
+                { label: 'Install as Service', slug: 'install-service' },
+                { label: 'Features', slug: 'features' },
+                { label: 'File Management', slug: 'file-management' },
+                { label: 'Sharing', slug: 'sharing' },
+                { label: 'User Management', slug: 'user-management' },
+                { label: 'Reset Admin Password', slug: 'get-admin-passwd' },
+              ],
+            },
+          ],
         },
         'zh-cn': {
           label: '简体中文',
           lang: 'zh-CN',
-        },
-      },
-      sidebar: [
-        {
-          label: 'Back to FileUni',
-          translations: { 'zh-cn': '返回 FileUni 官网' },
-          link: 'https://fileuni.com',
-        },
-        {
-          label: 'Documentation',
-          translations: { 'zh-cn': '使用文档' },
-          items: [
-            { label: 'Introduction', translations: { 'zh-cn': '产品介绍' }, link: '/introduction/' },
-            { label: 'Quick Start', translations: { 'zh-cn': '快速开始' }, link: '/quickstart/' },
+          sidebar: [
             {
-              label: 'Install FileUni',
-              translations: { 'zh-cn': '下载与安装' },
-              link: 'https://fileuni.com/download',
+              label: '返回 FileUni 官网',
+              link: 'https://fileuni.com/zh-cn/',
             },
-            { label: 'Install as Service', translations: { 'zh-cn': '安装为系统服务' }, link: '/install-service/' },
-            { label: 'Features', translations: { 'zh-cn': '功能特性' }, link: '/features/' },
-            { label: 'File Management', translations: { 'zh-cn': '文件管理' }, link: '/file-management/' },
-            { label: 'Sharing', translations: { 'zh-cn': '文件分享' }, link: '/sharing/' },
-            { label: 'User Management', translations: { 'zh-cn': '用户管理' }, link: '/user-management/' },
-            { label: 'Reset Admin Password', translations: { 'zh-cn': '重置管理员密码' }, link: '/get-admin-passwd/' },
+            {
+              label: '使用文档',
+              items: [
+                { label: '产品介绍', slug: 'zh-cn/introduction' },
+                { label: '快速开始', slug: 'zh-cn/quickstart' },
+                { label: '下载与安装', link: 'https://fileuni.com/zh-cn/download' },
+                { label: '安装为系统服务', slug: 'zh-cn/install-service' },
+                { label: '功能特性', slug: 'zh-cn/features' },
+                { label: '文件管理', slug: 'zh-cn/file-management' },
+                { label: '文件分享', slug: 'zh-cn/sharing' },
+                { label: '用户管理', slug: 'zh-cn/user-management' },
+                { label: '重置管理员密码', slug: 'zh-cn/get-admin-passwd' },
+              ],
+            },
           ],
         },
-      ],
+      },
       components: {
         Header: './src/components/Header.astro',
         SiteTitle: './src/components/SiteTitle.astro',
