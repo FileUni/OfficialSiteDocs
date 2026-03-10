@@ -1,65 +1,152 @@
 ---
+import config from 'virtual:starlight/user-config';
 import { Icon } from '@astrojs/starlight/components';
 
+type LocaleOption = {
+  code: string;
+  label: string;
+  pathPrefix: string;
+};
+
 const currentPath = Astro.url.pathname;
-const isZhPath = currentPath === '/zh-cn' || currentPath.startsWith('/zh-cn/');
-const currentLang = isZhPath ? 'zh' : 'en';
+const localeEntries = Object.entries(config.locales ?? {});
+const localeOptions: LocaleOption[] = localeEntries.map(([key, value]) => ({
+  code: key === 'root' ? value.lang.toLowerCase() : key.toLowerCase(),
+  label: value.label,
+  pathPrefix: key === 'root' ? '' : `/${key.toLowerCase()}`,
+}));
+const currentLocale =
+  localeOptions.find((option) =>
+    option.pathPrefix
+      ? currentPath === option.pathPrefix || currentPath.startsWith(`${option.pathPrefix}/`)
+      : !localeOptions.some(
+          (candidate) =>
+            candidate.pathPrefix &&
+            (currentPath === candidate.pathPrefix || currentPath.startsWith(`${candidate.pathPrefix}/`)),
+        ),
+  ) ?? localeOptions[0];
 ---
 
 <starlight-lang-select>
   <button
     type="button"
     class="fu-lang-toggle"
-    data-current-lang={currentLang}
+    data-current-lang={currentLocale.code}
+    aria-expanded="false"
+    aria-haspopup="menu"
     aria-label={Astro.locals.t('languageSelect.accessibleLabel')}
   >
-    <span class="fu-lang-code">{currentLang.toUpperCase()}</span>
+    <span class="fu-lang-label">{currentLocale.label}</span>
     <Icon name="translate" />
+    <svg class="fu-lang-caret" viewBox="0 0 16 16" aria-hidden="true">
+      <path fill="currentColor" d="M4.22 6.47a.75.75 0 0 1 1.06 0L8 9.19l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.53a.75.75 0 0 1 0-1.06Z" />
+    </svg>
   </button>
+  <div class="fu-lang-menu" hidden>
+    {localeOptions.map((option) => (
+      <button
+        type="button"
+        class:list={['fu-lang-menu-item', option.code === currentLocale.code && 'is-active']}
+        data-lang-value={option.code}
+        data-lang-path-prefix={option.pathPrefix}
+        role="menuitemradio"
+        aria-checked={String(option.code === currentLocale.code)}
+      >
+        <span>{option.label}</span>
+      </button>
+    ))}
+  </div>
 </starlight-lang-select>
 
-<script>
+<script is:inline>
   const LANG_COOKIE_KEY = 'lang';
+  const localeOptions = JSON.parse({JSON.stringify(JSON.stringify(localeOptions))});
+  const localePrefixes = localeOptions
+    .map((option) => option.pathPrefix)
+    .filter(Boolean)
+    .sort((a, b) => b.length - a.length);
+  const defaultLocale = localeOptions.find((option) => option.pathPrefix === '')?.code || localeOptions[0]?.code;
 
-  const toZhPath = (pathname) => {
-    if (pathname === '/zh-cn' || pathname.startsWith('/zh-cn/')) {
-      return pathname;
-    }
-    if (pathname === '/') {
-      return '/zh-cn/';
-    }
-    return `/zh-cn${pathname}`;
-  };
-
-  const toEnPath = (pathname) => {
-    if (pathname === '/zh-cn') {
-      return '/';
-    }
-    if (pathname.startsWith('/zh-cn/')) {
-      const unprefixed = pathname.slice('/zh-cn'.length);
-      return unprefixed || '/';
+  const stripLocalePrefix = (pathname) => {
+    for (const prefix of localePrefixes) {
+      if (pathname === prefix) {
+        return '/';
+      }
+      if (pathname.startsWith(`${prefix}/`)) {
+        const stripped = pathname.slice(prefix.length);
+        return stripped || '/';
+      }
     }
     return pathname;
+  };
+
+  const toLocalePath = (pathname, localeCode) => {
+    const targetOption = localeOptions.find((option) => option.code === localeCode);
+    if (!targetOption) {
+      return pathname;
+    }
+    const basePath = stripLocalePrefix(pathname);
+    if (!targetOption.pathPrefix) {
+      return basePath;
+    }
+    return basePath === '/' ? `${targetOption.pathPrefix}/` : `${targetOption.pathPrefix}${basePath}`;
   };
 
   class StarlightLanguageSelect extends HTMLElement {
     constructor() {
       super();
       const button = this.querySelector('button.fu-lang-toggle');
-      if (!button) {
+      const menu = this.querySelector('.fu-lang-menu');
+      const options = Array.from(this.querySelectorAll('button.fu-lang-menu-item'));
+      if (!button || !menu || options.length === 0) {
         return;
       }
 
+      const closeMenu = () => {
+        menu.hidden = true;
+        button.setAttribute('aria-expanded', 'false');
+      };
+
+      const openMenu = () => {
+        menu.hidden = false;
+        button.setAttribute('aria-expanded', 'true');
+      };
+
       button.addEventListener('click', () => {
-        const currentLang =
-          window.location.pathname === '/zh-cn' || window.location.pathname.startsWith('/zh-cn/')
-            ? 'zh'
-            : 'en';
-        const targetLang = currentLang === 'zh' ? 'en' : 'zh';
-        window.FileUniPreferenceCookie?.write?.(LANG_COOKIE_KEY, targetLang);
-        const targetPath =
-          targetLang === 'zh' ? toZhPath(window.location.pathname) : toEnPath(window.location.pathname);
-        window.location.pathname = targetPath;
+        if (menu.hidden) {
+          openMenu();
+          return;
+        }
+        closeMenu();
+      });
+
+      options.forEach((option) => {
+        option.addEventListener('click', () => {
+          const nextLang = option.dataset.langValue;
+          if (!nextLang) {
+            return;
+          }
+          window.FileUniPreferenceCookie?.write?.(LANG_COOKIE_KEY, nextLang);
+          const targetPath = toLocalePath(window.location.pathname, nextLang);
+          window.location.pathname = targetPath;
+        });
+      });
+
+      document.addEventListener('click', (event) => {
+        if (!(event.target instanceof Node) || this.contains(event.target)) {
+          return;
+        }
+        closeMenu();
+      });
+
+      this.addEventListener('keydown', (event) => {
+        if (!(event instanceof KeyboardEvent)) {
+          return;
+        }
+        if (event.key === 'Escape') {
+          closeMenu();
+          button.focus();
+        }
       });
     }
   }

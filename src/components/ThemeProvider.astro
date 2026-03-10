@@ -1,10 +1,24 @@
 ---
+import config from 'virtual:starlight/user-config';
+
+const localeEntries = Object.entries(config.locales ?? {});
+const localeOptions = localeEntries.map(([key, value]) => ({
+  code: key === 'root' ? value.lang.toLowerCase() : key.toLowerCase(),
+  pathPrefix: key === 'root' ? '' : `/${key.toLowerCase()}`,
+}));
 ---
 
 <script is:inline>
   const FILEUNI_THEME_KEY = 'theme';
   const FILEUNI_LANG_KEY = 'lang';
   const COOKIE_MAX_AGE_SECONDS = 60 * 60 * 24 * 365;
+  const FILEUNI_LOCALES = JSON.parse({JSON.stringify(JSON.stringify(localeOptions))});
+  const FILEUNI_DEFAULT_LOCALE =
+    FILEUNI_LOCALES.find((locale) => locale.pathPrefix === '')?.code || FILEUNI_LOCALES[0]?.code || 'en';
+  const FILEUNI_LOCALE_PREFIXES = FILEUNI_LOCALES
+    .map((locale) => locale.pathPrefix)
+    .filter(Boolean)
+    .sort((a, b) => b.length - a.length);
 
   const getCookieDomain = (hostname) => {
     const normalizedHost = hostname.toLowerCase();
@@ -46,49 +60,65 @@
     theme === 'auto' || theme === 'dark' || theme === 'light' ? theme : null;
 
   const parseLang = (lang) => {
-    if (lang === 'en' || lang === 'zh') {
-      return lang;
+    if (!lang) {
+      return null;
     }
-    if (lang === 'zh-cn' || lang === 'zh-CN') {
-      return 'zh';
-    }
-    return null;
+    const normalized = lang.toLowerCase();
+    const matchedLocale = FILEUNI_LOCALES.find((locale) => locale.code === normalized);
+    return matchedLocale?.code || null;
   };
 
-  const isZhPath = (pathname) => pathname === '/zh-cn' || pathname.startsWith('/zh-cn/');
-
-  const toZhPath = (pathname) => {
-    if (pathname === '/zh-cn' || pathname.startsWith('/zh-cn/')) {
-      return pathname;
-    }
-    if (pathname === '/') {
-      return '/zh-cn/';
-    }
-    return `/zh-cn${pathname}`;
-  };
-
-  const toEnPath = (pathname) => {
-    if (pathname === '/zh-cn') {
-      return '/';
-    }
-    if (pathname.startsWith('/zh-cn/')) {
-      const unprefixed = pathname.slice('/zh-cn'.length);
-      return unprefixed || '/';
+  const stripLocalePrefix = (pathname) => {
+    for (const prefix of FILEUNI_LOCALE_PREFIXES) {
+      if (pathname === prefix) {
+        return '/';
+      }
+      if (pathname.startsWith(`${prefix}/`)) {
+        const stripped = pathname.slice(prefix.length);
+        return stripped || '/';
+      }
     }
     return pathname;
   };
 
-  const isLocaleRootPath = (pathname) =>
-    pathname === '/' || pathname === '/zh-cn' || pathname === '/zh-cn/';
+  const getLocaleFromPath = (pathname) => {
+    const matchedLocale = FILEUNI_LOCALES.find(
+      (locale) =>
+        locale.pathPrefix &&
+        (pathname === locale.pathPrefix || pathname.startsWith(`${locale.pathPrefix}/`)),
+    );
+    return matchedLocale?.code || FILEUNI_DEFAULT_LOCALE;
+  };
+
+  const toLocalePath = (pathname, localeCode) => {
+    const targetLocale = FILEUNI_LOCALES.find((locale) => locale.code === localeCode);
+    if (!targetLocale) {
+      return pathname;
+    }
+    const basePath = stripLocalePrefix(pathname);
+    if (!targetLocale.pathPrefix) {
+      return basePath;
+    }
+    return basePath === '/' ? `${targetLocale.pathPrefix}/` : `${targetLocale.pathPrefix}${basePath}`;
+  };
+
+  const isLocaleRootPath = (pathname) => {
+    const normalizedPath = pathname.endsWith('/') ? pathname : `${pathname}/`;
+    return FILEUNI_LOCALES.some((locale) => {
+      const localePath = locale.pathPrefix || '/';
+      const normalizedLocalePath = localePath.endsWith('/') ? localePath : `${localePath}/`;
+      return normalizedPath === normalizedLocalePath;
+    });
+  };
 
   const currentPath = window.location.pathname;
   const cookieLang = parseLang(readCookie(FILEUNI_LANG_KEY));
-  const currentLang = isZhPath(currentPath) ? 'zh' : 'en';
+  const currentLang = getLocaleFromPath(currentPath);
 
   if (!cookieLang) {
     writeCookie(FILEUNI_LANG_KEY, currentLang);
   } else if (cookieLang !== currentLang && isLocaleRootPath(currentPath)) {
-    const targetPath = cookieLang === 'zh' ? toZhPath(currentPath) : toEnPath(currentPath);
+    const targetPath = toLocalePath(currentPath, cookieLang);
     if (targetPath !== currentPath) {
       window.location.replace(`${targetPath}${window.location.search}${window.location.hash}`);
     }
