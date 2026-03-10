@@ -1,0 +1,116 @@
+---
+title: External Dependencies
+description: Optional external executables and services used by FileUni, when to install them, and which config keys they map to.
+order: 8
+---
+
+# External Dependencies
+
+FileUni uses a small set of external executables for preview/thumbnail/compression features, plus optional KV and SQL services for production deployments. This page explains why these dependencies exist, when you need them, how to install them, and which configuration items must be set afterward.
+
+## 1. External Executables
+
+These tools enable preview, thumbnail, and compression features. If you do not need a feature, you can skip the corresponding tool, but make sure the related config items are adjusted accordingly.
+
+- 7-Zip (`7z` / `7z-full`)
+  - Purpose: High-compression formats and multi-threaded compression/decompression.
+  - Needed when: You want 7z format support or accelerated compression beyond native ZIP/TAR.
+- libvips
+  - Purpose: Fast image/PDF thumbnail rendering.
+  - Needed when: You enable image or PDF thumbnails (preferred engine).
+- ImageMagick
+  - Purpose: Fallback thumbnail rendering and text thumbnail generation.
+  - Needed when: You enable text thumbnails or want a fallback for PDF/image thumbnails.
+- FFmpeg
+  - Purpose: Video thumbnails (frame extraction) and video metadata.
+  - Needed when: You enable video thumbnails.
+- LibreOffice (`soffice`)
+  - Purpose: Office document thumbnails (convert to PDF, then thumbnail).
+  - Needed when: You enable Office document thumbnails.
+- LaTeX toolchain (`latexmk` + `xelatex`)
+  - Purpose: LaTeX preview and LaTeX thumbnails (compile to PDF).
+  - Needed when: You enable LaTeX preview or LaTeX thumbnails.
+
+## 2. Optional External Services (KV and SQL)
+
+These services are optional and selected by configuration. They are not bundled inside the Docker image and should be deployed separately when required.
+
+- KeyDB / Redis / Valkey
+  - Purpose: Distributed KV cache and coordination.
+  - Needed when: You choose a KV-backed cache type for production or multi-instance deployments.
+- PostgreSQL (pgsql)
+  - Purpose: Primary SQL database for production.
+  - Needed when: You choose `postgres`/`pgsql` as the database type.
+- SQLite
+  - Purpose: Embedded SQL database for single-node or low-resource environments.
+  - Needed when: You choose `sqlite` as the database type.
+
+## 3. Docker Packaging Policy
+
+The default Docker image only bundles lightweight executables required for preview/thumbnail/compression. It does not bundle LibreOffice (too large) or any KV/SQL services (KeyDB/Redis/Valkey/PostgreSQL), because these are optional and should be operated as external services.
+
+## 4. Configuration Items to Update After Installation
+
+External executables:
+- `thumbnail.tools.vips_path`
+- `thumbnail.tools.imagemagick_path`
+- `thumbnail.tools.ffmpeg_path`
+- `thumbnail.tools.libreoffice_path`
+- `latex_preview.latexmk_path`
+- `file_compress.exe_7zip_path`
+
+Feature switches and limits (commonly used with the tools above):
+- `latex_preview.enable_latexmk`
+- `thumbnail.enabled`
+- `thumbnail.<image|video|pdf|office|text>.enabled`
+
+Optional KV services:
+- `fast_kv_storage_hub.kv_type`
+- `fast_kv_storage_hub.redis_url`
+
+Optional SQL services:
+- `database.db_type`
+- `database.postgres_config.database_dsn`
+- `database.sqlite_config.database_dsn`
+
+## 5. Manual Installation Command Reference
+
+Debian / Ubuntu (external executables):
+
+```bash
+sudo apt-get update
+sudo apt-get install -y \
+  ffmpeg \
+  imagemagick \
+  libvips-tools \
+  p7zip-full \
+  latexmk \
+  texlive-xetex
+```
+
+LibreOffice (only if Office thumbnails are enabled):
+
+```bash
+sudo apt-get install -y libreoffice
+```
+
+Optional services via Docker (recommended for quick setup):
+
+```bash
+# Redis
+docker run -d --name redis -p 6379:6379 redis:7
+
+# Valkey
+docker run -d --name valkey -p 6379:6379 valkey/valkey:7
+
+# KeyDB
+docker run -d --name keydb -p 6379:6379 eqalpha/keydb:alpine
+
+# PostgreSQL
+docker run -d --name postgres -p 5432:5432 \
+  -e POSTGRES_PASSWORD=admin888 \
+  -e POSTGRES_DB=fileuni \
+  postgres:16
+```
+
+After installing, ensure the executable paths and service URLs in `config.toml` match your environment.
