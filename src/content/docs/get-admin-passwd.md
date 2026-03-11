@@ -5,6 +5,14 @@ description: Reset the built-in administrator password for the current FileUni d
 
 # Reset Admin Password
 
+:::note[Default Credentials]
+When no administrator account exists, the system creates a default admin account:
+- **Username**: `admin`
+- **Password**: `admin888`
+
+Change this password immediately on real deployments.
+:::
+
 If you lose access to the administrator account, the supported recovery path in the current project is the CLI reset command.
 
 ## Method 1: Command Line Reset
