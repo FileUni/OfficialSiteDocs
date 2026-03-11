@@ -18,6 +18,7 @@ order: 0
 
 ## 快捷入口
 
+- [系统最低要求](./system-requirements)
 - [快速开始](./quickstart)
 - [下载与安装](https://fileuni.com/zh-cn/download)
 - [功能特性](./features)

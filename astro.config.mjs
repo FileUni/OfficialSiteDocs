@@ -30,6 +30,7 @@ export default defineConfig({
             {
               label: 'Documentation',
               items: [
+                { label: 'System Requirements', slug: 'system-requirements' },
                 { label: 'Quick Start', slug: 'quickstart' },
                 { label: 'Install FileUni', link: 'https://fileuni.com/download' },
                 { label: 'Features', slug: 'features' },
@@ -52,6 +53,7 @@ export default defineConfig({
             {
               label: '使用文档',
               items: [
+                { label: '系统最低要求', slug: 'zh-cn/system-requirements' },
                 { label: '快速开始', slug: 'zh-cn/quickstart' },
                 { label: '下载与安装', link: 'https://fileuni.com/zh-cn/download' },
                 { label: '功能特性', slug: 'zh-cn/features' },

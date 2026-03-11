@@ -18,6 +18,7 @@ FileUni is a Rust-based file platform with:
 
 ## Quick Links
 
+- [System Requirements](./system-requirements)
 - [Quick Start](./quickstart)
 - [Download FileUni](https://fileuni.com/download)
 - [Features](./features)
