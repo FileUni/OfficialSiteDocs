@@ -25,8 +25,10 @@ order: 1
 - **macOS**：
   - Intel：macOS 10.12 或更新版本
   - Apple Silicon：macOS 11.0 或更新版本
-- **Linux（标准构建）**：较旧的 LTS 发行版可能可运行，但稳定性取决于系统库
-- **Linux（静态构建）**：更适合老旧或非标准 Linux
+- **Linux（标准构建）**：最低基线由 Rust Tier‑1 目标决定：
+  - `x86_64-unknown-linux-gnu`：kernel 3.2+ / glibc 2.17+
+  - `aarch64-unknown-linux-gnu`：kernel 4.1+ / glibc 2.17+
+- **Linux（静态构建）**：如果低于上述基线，请尝试使用 musl 版本
 - **FreeBSD**：FreeBSD 12 或更新版本（更早版本不建议）
 
 此文档 可能滞后于实际开发进度会有偏差，FileUni只能尽力适配旧版操作系统，但是首要目标是在主流的现代操作系统系统提供完整的功能支持。
@@ -49,8 +51,8 @@ order: 1
 | Windows CLI（x64/x86） | Windows 10 (1806)+ | Windows 10（更早版本可能可用） |
 | macOS CLI（Intel） | macOS 11.0+ | macOS 10.12+ |
 | macOS CLI（Apple Silicon） | macOS 11.0+ | macOS 11.0+ |
-| Linux CLI（标准构建） | 当前 LTS 发行版 | 旧版 LTS（取决于系统库） |
-| Linux CLI（静态构建） | 任意现代 Linux | 老旧或非标准 Linux（首选方案） |
+| Linux CLI（标准构建） | 当前 LTS 发行版 | 以上 kernel/glibc 基线 |
+| Linux CLI（静态构建） | 任意现代 Linux | 低于基线时优先尝试 musl |
 | FreeBSD CLI | FreeBSD 14+ | FreeBSD 12+ |
 | Android CLI（Termux/ADB） | 近期 Android 设备 | 随设备/厂商而定，视为尽力而为 |
 

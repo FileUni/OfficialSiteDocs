@@ -25,8 +25,10 @@ Older systems can sometimes run FileUni, but support is **best-effort only**. Th
 - **macOS**:
   - Intel: macOS 10.12 or newer
   - Apple Silicon: macOS 11.0 or newer
-- **Linux (standard builds)**: Older LTS distributions may run, but stability depends on the system libraries.
-- **Linux (static builds)**: Static builds are the best option for older or non‑standard Linux systems.
+- **Linux (standard builds)**: The lowest practical baseline is defined by the Rust Tier‑1 targets:
+  - `x86_64-unknown-linux-gnu`: kernel 3.2+ / glibc 2.17+
+  - `aarch64-unknown-linux-gnu`: kernel 4.1+ / glibc 2.17+
+- **Linux (static builds)**: If your system is below these baselines, try the musl build.
 - **FreeBSD**: FreeBSD 12 or newer (older releases are unlikely to work)
 
 This document may lag behind actual development and contain discrepancies; FileUni will do its best to support older operating systems, but the primary goal is full support on mainstream modern OSes.
@@ -49,8 +51,8 @@ This document may lag behind actual development and contain discrepancies; FileU
 | Windows CLI (x64/x86) | Windows 10 (1806)+ | Windows 10 (older builds may work) |
 | macOS CLI (Intel) | macOS 11.0+ | macOS 10.12+ |
 | macOS CLI (Apple Silicon) | macOS 11.0+ | macOS 11.0+ |
-| Linux CLI (standard builds) | Current LTS distributions | Older LTS distributions (depends on system libraries) |
-| Linux CLI (static builds) | Any modern Linux | Older or non‑standard Linux (best option) |
+| Linux CLI (standard builds) | Current LTS distributions | kernel/glibc baseline listed above |
+| Linux CLI (static builds) | Any modern Linux | If below the kernel/glibc baseline, try musl |
 | FreeBSD CLI | FreeBSD 14+ | FreeBSD 12+ |
 | Android CLI (Termux/ADB) | Modern Android devices | Varies by device/vendor; treat as best effort |
 
