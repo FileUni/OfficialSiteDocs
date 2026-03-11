@@ -1,107 +1,71 @@
 ---
 title: Reset Admin Password
-description: Reset the built-in administrator password for the current FileUni deployment.
+description: Recover administrator access by re-entering the setup wizard for the current FileUni deployment.
 ---
 
 # Reset Admin Password
 
-:::note[Default Credentials]
-When no administrator account exists, the system creates a default admin account:
-- **Username**: `admin`
-- **Password**: `admin888`
+If you lose the built-in administrator password, the supported recovery path is no longer a dedicated CLI reset flag.
 
-Change this password immediately on real deployments.
-:::
+FileUni now treats `{config-date}/install.lock` as the installation completion marker:
 
-If you lose access to the administrator account, the supported recovery path in the current project is the CLI reset command.
+- If `install.lock` exists, FileUni starts normally.
+- If `install.lock` is missing, both CLI and GUI block normal startup and force the setup wizard.
+- Completing the setup wizard writes `install.lock` again and lets the system continue startup.
 
-## Method 1: Command Line Reset
+That means administrator password recovery is now done by reopening the setup wizard.
 
-Use the `-a` or `--admin` parameter to reset the administrator password:
+## Recovery Steps
 
-```bash
-# Using short flag
-fileuni -a <NEW_PASSWORD>
+1. Stop the running FileUni service or desktop instance.
+2. Locate your configuration directory.
+3. Delete `{config-date}/install.lock`.
+4. Start FileUni again from CLI or GUI.
+5. FileUni will enter the setup wizard automatically.
+6. In the setup wizard, set a new administrator password and finish setup.
 
-# Using long flag
-fileuni --admin <NEW_PASSWORD>
+## Example
 
-# With explicit config/app-data directories
-fileuni -c /path/to/config-dir -A /path/to/app-data-dir -a <NEW_PASSWORD>
-```
-
-### Example
+If your config directory is `/etc/fileuni`, delete this file:
 
 ```bash
-# Reset password to "MyNewP@ss123"
-fileuni -a MyNewP@ss123
-
-# Reset with specific directories
-fileuni -c /etc/fileuni -A /var/lib/fileuni -a MyNewP@ss123
+rm /etc/fileuni/install.lock
 ```
 
-### Requirements
-
-- You must have command line access to the server running FileUni
-- Use `-c/--config-date` and `-A/--AppDataDir` when explicit runtime directories are needed
-- The target deployment must be able to load its current configuration and database connection
-
-## Method 2: Setup Mode
-
-If you need to reconfigure the entire system, you can force FileUni to enter setup mode:
+Then restart FileUni:
 
 ```bash
-# Enter setup mode
-fileuni --setup
-
-# With explicit runtime directories
-fileuni --setup -c /path/to/config-dir -A /path/to/app-data-dir
+fileuni -c /etc/fileuni -A /var/lib/fileuni
 ```
 
-In setup mode, you can:
-- Reopen the setup flow for the current runtime directories
-- Revisit installation-time configuration steps
+Or reopen the desktop app and select the same runtime directories.
 
-> **Warning**: Setup mode is mainly an installation and recovery tool. Use it carefully on an existing deployment.
+## Important Notes
+
+- Deleting `install.lock` and restarting is effectively the system reset entry for that deployment.
+- This does not delete your existing database or app data by itself, but it does force you back through the initialization flow.
+- Use the same config directory and app data directory as the deployment you are recovering.
+- If you point to a different runtime directory pair, you may initialize a different deployment by mistake.
 
 ## Troubleshooting
 
-### "Failed to reset admin password"
+### Setup wizard did not appear
 
-This error usually occurs when:
-1. The database connection is not available
-2. The runtime directories are incorrect
-3. The deployment configuration cannot be loaded correctly
+Check these items:
 
-**Solution**: 
-- Verify the config directory contains the correct `config.toml`
-- Verify the app data directory points to the same deployment
-- Ensure the database service is running
-- Check the logs for detailed error messages
+- You deleted the correct file: `{config-date}/install.lock`
+- You restarted the same deployment
+- The runtime directories passed by `-c/--config-date` and `-A/--AppDataDir` are correct
 
-### "Runtime directories are invalid"
+### I do not know my config directory
 
-Make sure you specify the correct runtime directories using `-c` and `-A` parameters:
+You can recover it from:
 
-```bash
-fileuni -c /path/to/your/config-dir -A /path/to/your/app-data-dir -a NewPassword123
-```
-
-## Security Recommendations
-
-When no administrator account exists, the current startup flow creates a default admin account `admin / admin888`. Change that password immediately on real deployments.
-
-The password passed to `-a` appears in shell history on many systems. Consider rotating shell history or using a temporary shell session for recovery work:
-
-```bash
-# Reset password
-fileuni -a MySecureP@ss
-
-# Clear bash history (optional)
-history -c
-```
+- Your service install command or service manager
+- Your desktop app runtime directory selection
+- Your startup script or shell history
 
 ## Related Topics
 
-- [Quick Start Guide](./quickstart) - Initial setup instructions
-- [Install as Service](./install-service) - Keep the deployment running in the background
+- [Quick Start Guide](./quickstart)
+- [Install as Service](./install-service)

@@ -53,7 +53,7 @@ order: 3
 - 首次初始化使用的 setup 模式
 - `--configtest` 配置校验
 - 系统服务的 install、uninstall、start、stop、status、reload
-- 命令行重置管理员密码
+- 通过设置向导恢复管理员密码
 - 命令行导出与导入备份
 
 ## 轻量化定位
