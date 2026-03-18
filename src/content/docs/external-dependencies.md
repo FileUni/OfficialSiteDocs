@@ -13,37 +13,37 @@ FileUni uses a small set of external executables for preview/thumbnail/compressi
 These tools enable preview, thumbnail, and compression features. If you do not need a feature, you can skip the corresponding tool, but make sure the related config items are adjusted accordingly.
 
 - 7-Zip (`7z` / `7z-full`)
-  - Purpose: High-compression formats and multi-threaded compression/decompression.
-  - Needed when: You want 7z format support or accelerated compression beyond native ZIP/TAR.
+ - Purpose: High-compression formats and multi-threaded compression/decompression.
+ - Needed when: You want 7z format support or accelerated compression beyond native ZIP/TAR.
 - libvips
-  - Purpose: Fast image/PDF thumbnail rendering.
-  - Needed when: You enable image or PDF thumbnails (preferred engine).
+ - Purpose: Fast image/PDF thumbnail rendering.
+ - Needed when: You enable image or PDF thumbnails (preferred engine).
 - ImageMagick
-  - Purpose: Fallback thumbnail rendering and text thumbnail generation.
-  - Needed when: You enable text thumbnails or want a fallback for PDF/image thumbnails.
+ - Purpose: Fallback thumbnail rendering and text thumbnail generation.
+ - Needed when: You enable text thumbnails or want a fallback for PDF/image thumbnails.
 - FFmpeg
-  - Purpose: Video thumbnails (frame extraction) and video metadata.
-  - Needed when: You enable video thumbnails.
+ - Purpose: Video thumbnails (frame extraction) and video metadata.
+ - Needed when: You enable video thumbnails.
 - LibreOffice (`soffice`)
-  - Purpose: Office document thumbnails (convert to PDF, then thumbnail).
-  - Needed when: You enable Office document thumbnails.
+ - Purpose: Office document thumbnails (convert to PDF, then thumbnail).
+ - Needed when: You enable Office document thumbnails.
 - LaTeX toolchain (`latexmk` + `xelatex`)
-  - Purpose: LaTeX preview and LaTeX thumbnails (compile to PDF).
-  - Needed when: You enable LaTeX preview or LaTeX thumbnails.
+ - Purpose: LaTeX preview and LaTeX thumbnails (compile to PDF).
+ - Needed when: You enable LaTeX preview or LaTeX thumbnails.
 
 ## 2. Optional External Services (KV and SQL)
 
 These services are optional and selected by configuration. They are not bundled inside the Docker image and should be deployed separately when required.
 
 - KeyDB / Redis / Valkey
-  - Purpose: Distributed KV cache and coordination.
-  - Needed when: You choose a KV-backed cache type for production or multi-instance deployments.
+ - Purpose: Distributed KV cache and coordination.
+ - Needed when: You choose a KV-backed cache type for production or multi-instance deployments.
 - PostgreSQL (pgsql)
-  - Purpose: Primary SQL database for production.
-  - Needed when: You choose `postgres`/`pgsql` as the database type.
+ - Purpose: Primary SQL database for production.
+ - Needed when: You choose `postgres`/`pgsql` as the database type.
 - SQLite
-  - Purpose: Embedded SQL database for single-node or low-resource environments.
-  - Needed when: You choose `sqlite` as the database type.
+ - Purpose: Embedded SQL database for single-node or low-resource environments.
+ - Needed when: You choose `sqlite` as the database type.
 
 ## 3. Docker Packaging Policy
 

@@ -39,7 +39,7 @@ sudo ./fileuni -c /etc/fileuni -A /var/lib/fileuni service install
 .\fileuni.exe -c C:\FileUni\config -A C:\FileUni\data service install
 ```
 
-> **Important**: Always use **absolute paths** for `-c` and `-A` when installing as a service. This ensures the service can correctly locate its data upon system reboot.
+> Important: Always use absolute paths for `-c` and `-A` when installing as a service. This ensures the service can correctly locate its data upon system reboot.
 
 ## Advanced Service Options
 
@@ -59,6 +59,6 @@ sudo ./fileuni -c /etc/fileuni -A /data service install --service-label custom.f
 
 ## Troubleshooting
 
-- **Permissions**: Installing system-level services typically requires **Root** (Linux/macOS) or **Administrator** (Windows) privileges.
-- **Paths**: `service install` requires valid `-c/--config-date` and `-A/--AppDataDir` paths.
-- **Logs**: If the service fails to start, check system logs such as `journalctl` on Linux or Event Viewer on Windows.
+- Permissions: Installing system-level services typically requires Root (Linux/macOS) or Administrator (Windows) privileges.
+- Paths: `service install` requires valid `-c/--config-date` and `-A/--AppDataDir` paths.
+- Logs: If the service fails to start, check system logs such as `journalctl` on Linux or Event Viewer on Windows.

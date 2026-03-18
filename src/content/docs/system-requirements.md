@@ -12,24 +12,24 @@ This page summarizes the recommended operating systems and the lowest versions t
 
 These are the versions we actively target for full functionality and predictable updates:
 
-- **Windows**: Windows 10 (1806) or newer
-- **macOS**: macOS 11.0 or newer
-- **Linux**: mainstream distributions still receiving security updates
-- **FreeBSD**: FreeBSD 14 or newer
+- Windows: Windows 10 (1806) or newer
+- macOS: macOS 11.0 or newer
+- Linux: mainstream distributions still receiving security updates
+- FreeBSD: FreeBSD 14 or newer
 
 ## Possible Minimum Versions (best effort)
 
-Older systems can sometimes run FileUni, but support is **best-effort only**. The practical minimums are tied to the Rust toolchain and the build you choose:
+Older systems can sometimes run FileUni, but support is best-effort only. The practical minimums are tied to the Rust toolchain and the build you choose:
 
-- **Windows**: Windows 10 (older builds may work but are not guaranteed)
-- **macOS**:
-  - Intel: macOS 10.12 or newer
-  - Apple Silicon: macOS 11.0 or newer
-- **Linux (standard builds)**: The lowest practical baseline is defined by the Rust Tier‑1 targets:
-  - `x86_64-unknown-linux-gnu`: kernel 3.2+ / glibc 2.17+
-  - `aarch64-unknown-linux-gnu`: kernel 4.1+ / glibc 2.17+
-- **Linux (static builds)**: If your system is below these baselines, try the musl build.
-- **FreeBSD**: FreeBSD 12 or newer (older releases are unlikely to work)
+- Windows: Windows 10 (older builds may work but are not guaranteed)
+- macOS:
+ - Intel: macOS 10.12 or newer
+ - Apple Silicon: macOS 11.0 or newer
+- Linux (standard builds): The lowest practical baseline is defined by the Rust Tier‑1 targets:
+ - `x86_64-unknown-linux-gnu`: kernel 3.2+ / glibc 2.17+
+ - `aarch64-unknown-linux-gnu`: kernel 4.1+ / glibc 2.17+
+- Linux (static builds): If your system is below these baselines, try the musl build.
+- FreeBSD: FreeBSD 12 or newer (older releases are unlikely to work)
 
 This document may lag behind actual development and contain discrepancies; FileUni will do its best to support older operating systems, but the primary goal is full support on mainstream modern OSes.
 
@@ -78,5 +78,5 @@ This document may lag behind actual development and contain discrepancies; FileU
 ## Notes
 
 - If you are unsure, start with the recommended versions above.
-- For older Linux systems, prefer the **static** Linux build when available.
+- For older Linux systems, prefer the static Linux build when available.
 - If a platform works but lacks full features, upgrade to a newer OS for the best experience.

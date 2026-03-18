@@ -12,24 +12,24 @@ order: 1
 
 以下版本是我们主要保证完整功能与稳定更新的范围：
 
-- **Windows**：Windows 10 (1806) 或更新版本
-- **macOS**：macOS 11.0 或更新版本
-- **Linux**：仍在官方安全支持期内的主流发行版
-- **FreeBSD**：FreeBSD 14 或更新版本
+- Windows：Windows 10 (1806) 或更新版本
+- macOS：macOS 11.0 或更新版本
+- Linux：仍在官方安全支持期内的主流发行版
+- FreeBSD：FreeBSD 14 或更新版本
 
 ## 可能的最低版本（尽力而为）
 
-旧版系统有机会运行，但属于**尽力适配**，不保证完整功能。最低可运行范围与 Rust 工具链及构建物类型有关：
+旧版系统有机会运行，但属于尽力适配，不保证完整功能。最低可运行范围与 Rust 工具链及构建物类型有关：
 
-- **Windows**：Windows 10（更早版本可能可用，但不保证）
-- **macOS**：
-  - Intel：macOS 10.12 或更新版本
-  - Apple Silicon：macOS 11.0 或更新版本
-- **Linux（标准构建）**：最低基线由 Rust Tier‑1 目标决定：
-  - `x86_64-unknown-linux-gnu`：kernel 3.2+ / glibc 2.17+
-  - `aarch64-unknown-linux-gnu`：kernel 4.1+ / glibc 2.17+
-- **Linux（静态构建）**：如果低于上述基线，请尝试使用 musl 版本
-- **FreeBSD**：FreeBSD 12 或更新版本（更早版本不建议）
+- Windows：Windows 10（更早版本可能可用，但不保证）
+- macOS：
+ - Intel：macOS 10.12 或更新版本
+ - Apple Silicon：macOS 11.0 或更新版本
+- Linux（标准构建）：最低基线由 Rust Tier‑1 目标决定：
+ - `x86_64-unknown-linux-gnu`：kernel 3.2+ / glibc 2.17+
+ - `aarch64-unknown-linux-gnu`：kernel 4.1+ / glibc 2.17+
+- Linux（静态构建）：如果低于上述基线，请尝试使用 musl 版本
+- FreeBSD：FreeBSD 12 或更新版本（更早版本不建议）
 
 此文档 可能滞后于实际开发进度会有偏差，FileUni只能尽力适配旧版操作系统，但是首要目标是在主流的现代操作系统系统提供完整的功能支持。
 
@@ -78,5 +78,5 @@ order: 1
 ## 补充说明
 
 - 不确定时，请优先选择“建议版本”。
-- 老旧 Linux 建议选择 **静态构建**。
+- 老旧 Linux 建议选择 静态构建。
 - 如果可以启动但功能不完整，建议升级操作系统以获得最佳体验。

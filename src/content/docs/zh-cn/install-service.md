@@ -39,7 +39,7 @@ sudo ./fileuni -c /etc/fileuni -A /var/lib/fileuni service install
 .\fileuni.exe -c C:\FileUni\config -A C:\FileUni\data service install
 ```
 
-> **重要提示**：安装服务时请务必为 `-c` 和 `-A` 使用 **绝对路径**。这能确保系统重启后服务依然能正确定位到相关目录。
+> 重要提示：安装服务时请务必为 `-c` 和 `-A` 使用 绝对路径。这能确保系统重启后服务依然能正确定位到相关目录。
 
 ## 高级服务选项
 
@@ -59,6 +59,6 @@ sudo ./fileuni -c /etc/fileuni -A /data service install --service-label my.fileu
 
 ## 常见问题
 
-- **权限问题**：安装系统级服务通常需要 **Root** (Linux/macOS) 或 **管理员** (Windows) 权限。
-- **路径要求**：`service install` 必须配合有效的 `-c/--config-date` 与 `-A/--AppDataDir` 使用。
-- **查看日志**：如果服务无法启动，请检查系统日志，例如 Linux 上的 `journalctl` 或 Windows 事件查看器。
+- 权限问题：安装系统级服务通常需要 Root (Linux/macOS) 或 管理员 (Windows) 权限。
+- 路径要求：`service install` 必须配合有效的 `-c/--config-date` 与 `-A/--AppDataDir` 使用。
+- 查看日志：如果服务无法启动，请检查系统日志，例如 Linux 上的 `journalctl` 或 Windows 事件查看器。
