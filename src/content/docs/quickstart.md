@@ -52,7 +52,11 @@ In the current project, deployment usually means preparing the backing services 
 - A KV service connection
 - Storage locations required by the VFS configuration
 
-If `config.toml` is missing on first startup, FileUni can create the file. If required fields are missing or left empty later, startup will be rejected.
+If `config.toml` or `install.lock` is missing, FileUni will enter the setup wizard.
+
+The setup wizard is responsible for writing `config.toml` and `install.lock`, and for ensuring the built-in administrator account exists.
+
+Normal startup does not auto-create privileged accounts. If the admin account is missing while `install.lock` exists, startup will be rejected.
 
 ## 4. Run Setup Mode or Start the Server
 
