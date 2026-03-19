@@ -1,11 +1,20 @@
 ---
 import config from 'virtual:starlight/user-config';
-import { Icon } from '@astrojs/starlight/components';
 
 type LocaleOption = {
   code: string;
   label: string;
   pathPrefix: string;
+};
+
+const FLAG_BY_CODE: Record<string, string> = {
+  en: '🇬🇧',
+  'zh-cn': '🇨🇳',
+  es: '🇪🇸',
+  de: '🇩🇪',
+  fr: '🇫🇷',
+  ru: '🇷🇺',
+  ja: '🇯🇵',
 };
 
 const currentPath = Astro.url.pathname;
@@ -25,6 +34,8 @@ const currentLocale =
             (currentPath === candidate.pathPrefix || currentPath.startsWith(`${candidate.pathPrefix}/`)),
         ),
   ) ?? localeOptions[0];
+
+const currentFlag = FLAG_BY_CODE[currentLocale.code] ?? '🌐';
 ---
 
 <starlight-lang-select>
@@ -36,11 +47,7 @@ const currentLocale =
     aria-haspopup="menu"
     aria-label={Astro.locals.t('languageSelect.accessibleLabel')}
   >
-    <span class="fu-lang-label">{currentLocale.label}</span>
-    <Icon name="translate" />
-    <svg class="fu-lang-caret" viewBox="0 0 16 16" aria-hidden="true">
-      <path fill="currentColor" d="M4.22 6.47a.75.75 0 0 1 1.06 0L8 9.19l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.53a.75.75 0 0 1 0-1.06Z" />
-    </svg>
+    <span class="fu-lang-flag" aria-hidden="true">{currentFlag}</span>
   </button>
   <div class="fu-lang-menu" hidden>
     {localeOptions.map((option) => (
@@ -58,9 +65,8 @@ const currentLocale =
   </div>
 </starlight-lang-select>
 
-<script is:inline>
+<script is:inline define:vars={{ localeOptions }}>
   const LANG_COOKIE_KEY = 'lang';
-  const localeOptions = JSON.parse({JSON.stringify(JSON.stringify(localeOptions))});
   const localePrefixes = localeOptions
     .map((option) => option.pathPrefix)
     .filter(Boolean)

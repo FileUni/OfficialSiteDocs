@@ -10,43 +10,149 @@ const shouldRenderSearch =
   config.pagefind || config.components.Search !== '@astrojs/starlight/components/Search.astro';
 
 const locale = Astro.locals.starlightRoute.locale;
-const isZh = locale === 'zh-cn';
-const isEs = locale === 'es';
 
-const homeHref = isZh
-  ? 'https://fileuni.com/zh-cn/'
-  : isEs
-    ? 'https://fileuni.com/es/'
-    : 'https://fileuni.com/';
-const downloadHref = isZh
-  ? 'https://fileuni.com/zh-cn/download'
-  : isEs
-    ? 'https://fileuni.com/es/download'
-    : 'https://fileuni.com/download';
+type LocaleKey = 'root' | 'zh-cn' | 'es' | 'de' | 'fr' | 'ru' | 'ja';
+
+const LOCALE_META: Record<LocaleKey, {
+  labels: {
+    home: string;
+    features: string;
+    download: string;
+    docs: string;
+    login: string;
+    getStarted: string;
+  };
+  homeHref: string;
+  downloadHref: string;
+  docsHref: string;
+  loginHref: string;
+  registerHref: string;
+}> = {
+  root: {
+    labels: {
+      home: 'Home',
+      features: 'Features',
+      download: 'Download',
+      docs: 'Docs',
+      login: 'Login',
+      getStarted: 'Get Started',
+    },
+    homeHref: 'https://fileuni.com/',
+    downloadHref: 'https://fileuni.com/download',
+    docsHref: '/',
+    loginHref: 'https://fileuni.com/user/login',
+    registerHref: 'https://fileuni.com/user/register',
+  },
+  'zh-cn': {
+    labels: {
+      home: '首页',
+      features: '特性',
+      download: '下载',
+      docs: '文档',
+      login: '登录',
+      getStarted: '立即开始',
+    },
+    homeHref: 'https://fileuni.com/zh-cn/',
+    downloadHref: 'https://fileuni.com/zh-cn/download',
+    docsHref: '/zh-cn/',
+    loginHref: 'https://fileuni.com/user/login#zh-cn',
+    registerHref: 'https://fileuni.com/user/register#zh-cn',
+  },
+  es: {
+    labels: {
+      home: 'Inicio',
+      features: 'Funciones',
+      download: 'Descargar',
+      docs: 'Docs',
+      login: 'Entrar',
+      getStarted: 'Empezar',
+    },
+    homeHref: 'https://fileuni.com/es/',
+    downloadHref: 'https://fileuni.com/es/download',
+    docsHref: '/es/',
+    loginHref: 'https://fileuni.com/user/login#es',
+    registerHref: 'https://fileuni.com/user/register#es',
+  },
+  de: {
+    labels: {
+      home: 'Home',
+      features: 'Features',
+      download: 'Download',
+      docs: 'Docs',
+      login: 'Login',
+      getStarted: 'Get Started',
+    },
+    homeHref: 'https://fileuni.com/de/',
+    downloadHref: 'https://fileuni.com/de/download',
+    docsHref: '/de/',
+    loginHref: 'https://fileuni.com/user/login#de',
+    registerHref: 'https://fileuni.com/user/register#de',
+  },
+  fr: {
+    labels: {
+      home: 'Home',
+      features: 'Features',
+      download: 'Download',
+      docs: 'Docs',
+      login: 'Login',
+      getStarted: 'Get Started',
+    },
+    homeHref: 'https://fileuni.com/fr/',
+    downloadHref: 'https://fileuni.com/fr/download',
+    docsHref: '/fr/',
+    loginHref: 'https://fileuni.com/user/login#fr',
+    registerHref: 'https://fileuni.com/user/register#fr',
+  },
+  ru: {
+    labels: {
+      home: 'Home',
+      features: 'Features',
+      download: 'Download',
+      docs: 'Docs',
+      login: 'Login',
+      getStarted: 'Get Started',
+    },
+    homeHref: 'https://fileuni.com/ru/',
+    downloadHref: 'https://fileuni.com/ru/download',
+    docsHref: '/ru/',
+    loginHref: 'https://fileuni.com/user/login#ru',
+    registerHref: 'https://fileuni.com/user/register#ru',
+  },
+  ja: {
+    labels: {
+      home: 'Home',
+      features: 'Features',
+      download: 'Download',
+      docs: 'Docs',
+      login: 'Login',
+      getStarted: 'Get Started',
+    },
+    homeHref: 'https://fileuni.com/ja/',
+    downloadHref: 'https://fileuni.com/ja/download',
+    docsHref: '/ja/',
+    loginHref: 'https://fileuni.com/user/login#ja',
+    registerHref: 'https://fileuni.com/user/register#ja',
+  },
+};
+
+const meta = LOCALE_META[(locale as LocaleKey)] ?? LOCALE_META.root;
+
+const homeHref = meta.homeHref;
+const downloadHref = meta.downloadHref;
 const featuresHref = `${homeHref}#features`;
-const docsHref = isZh ? '/zh-cn/' : isEs ? '/es/' : '/';
-const loginHref = isZh
-  ? 'https://fileuni.com/user/login#zh-cn'
-  : isEs
-    ? 'https://fileuni.com/user/login#es'
-    : 'https://fileuni.com/user/login';
-const registerHref = isZh
-  ? 'https://fileuni.com/user/register#zh-cn'
-  : isEs
-    ? 'https://fileuni.com/user/register#es'
-    : 'https://fileuni.com/user/register';
-
-const navLabel = (en, zh, es) => (isZh ? zh : isEs ? es : en);
+const docsHref = meta.docsHref;
+const loginHref = meta.loginHref;
+const registerHref = meta.registerHref;
 ---
 
 <div class="fu-docs-header sl-flex">
   <div class="fu-docs-header-left sl-flex">
     <SiteTitle />
     <nav class="fu-docs-nav" aria-label="Primary navigation">
-      <a href={homeHref}>{navLabel('Home', '首页', 'Inicio')}</a>
-      <a href={featuresHref}>{navLabel('Features', '特性', 'Funciones')}</a>
-      <a href={downloadHref}>{navLabel('Download', '下载', 'Descargar')}</a>
-      <a href={docsHref} class="is-active">{navLabel('Docs', '文档', 'Docs')}</a>
+      <a href={homeHref}>{meta.labels.home}</a>
+      <a href={featuresHref}>{meta.labels.features}</a>
+      <a href={downloadHref}>{meta.labels.download}</a>
+      <a href={docsHref} class="is-active">{meta.labels.docs}</a>
     </nav>
   </div>
 
@@ -58,7 +164,7 @@ const navLabel = (en, zh, es) => (isZh ? zh : isEs ? es : en);
     )}
     <ThemeSelect />
     <LanguageSelect />
-    <a href={loginHref} class="fu-auth-link fu-auth-login">{navLabel('Login', '登录', 'Entrar')}</a>
-    <a href={registerHref} class="fu-auth-link fu-auth-register">{navLabel('Get Started', '立即开始', 'Empezar')}</a>
+    <a href={loginHref} class="fu-auth-link fu-auth-login">{meta.labels.login}</a>
+    <a href={registerHref} class="fu-auth-link fu-auth-register">{meta.labels.getStarted}</a>
   </div>
 </div>

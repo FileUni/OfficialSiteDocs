@@ -8,11 +8,10 @@ const localeOptions = localeEntries.map(([key, value]) => ({
 }));
 ---
 
-<script is:inline>
+<script is:inline define:vars={{ FILEUNI_LOCALES: localeOptions }}>
   const FILEUNI_THEME_KEY = 'theme';
   const FILEUNI_LANG_KEY = 'lang';
   const COOKIE_MAX_AGE_SECONDS = 60 * 60 * 24 * 365;
-  const FILEUNI_LOCALES = JSON.parse({JSON.stringify(JSON.stringify(localeOptions))});
   const defaultLocaleOption =
     FILEUNI_LOCALES.find((locale) => locale.pathPrefix === '') || FILEUNI_LOCALES[0];
   const FILEUNI_DEFAULT_LOCALE =
