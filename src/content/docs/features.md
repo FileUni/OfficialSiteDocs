@@ -14,13 +14,13 @@ The CLI server and the Tauri desktop app use the same Rust core library:
 
 - The CLI is the main server entry point.
 - The GUI wraps the same backend with desktop-native service controls, config editing, and log viewing.
-- The frontend for the server is statically embedded and served from `/ui`.
+- The frontend for the server is statically embedded and served from `/`.
 
 ## Multiple Access Paths
 
 The current project exposes several ways to reach the same file platform:
 
-- Web UI at `/ui`
+- Web UI at `/`
 - HTTP API at `/api/v1/...`
 - OpenAPI document at `/api/v1/openapi.json`
 - WebDAV mounted at `/webdav` when enabled

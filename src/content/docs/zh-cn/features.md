@@ -14,13 +14,13 @@ order: 3
 
 - CLI 是主服务入口
 - GUI 在同一核心之上增加桌面端的服务控制、配置编辑和日志查看
-- 服务器前端会静态嵌入并通过 `/ui` 提供
+- 服务器前端会静态嵌入并通过 `/` 提供
 
 ## 多种访问入口
 
 当前项目已经实现的主要访问方式包括：
 
-- `/ui` WebUI
+- `/` WebUI
 - `/api/v1/...` HTTP API
 - `/api/v1/openapi.json` OpenAPI 文档
 - 启用后挂载在 `/webdav` 的 WebDAV

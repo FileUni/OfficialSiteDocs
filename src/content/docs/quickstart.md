@@ -84,14 +84,14 @@ To start the server normally:
 
 After a successful startup, FileUni prints the active addresses for:
 
-- Web UI: `http://<host>:<port>/ui`
+- Web UI: `http://<host>:<port>/`
 - HTTP API: `http://<host>:<port>`
 - OpenAPI JSON: `http://<host>:<port>/api/v1/openapi.json`
 
 The default local Web UI URL used by the project is:
 
 ```text
-http://localhost:19000/ui
+http://localhost:19000/
 ```
 
 Depending on your configuration, S3, FTP, and SFTP endpoints may also be enabled.

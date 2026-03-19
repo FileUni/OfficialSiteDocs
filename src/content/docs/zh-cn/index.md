@@ -11,7 +11,7 @@ order: 0
 当前的 FileUni 主要包含这些已落地能力：
 
 - CLI 与 Tauri GUI 共用的 Rust 核心
-- 通过 `/ui` 提供的 Web 界面
+- 通过 `/` 提供的 Web 界面
 - 通过 `/api/v1/openapi.json` 暴露的 OpenAPI 描述
 - 按配置启用的 WebDAV、S3、FTP、SFTP 访问
 - 配置目录与应用数据目录分离的运行时模型

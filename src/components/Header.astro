@@ -11,23 +11,42 @@ const shouldRenderSearch =
 
 const locale = Astro.locals.starlightRoute.locale;
 const isZh = locale === 'zh-cn';
+const isEs = locale === 'es';
 
-const homeHref = isZh ? 'https://fileuni.com/zh-cn/' : 'https://fileuni.com/';
-const downloadHref = isZh ? 'https://fileuni.com/zh-cn/download' : 'https://fileuni.com/download';
+const homeHref = isZh
+  ? 'https://fileuni.com/zh-cn/'
+  : isEs
+    ? 'https://fileuni.com/es/'
+    : 'https://fileuni.com/';
+const downloadHref = isZh
+  ? 'https://fileuni.com/zh-cn/download'
+  : isEs
+    ? 'https://fileuni.com/es/download'
+    : 'https://fileuni.com/download';
 const featuresHref = `${homeHref}#features`;
-const docsHref = isZh ? '/zh-cn/' : '/';
-const loginHref = isZh ? 'https://fileuni.com/user/login#zh-cn' : 'https://fileuni.com/user/login';
-const registerHref = isZh ? 'https://fileuni.com/user/register#zh-cn' : 'https://fileuni.com/user/register';
+const docsHref = isZh ? '/zh-cn/' : isEs ? '/es/' : '/';
+const loginHref = isZh
+  ? 'https://fileuni.com/user/login#zh-cn'
+  : isEs
+    ? 'https://fileuni.com/user/login#es'
+    : 'https://fileuni.com/user/login';
+const registerHref = isZh
+  ? 'https://fileuni.com/user/register#zh-cn'
+  : isEs
+    ? 'https://fileuni.com/user/register#es'
+    : 'https://fileuni.com/user/register';
+
+const navLabel = (en, zh, es) => (isZh ? zh : isEs ? es : en);
 ---
 
 <div class="fu-docs-header sl-flex">
   <div class="fu-docs-header-left sl-flex">
     <SiteTitle />
     <nav class="fu-docs-nav" aria-label="Primary navigation">
-      <a href={homeHref}>{isZh ? '首页' : 'Home'}</a>
-      <a href={featuresHref}>{isZh ? '特性' : 'Features'}</a>
-      <a href={downloadHref}>{isZh ? '下载' : 'Download'}</a>
-      <a href={docsHref} class="is-active">{isZh ? '文档' : 'Docs'}</a>
+      <a href={homeHref}>{navLabel('Home', '首页', 'Inicio')}</a>
+      <a href={featuresHref}>{navLabel('Features', '特性', 'Funciones')}</a>
+      <a href={downloadHref}>{navLabel('Download', '下载', 'Descargar')}</a>
+      <a href={docsHref} class="is-active">{navLabel('Docs', '文档', 'Docs')}</a>
     </nav>
   </div>
 
@@ -39,7 +58,7 @@ const registerHref = isZh ? 'https://fileuni.com/user/register#zh-cn' : 'https:/
     )}
     <ThemeSelect />
     <LanguageSelect />
-    <a href={loginHref} class="fu-auth-link fu-auth-login">{isZh ? '登录' : 'Login'}</a>
-    <a href={registerHref} class="fu-auth-link fu-auth-register">{isZh ? '立即开始' : 'Get Started'}</a>
+    <a href={loginHref} class="fu-auth-link fu-auth-login">{navLabel('Login', '登录', 'Entrar')}</a>
+    <a href={registerHref} class="fu-auth-link fu-auth-register">{navLabel('Get Started', '立即开始', 'Empezar')}</a>
   </div>
 </div>

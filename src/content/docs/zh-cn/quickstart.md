@@ -84,14 +84,14 @@ FileUni 不允许把环境变量作为配置来源，运行参数都必须来自
 
 启动成功后，FileUni 会输出当前可用地址，包括：
 
-- WebUI：`http://<host>:<port>/ui`
+- WebUI：`http://<host>:<port>/`
 - HTTP API：`http://<host>:<port>`
 - OpenAPI JSON：`http://<host>:<port>/api/v1/openapi.json`
 
 当前项目内置使用的本地默认 WebUI 地址是：
 
 ```text
-http://localhost:19000/ui
+http://localhost:19000/
 ```
 
 如果配置里启用了相关协议，还会同时开放 S3、FTP、SFTP 等访问入口。

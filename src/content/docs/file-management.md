@@ -13,7 +13,7 @@ This page focuses on the access paths and file operations that can be verified f
 The embedded frontend is served from:
 
 ```text
-/ui
+/
 ```
 
 The Web UI is the main human-facing entry point for:

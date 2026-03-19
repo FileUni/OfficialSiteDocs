@@ -74,6 +74,29 @@ export default defineConfig({
             },
           ],
         },
+        es: {
+          label: 'Español',
+          lang: 'es',
+          sidebar: [
+            {
+              label: 'Volver a FileUni',
+              link: 'https://fileuni.com/es/',
+            },
+            {
+              label: 'Documentación',
+              items: [
+                { label: 'Guía rápida', slug: 'es/quickstart' },
+                { label: 'Requisitos del sistema', slug: 'es/system-requirements' },
+                { label: 'Descargar FileUni', link: 'https://fileuni.com/es/download' },
+                { label: 'Funciones', slug: 'es/features' },
+                { label: 'Acceso y operaciones de archivos', slug: 'es/file-management' },
+                { label: 'Instalar como servicio', slug: 'es/install-service' },
+                { label: 'Restablecer contraseña de admin', slug: 'es/get-admin-passwd' },
+                { label: 'Dependencias externas', slug: 'es/external-dependencies' },
+              ],
+            },
+          ],
+        },
       },
       components: {
         Header: './src/components/Header.astro',

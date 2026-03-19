@@ -11,7 +11,7 @@ This site tracks the current FileUni project instead of describing hypothetical 
 FileUni is a Rust-based file platform with:
 
 - A shared core used by both the CLI server and the Tauri desktop app
-- A Web UI served from `/ui`
+- A Web UI served from `/`
 - An OpenAPI document exposed at `/api/v1/openapi.json`
 - Optional access protocols such as WebDAV, S3, FTP, and SFTP
 - Runtime directories separated into a config directory and an app data directory
