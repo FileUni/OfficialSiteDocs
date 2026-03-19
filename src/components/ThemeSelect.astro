@@ -27,7 +27,10 @@ const options = [
 </starlight-theme-select>
 
 <script is:inline>
-  if (window.StarlightThemeProvider?.updatePickers) {
+  if (
+    window.StarlightThemeProvider &&
+    typeof window.StarlightThemeProvider.updatePickers === 'function'
+  ) {
     window.StarlightThemeProvider.updatePickers();
   }
 </script>
@@ -40,12 +43,18 @@ const options = [
 
   const getCookieTheme = () => {
     const cookieApi = window.FileUniPreferenceCookie;
-    return parseTheme(cookieApi?.read?.(THEME_COOKIE_KEY));
+    if (!cookieApi || typeof cookieApi.read !== 'function') {
+      return null;
+    }
+    return parseTheme(cookieApi.read(THEME_COOKIE_KEY));
   };
 
   const saveCookieTheme = (theme) => {
     const cookieApi = window.FileUniPreferenceCookie;
-    cookieApi?.write?.(THEME_COOKIE_KEY, theme);
+    if (!cookieApi || typeof cookieApi.write !== 'function') {
+      return;
+    }
+    cookieApi.write(THEME_COOKIE_KEY, theme);
   };
 
   const getPreferredColorScheme = () =>
@@ -56,7 +65,10 @@ const options = [
     document.documentElement.dataset.theme =
       parsedTheme === 'auto' ? getPreferredColorScheme() : parsedTheme;
     saveCookieTheme(parsedTheme);
-    if (window.StarlightThemeProvider?.updatePickers) {
+    if (
+      window.StarlightThemeProvider &&
+      typeof window.StarlightThemeProvider.updatePickers === 'function'
+    ) {
       window.StarlightThemeProvider.updatePickers(parsedTheme);
     }
   }

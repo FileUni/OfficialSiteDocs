@@ -13,8 +13,10 @@ const localeOptions = localeEntries.map(([key, value]) => ({
   const FILEUNI_LANG_KEY = 'lang';
   const COOKIE_MAX_AGE_SECONDS = 60 * 60 * 24 * 365;
   const FILEUNI_LOCALES = JSON.parse({JSON.stringify(JSON.stringify(localeOptions))});
+  const defaultLocaleOption =
+    FILEUNI_LOCALES.find((locale) => locale.pathPrefix === '') || FILEUNI_LOCALES[0];
   const FILEUNI_DEFAULT_LOCALE =
-    FILEUNI_LOCALES.find((locale) => locale.pathPrefix === '')?.code || FILEUNI_LOCALES[0]?.code || 'en';
+    defaultLocaleOption && defaultLocaleOption.code ? defaultLocaleOption.code : 'en';
   const FILEUNI_LOCALE_PREFIXES = FILEUNI_LOCALES
     .map((locale) => locale.pathPrefix)
     .filter(Boolean)
@@ -65,7 +67,7 @@ const localeOptions = localeEntries.map(([key, value]) => ({
     }
     const normalized = lang.toLowerCase();
     const matchedLocale = FILEUNI_LOCALES.find((locale) => locale.code === normalized);
-    return matchedLocale?.code || null;
+    return matchedLocale ? matchedLocale.code : null;
   };
 
   const stripLocalePrefix = (pathname) => {
@@ -87,7 +89,7 @@ const localeOptions = localeEntries.map(([key, value]) => ({
         locale.pathPrefix &&
         (pathname === locale.pathPrefix || pathname.startsWith(`${locale.pathPrefix}/`)),
     );
-    return matchedLocale?.code || FILEUNI_DEFAULT_LOCALE;
+    return matchedLocale ? matchedLocale.code : FILEUNI_DEFAULT_LOCALE;
   };
 
   const toLocalePath = (pathname, localeCode) => {
