@@ -23,7 +23,7 @@ order: 3
 - `/` WebUI
 - `/api/v1/...` HTTP API
 - `/api/v1/openapi.json` OpenAPI 文档
-- 启用后挂载在 `/webdav` 的 WebDAV
+- WebDAV 默认挂载在 `/@dav`（可配置）
 - 按配置启用的 S3、FTP、SFTP 服务
 
 ## 文件平台能力

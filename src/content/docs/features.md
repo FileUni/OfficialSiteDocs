@@ -23,7 +23,7 @@ The current project exposes several ways to reach the same file platform:
 - Web UI at `/`
 - HTTP API at `/api/v1/...`
 - OpenAPI document at `/api/v1/openapi.json`
-- WebDAV mounted at `/webdav` when enabled
+- WebDAV mounted at `/@dav` by default (configurable)
 - S3, FTP, and SFTP services when enabled in configuration
 
 ## File Platform Capabilities

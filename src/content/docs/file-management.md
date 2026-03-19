@@ -44,7 +44,7 @@ This is the most accurate public description of the currently mounted API surfac
 
 Depending on configuration, FileUni can also expose protocol-based access:
 
-- WebDAV: mounted under `/webdav`
+- WebDAV: mounted under `/@dav` by default (configurable)
 - S3: served on the configured S3 port
 - FTP: served on the configured FTP port
 - SFTP: served on the configured SFTP port
