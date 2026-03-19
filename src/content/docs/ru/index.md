@@ -1,17 +1,38 @@
 ---
-title: Dokumentaciya FileUni
-description: Prakticheskaya dokumentaciya dlya tekushchego proekta FileUni.
+title: Документация FileUni
+description: Практическая документация текущего проекта FileUni.
 order: 0
 ---
 
-# Dokumentaciya FileUni
+# Документация FileUni
 
-## Bystrye ssylki
+Этот сайт отслеживает текущий проект FileUni вместо описания гипотетических планов продукта.
 
-- [Sistemnye trebovaniya](./system-requirements)
-- [Bystryy start](./quickstart)
-- [Skachat](https://fileuni.com/ru/download)
-- [Vozmozhnosti](./features)
-- [Dostup i operacii s faylami](./file-management)
-- [Ustanovit kak servis](./install-service)
-- [Sbros parolya admin](./get-admin-passwd)
+FileUni — это файловая платформа на базе Rust с:
+
+- Общее ядро, используемое CLI-сервером и настольным приложением Tauri
+- Web UI, обслуживаемый из `/`
+- Документ OpenAPI, доступный по адресу `/api/v1/openapi.json`
+- Опциональные протоколы доступа, такие как WebDAV, S3, FTP и SFTP
+- Каталоги выполнения, разделённые на каталог конфигурации и каталог данных приложения
+
+## Быстрые ссылки
+
+- [Системные требования](./system-requirements)
+- [Быстрый старт](./quickstart)
+- [Скачать FileUni](https://fileuni.com/ru/download)
+- [Возможности](./features)
+- [Доступ и операции с файлами](./file-management)
+- [Установить как сервис](./install-service)
+- [Сброс пароля администратора](./get-admin-passwd)
+
+## Текущая область документации
+
+Документация в настоящее время фокусируется на том, что уже может быть проверено в этом репозитории:
+
+- Локальное развёртывание и первый запуск
+- Структура каталогов выполнения и требования к установке сервиса
+- Web UI, API и доступ на основе протоколов
+- Задачи обслуживания администратора
+
+Темы, не соответствующие текущему состоянию проекта, на данный момент удалены.

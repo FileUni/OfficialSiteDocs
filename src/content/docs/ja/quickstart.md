@@ -1,11 +1,103 @@
 ---
-title: Quick Start
-description: Start and open Web UI.
+title: クイックスタート
+description: CLI またはデスクトップアプリで現在の FileUni プロジェクトを開始。
 order: 2
 ---
 
-# Quick Start
+# クイックスタート
 
-Web UI: `http://<host>:<port>/`
+このガイドは、現在のワークスペースレイアウトとランタイムモデルに基づいています。
 
-OpenAPI: `http://<host>:<port>/api/v1/openapi.json`
+## 1. ランタイムエントリを選択
+
+FileUni には現在 2 つのメインエントリポイントがあります：
+
+- `fileuni` CLI：サーバーの起動、セットアップモードの実行、サービスの管理、バックアップのエクスポート/インポートに使用されます。
+- `fileuni-gui`：同じコアライブラリをラップする Tauri デスクトップラッパーで、サービス制御、設定編集、同じ初回実行セットアップ動作を備えています。
+
+[ダウンロードページ](https://fileuni.com/ja/download)から適切なパッケージを入手してください。
+
+- サーバーデプロイの場合は、CLI パッケージを選択してください。
+- ローカルデスクトップ使用の場合は、GUI パッケージを選択してください。
+
+## 2. ランタイムディレクトリを準備
+
+現在のプロジェクトはデュアルディレクトリランタイムモデルを使用しています：
+
+- `-c` / `--config-date`：設定ディレクトリ
+- `-A` / `--AppDataDir`：アプリケーションデータディレクトリ
+
+固定設定ファイルパスは：
+
+```text
+{config-dir}/config.toml
+```
+
+ランタイムレイアウトの例：
+
+```text
+./config
+./appdata
+```
+
+サービスインストールの場合は、相対パスではなく絶対パスを使用してください。
+
+## 3. 設定で参照されるサービスを準備
+
+FileUni は環境変数を設定ソースとして使用しません。ランタイム値は `config.toml` から取得する必要があります。
+
+現在のプロジェクトでは、デプロイは通常、そのファイルで参照されるバッキングサービスの準備を意味します。特に：
+
+- データベース接続
+- KV サービス接続
+- VFS 設定で必要なストレージロケーション
+
+`config.toml` または `install.lock` がない場合、FileUni はセットアップウィザードに入ります。
+
+セットアップウィザードは `config.toml` と `install.lock` の書き込み、および組み込み管理者アカウントの確保を担当します。
+
+通常の起動では特権アカウントは自動作成されません。`install.lock` が存在するのに管理者アカウントがない場合、起動は拒否されます。
+
+## 4. セットアップモードを実行するかサーバーを起動
+
+`{config-dir}/install.lock` がない場合、CLI と GUI の両方が通常の起動前にセットアップウィザードを強制します。
+
+明示的にセットアップモードに入るには：
+
+```bash
+./fileuni --setup -c ./config -A ./appdata
+```
+
+完全なサーバーを起動せずに設定を検証するには：
+
+```bash
+./fileuni --configtest -c ./config -A ./appdata
+```
+
+通常どおりサーバーを起動するには：
+
+```bash
+./fileuni -c ./config -A ./appdata
+```
+
+## 5. Web UI を開く
+
+起動が成功すると、FileUni は以下のアクティブなアドレスを出力します：
+
+- Web UI：`http://<host>:<port>/`
+- HTTP API：`http://<host>:<port>`
+- OpenAPI JSON：`http://<host>:<port>/api/v1/openapi.json`
+
+プロジェクトで使用されるデフォルトのローカル Web UI URL は：
+
+```text
+http://localhost:19000/
+```
+
+設定によっては、S3、FTP、SFTP エンドポイントも有効になっている場合があります。
+
+## 次のステップ
+
+- [機能](./features)
+- [アクセスとファイル操作](./file-management)
+- [サービスとしてインストール](./install-service)

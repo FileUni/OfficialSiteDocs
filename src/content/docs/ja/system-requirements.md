@@ -1,9 +1,82 @@
 ---
-title: System Requirements
-description: Recommended and minimum OS.
+title: システム要件
+description: 各 FileUni ビルドの推奨および最小オペレーティングシステム。
 order: 1
 ---
 
-# System Requirements
+# システム要件
 
-Work in progress.
+このページでは、推奨オペレーティングシステムと、まだ動作する可能性のある最低バージョンを要約しています。FileUni は複数のビルドタイプ（デスクトップ GUI、CLI サーバー、コンテナ、モバイル）を出荷しており、それぞれに独自のベースラインがあります。
+
+## 推奨バージョン（最高の体験）
+
+これらは、完全な機能と予測可能な更新のために積極的にターゲットしているバージョンです：
+
+- Windows：Windows 10 (1806) 以降
+- macOS：macOS 11.0 以降
+- Linux：セキュリティ更新を受け取っている主流ディストリビューション
+- FreeBSD：FreeBSD 14 以降
+
+## 可能な最小バージョン（ベストエフォート）
+
+古いシステムでも FileUni を実行できる場合がありますが、サポートはベストエフォートのみです。実用的な最小値は Rust ツールチェーンと選択したビルドに関連しています：
+
+- Windows：Windows 10（古いビルドは動作する可能性がありますが保証されません）
+- macOS：
+  - Intel：macOS 10.12 以降
+  - Apple Silicon：macOS 11.0 以降
+- Linux（標準ビルド）：最も低い実用的ベースラインは Rust Tier‑1 ターゲットで定義されています：
+  - `x86_64-unknown-linux-gnu`：カーネル 3.2+ / glibc 2.17+
+  - `aarch64-unknown-linux-gnu`：カーネル 4.1+ / glibc 2.17+
+- Linux（静的ビルド）：システムがこれらのベースライン以下の場合は、musl ビルドを試してください。
+- FreeBSD：FreeBSD 12 以降（古いリリースは動作しない可能性があります）
+
+このドキュメントは実際の開発より遅れており、不一致が含まれている可能性があります。FileUni は古いオペレーティングシステムをサポートするよう最善を尽くしますが、主な目標は主流の現代 OS での完全なサポートです。
+
+## ビルドタイプ別の最小プラットフォーム
+
+### デスクトップ GUI (Tauri)
+
+| ビルド | 推奨 | 可能な最小（ベストエフォート） |
+| --- | --- | --- |
+| Windows デスクトップ | Windows 10 (1806)+ | Windows 10（古いビルドは動作する可能性あり） |
+| macOS デスクトップ (Intel) | macOS 11.0+ | macOS 10.12+ |
+| macOS デスクトップ (Apple Silicon) | macOS 11.0+ | macOS 11.0+ |
+| Linux デスクトップ (AppImage) | 現在の LTS ディストリビューション | 古い LTS + 静的ビルド（利用可能な場合） |
+
+### CLI / サーバー
+
+| ビルド | 推奨 | 可能な最小（ベストエフォート） |
+| --- | --- | --- |
+| Windows CLI (x64/x86) | Windows 10 (1806)+ | Windows 10（古いビルドは動作する可能性あり） |
+| macOS CLI (Intel) | macOS 11.0+ | macOS 10.12+ |
+| macOS CLI (Apple Silicon) | macOS 11.0+ | macOS 11.0+ |
+| Linux CLI（標準ビルド） | 現在の LTS ディストリビューション | 上記のカーネル/glibc ベースライン |
+| Linux CLI（静的ビルド） | 最新の Linux | カーネル/glibc ベースライン以下の場合は musl を試す |
+| FreeBSD CLI | FreeBSD 14+ | FreeBSD 12+ |
+| Android CLI (Termux/ADB) | 最新の Android デバイス | デバイス/ベンダーにより異なる；ベストエフォートとして扱う |
+
+### コンテナ (Docker)
+
+| ビルド | 推奨 | 可能な最小（ベストエフォート） |
+| --- | --- | --- |
+| Docker (Alpine/Debian イメージ) | 最新の Docker Engine を搭載した Linux ホスト | Docker ランタイムでサポートされる任意の OS バージョン |
+
+### モバイルアプリ
+
+| ビルド | 推奨 | 可能な最小（ベストエフォート） |
+| --- | --- | --- |
+| Android アプリ | 最新の Android バージョン | デバイス/ベンダーにより異なる；古いバージョンは不安定な可能性 |
+| iOS アプリ | 最新の iOS バージョン | デバイス/署名方法により異なる |
+
+### Proxmox VE (LXC/CT テンプレート)
+
+| ビルド | 推奨 | 可能な最小（ベストエフォート） |
+| --- | --- | --- |
+| Proxmox VE CT | PVE 8.x | PVE 7.x |
+
+## 注意事項
+
+- 不明な場合は、上記の推奨バージョンから始めてください。
+- 古い Linux システムの場合、利用可能な場合は静的 Linux ビルドを優先してください。
+- プラットフォームが動作するが完全な機能がない場合は、最高の体験のために新しい OS にアップグレードしてください。

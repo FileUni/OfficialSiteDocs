@@ -6,12 +6,33 @@ order: 0
 
 # Documentation FileUni
 
-## Raccourcis
+Ce site suit le projet FileUni actuel au lieu de décrire des plans de produit hypothétiques.
 
-- [Exigences du systeme](./system-requirements)
-- [Demarrage rapide](./quickstart)
-- [Telecharger](https://fileuni.com/fr/download)
-- [Fonctionnalites](./features)
-- [Acces et operations sur les fichiers](./file-management)
+FileUni est une plateforme de fichiers basée sur Rust avec :
+
+- Un noyau partagé utilisé à la fois par le serveur CLI et l'application de bureau Tauri
+- Une interface Web servie depuis `/`
+- Un document OpenAPI exposé à `/api/v1/openapi.json`
+- Des protocoles d'accès optionnels tels que WebDAV, S3, FTP et SFTP
+- Des répertoires d'exécution séparés en un répertoire de configuration et un répertoire de données d'application
+
+## Liens rapides
+
+- [Configuration requise](./system-requirements)
+- [Démarrage rapide](./quickstart)
+- [Télécharger FileUni](https://fileuni.com/fr/download)
+- [Fonctionnalités](./features)
+- [Accès et opérations sur les fichiers](./file-management)
 - [Installer comme service](./install-service)
-- [Reinitialiser le mot de passe admin](./get-admin-passwd)
+- [Réinitialiser le mot de passe admin](./get-admin-passwd)
+
+## Portée actuelle de la documentation
+
+La documentation se concentre actuellement sur ce qui peut déjà être vérifié dans ce dépôt :
+
+- Déploiement local et premier démarrage
+- Structure des répertoires d'exécution et exigences d'installation de service
+- Interface Web, API et accès basé sur protocole
+- Tâches de maintenance administratives
+
+Les sujets qui ne correspondent pas à l'état actuel du projet ont été supprimés pour l'instant.
