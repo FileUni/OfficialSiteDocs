@@ -8,7 +8,7 @@ order: 4
 
 Diese Seite konzentriert sich auf die Zugriffspfade und Dateioperationen, die aus dem aktuellen Projekt verifiziert werden können.
 
-## Web UI
+## Weboberfläche
 
 Das eingebettete Frontend wird bereitgestellt von:
 
@@ -24,7 +24,7 @@ Die Web UI ist der Haupteinstiegspunkt für Menschen:
 - Arbeiten mit aktuellen Elementen, Favoriten, Papierkorb und Freigaben
 - Aufrufen von Backend-APIs aus dem Browser-Frontend
 
-## HTTP API
+## HTTP-API
 
 Der Server stellt REST-Style-Endpunkte bereit unter:
 

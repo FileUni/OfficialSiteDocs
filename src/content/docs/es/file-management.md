@@ -8,7 +8,7 @@ order: 4
 
 Esta pagina se enfoca en rutas de acceso y operaciones verificables en el proyecto actual.
 
-## Web UI
+## Interfaz web
 
 El frontend incrustado se sirve desde:
 
@@ -24,7 +24,7 @@ La Web UI es el punto de entrada principal para:
 - Recientes, favoritos, papelera y compartidos
 - Llamar APIs del backend desde el navegador
 
-## HTTP API
+## API HTTP
 
 El servidor expone endpoints tipo REST bajo:
 
