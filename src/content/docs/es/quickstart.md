@@ -1,12 +1,12 @@
 ---
 title: Guia rapida
-description: Primer arranque local y acceso a la Web UI.
+description: Primer arranque local y acceso a la interfaz web.
 order: 2
 ---
 
 # Guia rapida
 
-Esta guia describe un arranque local minimo del servidor FileUni y como abrir la Web UI.
+Esta guia describe un arranque local minimo del servidor FileUni y como abrir la interfaz web.
 
 ## 1. Preparar directorios
 
@@ -35,12 +35,12 @@ Para validar la configuracion sin iniciar el servidor completo:
 ./fileuni -c ./config -A ./appdata
 ```
 
-## 4. Abrir la Web UI
+## 4. Abrir la interfaz web
 
 Tras un arranque exitoso, FileUni imprime las direcciones activas para:
 
-- Web UI: `http://<host>:<port>/`
-- HTTP API: `http://<host>:<port>`
+- Interfaz web: `http://<host>:<port>/`
+- API HTTP: `http://<host>:<port>`
 - OpenAPI JSON: `http://<host>:<port>/api/v1/openapi.json`
 
 La URL local por defecto usada por el proyecto es:

@@ -80,15 +80,15 @@ FileUni は環境変数を設定ソースとして使用しません。ランタ
 ./fileuni -c ./config -A ./appdata
 ```
 
-## 5. Web UI を開く
+## 5. Web インターフェースを開く
 
 起動が成功すると、FileUni は以下のアクティブなアドレスを出力します：
 
-- Web UI：`http://<host>:<port>/`
+- Web インターフェース：`http://<host>:<port>/`
 - HTTP API：`http://<host>:<port>`
 - OpenAPI JSON：`http://<host>:<port>/api/v1/openapi.json`
 
-プロジェクトで使用されるデフォルトのローカル Web UI URL は：
+プロジェクトで使用されるデフォルトのローカル Web インターフェース URL は：
 
 ```text
 http://localhost:19000/

@@ -16,7 +16,7 @@ El frontend incrustado se sirve desde:
 /
 ```
 
-La Web UI es el punto de entrada principal para:
+La interfaz web es el punto de entrada principal para:
 
 - Navegar archivos y directorios
 - Subir y descargar archivos

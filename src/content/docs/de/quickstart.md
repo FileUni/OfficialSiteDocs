@@ -80,15 +80,15 @@ Um den Server normal zu starten:
 ./fileuni -c ./config -A ./appdata
 ```
 
-## 5. Öffnen Sie die Web UI
+## 5. Öffnen Sie die Weboberfläche
 
 Nach einem erfolgreichen Start gibt FileUni die aktiven Adressen aus für:
 
-- Web UI: `http://<host>:<port>/`
-- HTTP API: `http://<host>:<port>`
+- Weboberfläche: `http://<host>:<port>/`
+- HTTP-API: `http://<host>:<port>`
 - OpenAPI JSON: `http://<host>:<port>/api/v1/openapi.json`
 
-Die standardmäßige lokale Web UI URL des Projekts ist:
+Die standardmäßige lokale URL der Weboberfläche im Projekt ist:
 
 ```text
 http://localhost:19000/

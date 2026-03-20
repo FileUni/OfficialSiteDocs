@@ -16,7 +16,7 @@ Das eingebettete Frontend wird bereitgestellt von:
 /
 ```
 
-Die Web UI ist der Haupteinstiegspunkt für Menschen:
+Die Weboberfläche ist der Haupteinstiegspunkt für Menschen:
 
 - Durchsuchen von Dateien und Verzeichnissen
 - Hochladen und Herunterladen von Dateien
@@ -76,7 +76,7 @@ Einige dieser Möglichkeiten sind durch die Konfiguration feature-geblockt. In d
 
 ## Empfohlene Zugriffswahl
 
-Verwenden Sie die Web UI, wenn Sie benötigen:
+Verwenden Sie die Weboberfläche, wenn Sie benötigen:
 
 - Den einfachsten Weg zum Durchsuchen und Verwalten von Dateien
 - Vorschau-Flows

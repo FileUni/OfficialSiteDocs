@@ -20,8 +20,8 @@ El servidor CLI y la app de escritorio Tauri usan la misma libreria Rust:
 
 El proyecto expone varias formas de llegar a la misma plataforma:
 
-- Web UI en `/`
-- HTTP API en `/api/v1/...`
+- Interfaz web en `/`
+- API HTTP en `/api/v1/...`
 - Documento OpenAPI en `/api/v1/openapi.json`
 - WebDAV montado en `/@dav` cuando esta habilitado
 - Servicios S3, FTP y SFTP cuando estan habilitados en la configuracion
@@ -32,7 +32,7 @@ El workspace contiene un hub VFS y modulos frontend para:
 
 - Navegar directorios, subir, descargar, mover, copiar, renombrar y borrar
 - Busqueda, recientes, favoritos, papelera y compartidos
-- Flujos de previsualizacion de tipos comunes de archivo en la Web UI
+- Flujos de previsualizacion de tipos comunes de archivo en la interfaz web
 - Operaciones de archivos comprimidos como explorar, comprimir y extraer
 
 La disponibilidad exacta de algunas funciones depende de tu configuracion y del modo de build.

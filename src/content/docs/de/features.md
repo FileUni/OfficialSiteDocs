@@ -20,8 +20,8 @@ Der CLI-Server und die Tauri-Desktop-App verwenden dieselbe Rust-Kernbibliothek:
 
 Das aktuelle Projekt bietet mehrere Möglichkeiten, auf dieselbe Dateiplattform zuzugreifen:
 
-- Web UI unter `/`
-- HTTP API unter `/api/v1/...`
+- Weboberfläche unter `/`
+- HTTP-API unter `/api/v1/...`
 - OpenAPI-Dokument unter `/api/v1/openapi.json`
 - WebDAV, standardmäßig unter `/@dav` eingehängt (konfigurierbar)
 - S3-, FTP- und SFTP-Dienste, wenn in der Konfiguration aktiviert
@@ -32,7 +32,7 @@ Der Workspace enthält einen dedizierten VFS-Speicher-Hub und Frontend-Module f�
 
 - Verzeichnis-Browsing, Hochladen, Herunterladen, Verschieben, Kopieren, Umbenennen und Löschen
 - Suche, Verlauf, Favoriten, Papierkorb und Freigaben
-- Dateivorschau-Flows für gängige Dateitypen in der Web UI
+- Dateivorschau-Flows für gängige Dateitypen in der Weboberfläche
 - Archiv-bezogene Operationen wie Browsing, Komprimierung und Extraktion
 
 Die genaue Verfügbarkeit einiger Funktionen hängt von Ihrer Konfiguration und dem gewählten Build-Modus ab.
