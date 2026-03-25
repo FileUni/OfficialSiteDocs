@@ -22,6 +22,7 @@ FileUni est une plateforme de fichiers basée sur Rust avec :
 - [Démarrage rapide](./quickstart)
 - [Télécharger FileUni](https://fileuni.com/fr/download)
 - [Fonctionnalités](./features)
+- [Compatibilité Nextcloud](./nextcloud-compatibility)
 - [Accès et opérations sur les fichiers](./file-management)
 - [Installer comme service](./install-service)
 - [Réinitialiser le mot de passe admin](./get-admin-passwd)
@@ -33,6 +34,7 @@ La documentation se concentre actuellement sur ce qui peut déjà être vérifi�
 - Déploiement local et premier démarrage
 - Structure des répertoires d'exécution et exigences d'installation de service
 - Interface Web, API et accès basé sur protocole
+- Positionnement de compatibilité avec les clients Nextcloud et portée actuelle
 - Tâches de maintenance administratives
 
 Les sujets qui ne correspondent pas à l'état actuel du projet ont été supprimés pour l'instant.

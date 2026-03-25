@@ -37,6 +37,19 @@ order: 3
 
 部分能力是否可用，取决于具体配置和所选构建模式。
 
+## Nextcloud 客户端兼容方向
+
+除了低性能硬件可运行、高性能硬件可发挥更高吞吐之外，FileUni 也把与 Nextcloud 客户端兼容作为一个重要产品特色。
+
+当前对外强调的兼容范围包括：
+
+- 文件管理流程
+- 收藏与分享相关流程
+- 媒体相关访问与预览流程
+- Nextcloud 客户端常用的 WebDAV 访问
+
+Chat 与 Notes 属于后续开发路线，应明确表述为规划中的能力。
+
 ## 明确的部署模型
 
 当前运行模型有几个很明确的约束：
@@ -64,4 +77,5 @@ FileUni 仍然保持轻量化文件平台的定位。公开官网当前仍在强
 
 - [快速开始](./quickstart)
 - [访问方式与文件操作](./file-management)
+- [Nextcloud 兼容性](./nextcloud-compatibility)
 - [安装为系统服务](./install-service)

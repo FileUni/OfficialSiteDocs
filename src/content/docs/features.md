@@ -37,6 +37,19 @@ The workspace contains a dedicated VFS storage hub and frontend modules for:
 
 The exact availability of some features depends on your configuration and the selected build mode.
 
+## Nextcloud Client Compatibility Direction
+
+Besides lightweight deployment on low-end hardware and better scaling on high-end hardware, FileUni also treats compatibility with Nextcloud clients as an important product characteristic.
+
+The intended compatibility scope covers:
+
+- File management flows
+- Favorites and sharing-related workflows
+- Media-oriented access flows
+- WebDAV-based access used by Nextcloud clients
+
+Chat and Notes belong to the follow-up roadmap and should be presented as planned capabilities.
+
 ## Deployment Model
 
 The current runtime model is intentionally explicit:
@@ -64,4 +77,5 @@ FileUni is still positioned as a lightweight file platform. The public site curr
 
 - [Quick Start](./quickstart)
 - [Access and File Operations](./file-management)
+- [Nextcloud Compatibility](./nextcloud-compatibility)
 - [Install as Service](./install-service)

@@ -22,6 +22,7 @@ order: 0
 - [快速开始](./quickstart)
 - [下载与安装](https://fileuni.com/zh-cn/download)
 - [功能特性](./features)
+- [Nextcloud 兼容性](./nextcloud-compatibility)
 - [访问方式与文件操作](./file-management)
 - [安装为系统服务](./install-service)
 - [重置管理员密码](./get-admin-passwd)
@@ -33,6 +34,7 @@ order: 0
 - 本地部署与首次启动
 - 运行目录和系统服务安装
 - WebUI、API 与标准协议访问
+- Nextcloud 客户端兼容定位与当前范围
 - 管理员维护操作
 
 与当前项目状态不一致的产品介绍、用户管理等页面暂时移除。

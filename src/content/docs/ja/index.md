@@ -22,6 +22,7 @@ FileUni は Rust ベースのファイルプラットフォームです：
 - [クイックスタート](./quickstart)
 - [FileUni をダウンロード](https://fileuni.com/ja/download)
 - [機能](./features)
+- [Nextcloud 互換性](./nextcloud-compatibility)
 - [アクセスとファイル操作](./file-management)
 - [サービスとしてインストール](./install-service)
 - [管理者パスワードのリセット](./get-admin-passwd)
@@ -33,6 +34,7 @@ FileUni は Rust ベースのファイルプラットフォームです：
 - ローカルデプロイと初回起動
 - ランタイムディレクトリレイアウトとサービスインストール要件
 - Web インターフェース、API、プロトコルベースのアクセス
+- Nextcloud クライアント互換性の位置付けと現在の範囲
 - 管理者のメンテナンスタスク
 
 現在のプロジェクトの状態と一致しないトピックは、現時点では削除されています。

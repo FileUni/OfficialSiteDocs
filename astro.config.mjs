@@ -1,6 +1,7 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import cloudflare from '@astrojs/cloudflare';
+import { getSiteUrl } from './src/lib/external-links.mjs';
 
 export default defineConfig({
   site: 'https://docs.fileuni.com',
@@ -34,15 +35,16 @@ export default defineConfig({
           sidebar: [
             {
               label: 'Back to FileUni',
-              link: 'https://fileuni.com',
+              link: getSiteUrl('en'),
             },
             {
               label: 'Documentation',
               items: [
                 { label: 'Quick Start', slug: 'quickstart' },
                 { label: 'System Requirements', slug: 'system-requirements' },
-                { label: 'Install FileUni', link: 'https://fileuni.com/download' },
+                { label: 'Install FileUni', link: getSiteUrl('en', 'download') },
                 { label: 'Features', slug: 'features' },
+                { label: 'Nextcloud Compatibility', slug: 'nextcloud-compatibility' },
                 { label: 'Access and File Operations', slug: 'file-management' },
                 { label: 'Install as Service', slug: 'install-service' },
                 { label: 'Reset Admin Password', slug: 'get-admin-passwd' },
@@ -57,15 +59,16 @@ export default defineConfig({
           sidebar: [
             {
               label: '返回 FileUni 官网',
-              link: 'https://fileuni.com/zh-cn/',
+              link: getSiteUrl('zh-cn'),
             },
             {
               label: '使用文档',
               items: [
                 { label: '快速开始', slug: 'zh-cn/quickstart' },
                 { label: '系统最低要求', slug: 'zh-cn/system-requirements' },
-                { label: '下载与安装', link: 'https://fileuni.com/zh-cn/download' },
+                { label: '下载与安装', link: getSiteUrl('zh-cn', 'download') },
                 { label: '功能特性', slug: 'zh-cn/features' },
+                { label: 'Nextcloud 兼容性', slug: 'zh-cn/nextcloud-compatibility' },
                 { label: '访问方式与文件操作', slug: 'zh-cn/file-management' },
                 { label: '安装为系统服务', slug: 'zh-cn/install-service' },
                 { label: '重置管理员密码', slug: 'zh-cn/get-admin-passwd' },
@@ -80,15 +83,16 @@ export default defineConfig({
           sidebar: [
             {
               label: 'Volver a FileUni',
-              link: 'https://fileuni.com/es/',
+              link: getSiteUrl('es'),
             },
             {
               label: 'Documentación',
               items: [
                 { label: 'Guía rápida', slug: 'es/quickstart' },
                 { label: 'Requisitos del sistema', slug: 'es/system-requirements' },
-                { label: 'Descargar FileUni', link: 'https://fileuni.com/es/download' },
+                { label: 'Descargar FileUni', link: getSiteUrl('es', 'download') },
                 { label: 'Funciones', slug: 'es/features' },
+                { label: 'Compatibilidad con Nextcloud', slug: 'es/nextcloud-compatibility' },
                 { label: 'Acceso y operaciones de archivos', slug: 'es/file-management' },
                 { label: 'Instalar como servicio', slug: 'es/install-service' },
                 { label: 'Restablecer contraseña de admin', slug: 'es/get-admin-passwd' },
@@ -101,14 +105,15 @@ export default defineConfig({
           label: '🇩🇪 Deutsch',
           lang: 'de',
           sidebar: [
-            { label: 'Zurück zu FileUni', link: 'https://fileuni.com/de/' },
+            { label: 'Zurück zu FileUni', link: getSiteUrl('de') },
             {
               label: 'Dokumentation',
               items: [
                 { label: 'Schnellstart', slug: 'de/quickstart' },
                 { label: 'Systemanforderungen', slug: 'de/system-requirements' },
-                { label: 'FileUni herunterladen', link: 'https://fileuni.com/de/download' },
+                { label: 'FileUni herunterladen', link: getSiteUrl('de', 'download') },
                 { label: 'Funktionen', slug: 'de/features' },
+                { label: 'Nextcloud-Kompatibilität', slug: 'de/nextcloud-compatibility' },
                 { label: 'Zugriff und Dateioperationen', slug: 'de/file-management' },
                 { label: 'Als Dienst installieren', slug: 'de/install-service' },
                 { label: 'Admin-Passwort zurücksetzen', slug: 'de/get-admin-passwd' },
@@ -121,14 +126,15 @@ export default defineConfig({
           label: '🇫🇷 Français',
           lang: 'fr',
           sidebar: [
-            { label: 'Retour à FileUni', link: 'https://fileuni.com/fr/' },
+            { label: 'Retour à FileUni', link: getSiteUrl('fr') },
             {
               label: 'Documentation',
               items: [
                 { label: 'Démarrage rapide', slug: 'fr/quickstart' },
                 { label: 'Configuration requise', slug: 'fr/system-requirements' },
-                { label: 'Télécharger FileUni', link: 'https://fileuni.com/fr/download' },
+                { label: 'Télécharger FileUni', link: getSiteUrl('fr', 'download') },
                 { label: 'Fonctionnalités', slug: 'fr/features' },
+                { label: 'Compatibilité Nextcloud', slug: 'fr/nextcloud-compatibility' },
                 { label: 'Accès et opérations sur les fichiers', slug: 'fr/file-management' },
                 { label: 'Installer en tant que service', slug: 'fr/install-service' },
                 { label: 'Réinitialiser le mot de passe admin', slug: 'fr/get-admin-passwd' },
@@ -141,14 +147,15 @@ export default defineConfig({
           label: '🇷🇺 Русский',
           lang: 'ru',
           sidebar: [
-            { label: 'Вернуться на FileUni', link: 'https://fileuni.com/ru/' },
+            { label: 'Вернуться на FileUni', link: getSiteUrl('ru') },
             {
               label: 'Документация',
               items: [
                 { label: 'Быстрый старт', slug: 'ru/quickstart' },
                 { label: 'Системные требования', slug: 'ru/system-requirements' },
-                { label: 'Скачать FileUni', link: 'https://fileuni.com/ru/download' },
+                { label: 'Скачать FileUni', link: getSiteUrl('ru', 'download') },
                 { label: 'Возможности', slug: 'ru/features' },
+                { label: 'Совместимость с Nextcloud', slug: 'ru/nextcloud-compatibility' },
                 { label: 'Доступ и операции с файлами', slug: 'ru/file-management' },
                 { label: 'Установка как сервис', slug: 'ru/install-service' },
                 { label: 'Сброс пароля администратора', slug: 'ru/get-admin-passwd' },
@@ -161,14 +168,15 @@ export default defineConfig({
           label: '🇯🇵 日本語',
           lang: 'ja',
           sidebar: [
-            { label: 'FileUni に戻る', link: 'https://fileuni.com/ja/' },
+            { label: 'FileUni に戻る', link: getSiteUrl('ja') },
             {
               label: 'ドキュメント',
               items: [
                 { label: 'クイックスタート', slug: 'ja/quickstart' },
                 { label: 'システム要件', slug: 'ja/system-requirements' },
-                { label: 'FileUni をダウンロード', link: 'https://fileuni.com/ja/download' },
+                { label: 'FileUni をダウンロード', link: getSiteUrl('ja', 'download') },
                 { label: '機能', slug: 'ja/features' },
+                { label: 'Nextcloud 互換性', slug: 'ja/nextcloud-compatibility' },
                 { label: 'アクセスとファイル操作', slug: 'ja/file-management' },
                 { label: 'サービスとしてインストール', slug: 'ja/install-service' },
                 { label: '管理者パスワードをリセット', slug: 'ja/get-admin-passwd' },
