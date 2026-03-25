@@ -29,7 +29,7 @@ Das genaue Client-Verhalten kann je nach Konfiguration, aktivierten Modulen und 
 | Freigaben | Freigabe-bezogene Funktionen | In Entwicklung |
 | Medien | Medien-Navigation und Vorschau | Verfügbar |
 | Chat | Chat-Funktion | Geplant |
-| Notes | Notizen-Funktion | Geplant |
+| Notes | Notizen-Funktion | Verfügbar |
 
 ## Statusangaben
 

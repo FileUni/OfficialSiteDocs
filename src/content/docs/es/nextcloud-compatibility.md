@@ -29,7 +29,7 @@ El comportamiento exacto del cliente puede variar según la configuración, los 
 | Comparticiones | Funcionalidades relacionadas con compartir | En desarrollo |
 | Medios | Navegación y vista previa de medios | Disponible |
 | Chat | Funcionalidad de chat | Planificado |
-| Notes | Funcionalidad de notas | Planificado |
+| Notes | Funcionalidad de notas | Disponible |
 
 ## Estados
 

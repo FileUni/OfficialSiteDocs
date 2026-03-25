@@ -29,7 +29,7 @@ Le comportement exact du client peut varier selon la configuration, les modules 
 | Partages | Fonctionnalités liées au partage | En développement |
 | Médias | Navigation et prévisualisation des médias | Disponible |
 | Chat | Fonctionnalité de chat | Planifié |
-| Notes | Fonctionnalité de notes | Planifié |
+| Notes | Fonctionnalité de notes | Disponible |
 
 ## Statuts
 

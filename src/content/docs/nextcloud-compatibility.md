@@ -29,7 +29,7 @@ Actual client behavior may vary depending on your configuration, enabled modules
 | Shares | Sharing-related workflows | In progress |
 | Media | Media browsing and preview | Available |
 | Chat | Chat capability | Planned |
-| Notes | Notes capability | Planned |
+| Notes | Notes capability | Available |
 
 ## Status Labels
 
