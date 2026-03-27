@@ -20,6 +20,10 @@ Environment:
   FILEUNI_INSTALL_DIR        Installation directory
   FILEUNI_WITH_LUCI          On OpenWrt: auto | true | false
   FILEUNI_RELEASES_JSON_URL  Override public releases JSON URL
+
+Note:
+  install.sh supports mutable Linux, OpenWrt, macOS, and FreeBSD hosts.
+  On immutable Linux systems such as NixOS, use the platform-native flow instead.
 EOF
 }
 
@@ -95,6 +99,44 @@ is_openwrt() {
   fi
 
   return 1
+}
+
+is_immutable_linux() {
+  if [ "$(uname -s)" != "Linux" ]; then
+    return 1
+  fi
+
+  if [ -e /run/current-system ]; then
+    return 0
+  fi
+
+  if [ -r /etc/os-release ]; then
+    if grep -qi '^ID=.*nixos.*$' /etc/os-release; then
+      return 0
+    fi
+
+    if grep -qi '^VARIANT_ID=.*immutable.*$' /etc/os-release; then
+      return 0
+    fi
+  fi
+
+  return 1
+}
+
+ensure_supported_host() {
+  os_name="$1"
+
+  if [ "$os_name" != "linux" ]; then
+    return
+  fi
+
+  if ! is_immutable_linux; then
+    return
+  fi
+
+  echo "install.sh does not support immutable Linux systems such as NixOS." >&2
+  echo "Use the platform-native flow instead. For NixOS, install FileUni with Nix." >&2
+  exit 1
 }
 
 detect_os() {
@@ -496,6 +538,7 @@ install_openwrt_packages() {
 }
 
 OS_NAME="$(detect_os)"
+ensure_supported_host "$OS_NAME"
 ARCH_NAME="$(detect_arch)"
 LIBC_NAME="$(detect_libc)"
 
