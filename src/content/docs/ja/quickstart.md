@@ -12,7 +12,7 @@ order: 2
 
 FileUni には現在 2 つのメインエントリポイントがあります：
 
-- `fileuni` CLI：サーバーの起動、セットアップモードの実行、サービスの管理、バックアップのエクスポート/インポートに使用されます。
+- `fileuni` CLI：サーバーの起動、必要に応じたセットアップウィザードの起動、サービスの管理、バックアップのエクスポート/インポートに使用されます。
 - `fileuni-gui`：同じコアライブラリをラップする Tauri デスクトップラッパーで、サービス制御、設定編集、同じ初回実行セットアップ動作を備えています。
 
 [ダウンロードページ](https://fileuni.com/ja/download)から適切なパッケージを入手してください。
@@ -22,22 +22,21 @@ FileUni には現在 2 つのメインエントリポイントがあります：
 
 ## 2. ランタイムディレクトリを準備
 
-現在のプロジェクトはデュアルディレクトリランタイムモデルを使用しています：
+現在のプロジェクトは単一のランタイムディレクトリを使用します：
 
-- `-c` / `--config-date`：設定ディレクトリ
-- `-A` / `--AppDataDir`：アプリケーションデータディレクトリ
+- `-R` / `--runtime-dir`：設定、install lock、データベース、キャッシュ、その他のランタイムファイルをまとめて保存する単一のランタイムディレクトリ
+- `--service-workdir`：`service install` でのみ使える同じランタイムディレクトリの別名
 
 固定設定ファイルパスは：
 
 ```text
-{config-dir}/config.toml
+{runtime-dir}/config.toml
 ```
 
 ランタイムレイアウトの例：
 
 ```text
-./config
-./appdata
+./runtime
 ```
 
 サービスインストールの場合は、相対パスではなく絶対パスを使用してください。
@@ -60,25 +59,25 @@ FileUni は環境変数を設定ソースとして使用しません。ランタ
 
 ## 4. FileUni を起動する
 
-`{config-dir}/install.lock` がない場合、CLI と GUI の両方が通常の起動前にセットアップウィザードを開きます。
+`{runtime-dir}/install.lock` がない場合、CLI と GUI の両方が通常の起動前にセットアップウィザードを開きます。
 
-あとで再びセットアップウィザードを開きたい場合は、`{config-dir}/install.lock` を削除してから通常どおり FileUni を起動してください：
+あとで再びセットアップウィザードを開きたい場合は、`{runtime-dir}/install.lock` を削除してから通常どおり FileUni を起動してください：
 
 ```bash
-rm -f ./config/install.lock
-./fileuni -c ./config -A ./appdata
+rm -f ./runtime/install.lock
+./fileuni --runtime-dir ./runtime
 ```
 
 完全なサーバーを起動せずに設定を検証するには：
 
 ```bash
-./fileuni --configtest -c ./config -A ./appdata
+./fileuni --configtest --runtime-dir ./runtime
 ```
 
 通常どおりサーバーを起動するには：
 
 ```bash
-./fileuni -c ./config -A ./appdata
+./fileuni --runtime-dir ./runtime
 ```
 
 ## 5. Web インターフェースを開く

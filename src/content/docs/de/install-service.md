@@ -28,18 +28,18 @@ fileuni service <ACTION> [OPTIONS]
 
 ## Schnellinstallation
 
-Um FileUni als Dienst zu installieren, müssen Sie beide Laufzeitverzeichnisse explizit angeben. Der Installationsschritt speichert diese Pfade in der Dienstdefinition.
+Um FileUni als Dienst zu installieren, sollten Sie ein einzelnes Laufzeitverzeichnis angeben. Der Installationsschritt speichert diesen Pfad in der Dienstdefinition.
 
 ```bash
 # Beispiel für Linux/macOS
-# Verwenden Sie -c für das Konfigurationsverzeichnis und -A für das App-Datenverzeichnis
-sudo ./fileuni -c /etc/fileuni -A /var/lib/fileuni service install
+# Verwenden Sie --runtime-dir für das gemeinsame Laufzeitverzeichnis
+sudo ./fileuni --runtime-dir /srv/fileuni service install
 
 # Beispiel für Windows (Als Administrator ausführen)
-.\fileuni.exe -c C:\FileUni\config -A C:\FileUni\data service install
+.\fileuni.exe --runtime-dir C:\FileUni\runtime service install
 ```
 
-> Wichtig: Verwenden Sie immer absolute Pfade für `-c` und `-A` bei der Installation als Dienst. Dies stellt sicher, dass der Dienst seine Daten beim Systemneustart korrekt findet.
+> Wichtig: Verwenden Sie bei der Installation als Dienst immer einen absoluten Pfad für `--runtime-dir`. So kann der Dienst seine Daten nach einem Neustart korrekt wiederfinden.
 
 ## Erweiterte Dienstoptionen
 
@@ -49,16 +49,16 @@ FileUnis `service install` unterstützt zusätzliche Flags für feinkörnige Kon
 - `--service-user <USER>`: Angeben, welcher OS-Benutzer den Prozess ausführen soll (Nur System-Ebene).
 - `--service-level <system|user>`: Wählen zwischen einem globalen Systemdienst oder einem Benutzerdienst.
 - `--service-autostart <true|false>`: Automatischen Start beim Booten aktivieren oder deaktivieren.
-- `--service-workdir <DIR>`: Ein benutzerdefiniertes Arbeitsverzeichnis setzen.
+- `--service-workdir <DIR>`: Alias von `--runtime-dir`, nur für `service install`.
 
 ### Beispiel: Benutzerdefiniertes Dienst-Label
 
 ```bash
-sudo ./fileuni -c /etc/fileuni -A /data service install --service-label custom.fileuni.node
+sudo ./fileuni --runtime-dir /srv/fileuni service install --service-label custom.fileuni.node
 ```
 
 ## Fehlerbehebung
 
 - Berechtigungen: Die Installation von System-Diensten erfordert typischerweise Root- (Linux/macOS) oder Administrator- (Windows) Rechte.
-- Pfade: `service install` erfordert gültige `-c/--config-date` und `-A/--AppDataDir` Pfade.
+- Pfade: `service install` erfordert einen gultigen `--runtime-dir` Pfad.
 - Protokolle: Wenn der Dienst nicht startet, überprüfen Sie Systemprotokolle wie `journalctl` unter Linux oder die Ereignisanzeige unter Windows.

@@ -28,20 +28,20 @@ fileuni service <ACCION> [OPCIONES]
 
 ## Instalacion rapida
 
-Al instalar como servicio, especifica directorio de configuracion y de datos con rutas absolutas.
+Al instalar como servicio, especifica un unico directorio de ejecucion con una ruta absoluta.
 
 ```bash
-sudo ./fileuni -c /etc/fileuni -A /var/lib/fileuni service install
+sudo ./fileuni --runtime-dir /srv/fileuni service install
 ```
 
 En Windows (como Administrador):
 
 ```bash
-.\fileuni.exe -c C:\FileUni\config -A C:\FileUni\data service install
+.\fileuni.exe --runtime-dir C:\FileUni\runtime service install
 ```
 
 ## Solucion de problemas
 
 - Permisos: normalmente requiere Root/Administrador.
-- Rutas: `-c` y `-A` deben ser validas.
+- Rutas: `service install` requiere un `--runtime-dir` valido.
 - Logs: revisa `journalctl` (Linux) o Event Viewer (Windows).

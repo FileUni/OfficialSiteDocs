@@ -14,7 +14,7 @@ FileUni est une plateforme de fichiers basée sur Rust avec :
 - Une interface Web servie depuis `/`
 - Un document OpenAPI exposé à `/api/v1/openapi.json`
 - Des protocoles d'accès optionnels tels que WebDAV, S3, FTP et SFTP
-- Des répertoires d'exécution séparés en un répertoire de configuration et un répertoire de données d'application
+- Un seul répertoire d'exécution qui stocke à la fois la configuration et les données d'exécution
 
 ## Liens rapides
 

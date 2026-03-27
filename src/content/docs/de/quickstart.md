@@ -12,7 +12,7 @@ Diese Anleitung basiert auf dem aktuellen Workspace-Layout und Laufzeitmodell.
 
 FileUni hat derzeit zwei Haupteinstiegspunkte:
 
-- `fileuni` CLI: Wird verwendet, um den Server zu starten, den Setup-Modus auszuführen, Dienste zu verwalten und Backups zu exportieren oder zu importieren.
+- `fileuni` CLI: Wird verwendet, um den Server zu starten, den Setup-Assistenten bei Bedarf zu öffnen, Dienste zu verwalten und Backups zu exportieren oder zu importieren.
 - `fileuni-gui`: Ein Tauri-Desktop-Wrapper um dieselbe Kernbibliothek, mit Dienststeuerung, Konfigurationsbearbeitung und demselben Erst-Setup-Verhalten.
 
 Holen Sie sich das entsprechende Paket von der [Download-Seite](https://fileuni.com/de/download).
@@ -20,24 +20,23 @@ Holen Sie sich das entsprechende Paket von der [Download-Seite](https://fileuni.
 - Für die Server-Bereitstellung wählen Sie das CLI-Paket.
 - Für die lokale Desktop-Nutzung wählen Sie das GUI-Paket.
 
-## 2. Bereiten Sie Laufzeitverzeichnisse vor
+## 2. Bereiten Sie das Laufzeitverzeichnis vor
 
-Das aktuelle Projekt verwendet ein Zwei-Verzeichnis-Laufzeitmodell:
+Das aktuelle Projekt verwendet jetzt ein einzelnes Laufzeitverzeichnis:
 
-- `-c` / `--config-date`: Konfigurationsverzeichnis
-- `-A` / `--AppDataDir`: Anwendungsdatenverzeichnis
+- `-R` / `--runtime-dir`: gemeinsames Laufzeitverzeichnis für Konfiguration, Installationsstatus, Datenbank, Cache und andere Laufzeitdateien
+- `--service-workdir`: Nur für `service install` verfügbarer Alias desselben Laufzeitverzeichnisses
 
 Der feste Konfigurationsdateipfad ist:
 
 ```text
-{config-dir}/config.toml
+{runtime-dir}/config.toml
 ```
 
 Beispiel-Laufzeitlayout:
 
 ```text
-./config
-./appdata
+./runtime
 ```
 
 Verwenden Sie für die Service-Installation absolute Pfade anstelle von relativen Pfaden.
@@ -60,25 +59,25 @@ Der normale Start erstellt keine privilegierten Konten automatisch. Wenn das Adm
 
 ## 4. Starten Sie FileUni
 
-Wenn `{config-dir}/install.lock` fehlt, öffnen sowohl CLI als auch GUI vor dem normalen Start den Setup-Assistenten.
+Wenn `{runtime-dir}/install.lock` fehlt, öffnen sowohl CLI als auch GUI vor dem normalen Start den Setup-Assistenten.
 
-Wenn Sie den Setup-Assistenten später erneut öffnen möchten, löschen Sie `{config-dir}/install.lock` und starten Sie FileUni dann normal:
+Wenn Sie den Setup-Assistenten später erneut öffnen möchten, löschen Sie `{runtime-dir}/install.lock` und starten Sie FileUni dann normal:
 
 ```bash
-rm -f ./config/install.lock
-./fileuni -c ./config -A ./appdata
+rm -f ./runtime/install.lock
+./fileuni --runtime-dir ./runtime
 ```
 
 Um die Konfiguration ohne Starten des vollständigen Servers zu validieren:
 
 ```bash
-./fileuni --configtest -c ./config -A ./appdata
+./fileuni --configtest --runtime-dir ./runtime
 ```
 
 Um den Server normal zu starten:
 
 ```bash
-./fileuni -c ./config -A ./appdata
+./fileuni --runtime-dir ./runtime
 ```
 
 ## 5. Öffnen Sie die Weboberfläche

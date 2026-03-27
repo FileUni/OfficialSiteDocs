@@ -7,7 +7,7 @@ description: Administrator-Zugriff durch erneutes Aufrufen des Setup-Assistenten
 
 Wenn Sie das eingebaute Administrator-Passwort verlieren, ist der unterstützte Wiederherstellungspfad nicht mehr ein dediziertes CLI-Reset-Flag.
 
-FileUni behandelt `{config-date}/install.lock` jetzt als Installations-Abschluss-Marker:
+FileUni behandelt `{runtime-dir}/install.lock` jetzt als Installations-Abschluss-Marker:
 
 - Wenn `install.lock` existiert, startet FileUni normal.
 - Wenn `install.lock` fehlt, blockieren sowohl CLI als auch GUI den normalen Start und erzwingen den Setup-Assistenten.
@@ -18,34 +18,34 @@ Das bedeutet, dass die Administrator-Passwort-Wiederherstellung jetzt durch erne
 ## Wiederherstellungsschritte
 
 1. Stoppen Sie den laufenden FileUni-Dienst oder die Desktop-Instanz.
-2. Lokalisieren Sie Ihr Konfigurationsverzeichnis.
-3. Löschen Sie `{config-date}/install.lock`.
+2. Lokalisieren Sie Ihr Laufzeitverzeichnis.
+3. Löschen Sie `{runtime-dir}/install.lock`.
 4. Starten Sie FileUni erneut über CLI oder GUI.
 5. FileUni tritt automatisch in den Setup-Assistenten ein.
 6. Setzen Sie im Setup-Assistenten ein neues Administrator-Passwort und schließen Sie das Setup ab.
 
 ## Beispiel
 
-Wenn Ihr Konfigurationsverzeichnis `/etc/fileuni` ist, löschen Sie diese Datei:
+Wenn Ihr Laufzeitverzeichnis `/srv/fileuni` ist, löschen Sie diese Datei:
 
 ```bash
-rm /etc/fileuni/install.lock
+rm /srv/fileuni/install.lock
 ```
 
 Starten Sie dann FileUni neu:
 
 ```bash
-fileuni -c /etc/fileuni -A /var/lib/fileuni
+fileuni --runtime-dir /srv/fileuni
 ```
 
-Oder öffnen Sie die Desktop-App erneut und wählen Sie dieselben Laufzeitverzeichnisse.
+Oder öffnen Sie die Desktop-App erneut und wählen Sie dasselbe Laufzeitverzeichnis.
 
 ## Wichtige Hinweise
 
 - Das Löschen von `install.lock` und Neustarten ist effektiv der System-Reset-Einstieg für diese Bereitstellung.
 - Dies löscht nicht Ihre vorhandene Datenbank oder App-Daten von selbst, aber es zwingt Sie zurück durch den Initialisierungs-Flow.
-- Verwenden Sie dasselbe Konfigurationsverzeichnis und App-Datenverzeichnis wie die Bereitstellung, die Sie wiederherstellen.
-- Wenn Sie auf ein anderes Laufzeitverzeichnis-Paar zeigen, initialisieren Sie möglicherweise versehentlich eine andere Bereitstellung.
+- Verwenden Sie dasselbe Laufzeitverzeichnis wie die Bereitstellung, die Sie wiederherstellen.
+- Wenn Sie auf ein anderes Laufzeitverzeichnis zeigen, initialisieren Sie möglicherweise versehentlich eine andere Bereitstellung.
 
 ## Fehlerbehebung
 
@@ -53,11 +53,11 @@ Oder öffnen Sie die Desktop-App erneut und wählen Sie dieselben Laufzeitverzei
 
 Überprüfen Sie diese Punkte:
 
-- Sie haben die richtige Datei gelöscht: `{config-date}/install.lock`
+- Sie haben die richtige Datei gelöscht: `{runtime-dir}/install.lock`
 - Sie haben dieselbe Bereitstellung neu gestartet
-- Die durch `-c/--config-date` und `-A/--AppDataDir` übergebenen Laufzeitverzeichnisse sind korrekt
+- Das durch `-R/--runtime-dir` übergebene Laufzeitverzeichnis ist korrekt
 
-### Ich kenne mein Konfigurationsverzeichnis nicht
+### Ich kenne mein Laufzeitverzeichnis nicht
 
 Sie können es wiederherstellen aus:
 

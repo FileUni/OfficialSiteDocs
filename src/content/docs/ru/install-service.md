@@ -28,18 +28,18 @@ fileuni service <ACTION> [OPTIONS]
 
 ## Быстрая установка
 
-Чтобы установить FileUni как сервис, вы должны явно указать оба каталога выполнения. Шаг установки сохраняет эти пути в определении сервиса.
+Чтобы установить FileUni как сервис, нужно явно указать один каталог выполнения. Шаг установки сохраняет этот путь в определении сервиса.
 
 ```bash
 # Пример для Linux/macOS
-# Используйте -c для каталога конфигурации и -A для каталога данных приложения
-sudo ./fileuni -c /etc/fileuni -A /var/lib/fileuni service install
+# Используйте --runtime-dir для единого каталога выполнения
+sudo ./fileuni --runtime-dir /srv/fileuni service install
 
 # Пример для Windows (Запуск от имени администратора)
-.\fileuni.exe -c C:\FileUni\config -A C:\FileUni\data service install
+.\fileuni.exe --runtime-dir C:\FileUni\runtime service install
 ```
 
-> Важно: Всегда используйте абсолютные пути для `-c` и `-A` при установке как сервис. Это гарантирует, что сервис сможет правильно найти свои данные при перезагрузке системы.
+> Важно: При установке как сервиса всегда используйте абсолютный путь для `--runtime-dir`. Это гарантирует, что сервис сможет правильно найти свои данные после перезагрузки системы.
 
 ## Расширенные опции сервиса
 
@@ -49,16 +49,16 @@ sudo ./fileuni -c /etc/fileuni -A /var/lib/fileuni service install
 - `--service-user <USER>`: Указать, какой пользователь ОС должен запускать процесс (Только на уровне системы).
 - `--service-level <system|user>`: Выбрать между глобальным системным сервисом или пользовательским сервисом.
 - `--service-autostart <true|false>`: Включить или отключить автоматический запуск при загрузке.
-- `--service-workdir <DIR>`: Установить пользовательский рабочий каталог.
+- `--service-workdir <DIR>`: Алиас `--runtime-dir`, доступный только для `service install`.
 
 ### Пример: Пользовательская метка сервиса
 
 ```bash
-sudo ./fileuni -c /etc/fileuni -A /data service install --service-label custom.fileuni.node
+sudo ./fileuni --runtime-dir /srv/fileuni service install --service-label custom.fileuni.node
 ```
 
 ## Устранение неполадок
 
 - Разрешения: Для установки системных сервисов обычно требуются права Root (Linux/macOS) или Administrator (Windows).
-- Пути: `service install` требует валидные пути `-c/--config-date` и `-A/--AppDataDir`.
+- Пути: `service install` требует корректный путь `--runtime-dir`.
 - Логи: Если сервис не запускается, проверьте системные логи, такие как `journalctl` на Linux или Просмотр событий на Windows.

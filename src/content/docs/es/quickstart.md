@@ -8,17 +8,17 @@ order: 2
 
 Esta guia describe un arranque local minimo del servidor FileUni y como abrir la interfaz web.
 
-## 1. Preparar directorios
+## 1. Preparar el directorio de ejecucion
 
-FileUni usa dos directorios en tiempo de ejecucion:
+FileUni ahora usa un unico directorio de ejecucion para configuracion y datos.
 
-- Directorio de configuracion (flag `-c`)
-- Directorio de datos de la app (flag `-A`)
+- `-R` / `--runtime-dir`: directorio unico para configuracion, install lock, base de datos, cache y otros archivos de ejecucion
+- `--service-workdir`: alias del mismo directorio solo para `service install`
 
 Ejemplo:
 
 ```bash
-mkdir -p ./config ./appdata
+mkdir -p ./runtime
 ```
 
 ## 2. Validar configuracion
@@ -26,13 +26,24 @@ mkdir -p ./config ./appdata
 Para validar la configuracion sin iniciar el servidor completo:
 
 ```bash
-./fileuni --configtest -c ./config -A ./appdata
+./fileuni --configtest --runtime-dir ./runtime
 ```
 
 ## 3. Iniciar el servidor
 
+Si falta `config.toml` o `{runtime-dir}/install.lock`, FileUni abrira el asistente de configuracion antes del arranque normal.
+
+Para reabrir el asistente mas tarde, elimina `{runtime-dir}/install.lock` y vuelve a iniciar FileUni:
+
 ```bash
-./fileuni -c ./config -A ./appdata
+rm -f ./runtime/install.lock
+./fileuni --runtime-dir ./runtime
+```
+
+Para iniciar normalmente:
+
+```bash
+./fileuni --runtime-dir ./runtime
 ```
 
 ## 4. Abrir la interfaz web

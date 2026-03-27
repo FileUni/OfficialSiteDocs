@@ -28,18 +28,18 @@ fileuni service <ACTION> [OPTIONS]
 
 ## Quick Installation
 
-To install FileUni as a service, you must explicitly specify both runtime directories. The install step persists these paths into the service definition.
+To install FileUni as a service, you should specify one runtime directory. The install step persists that single path into the service definition.
 
 ```bash
 # Example for Linux/macOS
-# Use -c for config directory and -A for app data directory
-sudo ./fileuni -c /etc/fileuni -A /var/lib/fileuni service install
+# Use --runtime-dir for the merged runtime directory
+sudo ./fileuni --runtime-dir /srv/fileuni service install
 
 # Example for Windows (Run as Administrator)
-.\fileuni.exe -c C:\FileUni\config -A C:\FileUni\data service install
+.\fileuni.exe --runtime-dir C:\FileUni\runtime service install
 ```
 
-> Important: Always use absolute paths for `-c` and `-A` when installing as a service. This ensures the service can correctly locate its data upon system reboot.
+> Important: Always use an absolute path for `--runtime-dir` when installing as a service. This ensures the service can correctly locate its data upon system reboot.
 
 ## Advanced Service Options
 
@@ -49,16 +49,16 @@ FileUni's `service install` supports additional flags for fine-grained control:
 - `--service-user <USER>`: Specify which OS user should run the process (System-level only).
 - `--service-level <system|user>`: Choose between a global system service or a per-user service.
 - `--service-autostart <true|false>`: Enable or disable automatic start on boot.
-- `--service-workdir <DIR>`: Set a custom working directory.
+- `--service-workdir <DIR>`: Service-install-only alias of `--runtime-dir`.
 
 ### Example: Custom Service Label
 
 ```bash
-sudo ./fileuni -c /etc/fileuni -A /data service install --service-label custom.fileuni.node
+sudo ./fileuni --runtime-dir /srv/fileuni service install --service-label custom.fileuni.node
 ```
 
 ## Troubleshooting
 
 - Permissions: Installing system-level services typically requires Root (Linux/macOS) or Administrator (Windows) privileges.
-- Paths: `service install` requires valid `-c/--config-date` and `-A/--AppDataDir` paths.
+- Paths: `service install` requires a valid `--runtime-dir` path.
 - Logs: If the service fails to start, check system logs such as `journalctl` on Linux or Event Viewer on Windows.

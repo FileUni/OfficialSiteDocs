@@ -42,7 +42,7 @@ La disponibilidad exacta de algunas funciones depende de tu configuracion y del 
 El modelo de ejecucion es explicito:
 
 - La configuracion viene de `config.toml`, no de variables de entorno
-- Los directorios en ejecucion se separan en config y datos
+- El estado de ejecucion vive en un unico directorio que guarda configuracion y datos
 - Campos requeridos faltantes rechazan el arranque
 - La instalacion como servicio persiste los directorios elegidos
 
@@ -50,7 +50,7 @@ El modelo de ejecucion es explicito:
 
 Acciones de mantenimiento incluidas:
 
-- Modo de setup para configuracion inicial
+- Asistente de configuracion para el primer arranque
 - Validacion de config con `--configtest`
 - Instalacion y gestion del servicio del sistema
 - Recuperacion de contrasena de admin mediante el asistente de configuracion

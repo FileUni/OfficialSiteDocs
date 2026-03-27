@@ -42,7 +42,7 @@ La disponibilité exacte de certaines fonctionnalités dépend de votre configur
 Le modèle d'exécution actuel est intentionnellement explicite :
 
 - La configuration provient de `config.toml`, pas des variables d'environnement
-- Les répertoires d'exécution sont séparés en chemins de configuration et de données d'application
+- L'état d'exécution repose sur un seul répertoire qui regroupe configuration et données
 - Les champs de configuration obligatoires manquants rejettent le démarrage au lieu de revenir silencieusement aux valeurs par défaut
 - L'installation de service persiste les répertoires d'exécution choisis
 
@@ -53,7 +53,7 @@ Les actions de maintenance intégrées actuelles incluent :
 - Mode de configuration pour le premier démarrage
 - Validation de configuration avec `--configtest`
 - Installation, désinstallation, démarrage, arrêt, statut et rechargement du service système
-- Réinitialisation du mot de passe admin depuis la ligne de commande
+- Récupération du mot de passe admin en rouvrant l'assistant de configuration
 - Export et import de sauvegarde depuis la ligne de commande
 
 ## Positionnement léger

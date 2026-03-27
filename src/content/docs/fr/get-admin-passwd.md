@@ -7,7 +7,7 @@ description: Récupérer l'accès administrateur en réentrant dans l'assistant 
 
 Si vous perdez le mot de passe administrateur intégré, le chemin de récupération supporté n'est plus un flag de reset CLI dédié.
 
-FileUni traite maintenant `{config-date}/install.lock` comme marqueur de fin d'installation :
+FileUni traite maintenant `{runtime-dir}/install.lock` comme marqueur de fin d'installation :
 
 - Si `install.lock` existe, FileUni démarre normalement.
 - Si `install.lock` est manquant, le CLI et le GUI bloquent le démarrage normal et forcent l'assistant de configuration.
@@ -18,34 +18,34 @@ Cela signifie que la récupération du mot de passe administrateur se fait maint
 ## Étapes de récupération
 
 1. Arrêtez le service FileUni en cours d'exécution ou l'instance de bureau.
-2. Localisez votre répertoire de configuration.
-3. Supprimez `{config-date}/install.lock`.
+2. Localisez votre répertoire d'exécution.
+3. Supprimez `{runtime-dir}/install.lock`.
 4. Démarrez FileUni à nouveau depuis le CLI ou le GUI.
 5. FileUni entrera automatiquement dans l'assistant de configuration.
 6. Dans l'assistant de configuration, définissez un nouveau mot de passe administrateur et terminez la configuration.
 
 ## Exemple
 
-Si votre répertoire de configuration est `/etc/fileuni`, supprimez ce fichier :
+Si votre répertoire d'exécution est `/srv/fileuni`, supprimez ce fichier :
 
 ```bash
-rm /etc/fileuni/install.lock
+rm /srv/fileuni/install.lock
 ```
 
 Puis redémarrez FileUni :
 
 ```bash
-fileuni -c /etc/fileuni -A /var/lib/fileuni
+fileuni --runtime-dir /srv/fileuni
 ```
 
-Ou rouvrez l'application de bureau et sélectionnez les mêmes répertoires d'exécution.
+Ou rouvrez l'application de bureau et sélectionnez le même répertoire d'exécution.
 
 ## Notes importantes
 
 - Supprimer `install.lock` et redémarrer est effectivement le point d'entrée de réinitialisation système pour ce déploiement.
-- Cela ne supprime pas votre base de données existante ou les données d'application par lui-même, mais il vous force à repasser par le flux d'initialisation.
-- Utilisez le même répertoire de configuration et répertoire de données d'application que le déploiement que vous récupérez.
-- Si vous pointez vers une paire de répertoires d'exécution différente, vous risquez d'initialiser un déploiement différent par erreur.
+- Cela ne supprime pas votre base de données existante ni vos données par lui-même, mais cela vous force à repasser par le flux d'initialisation.
+- Utilisez le même répertoire d'exécution que le déploiement que vous récupérez.
+- Si vous pointez vers un autre répertoire d'exécution, vous risquez d'initialiser un déploiement différent par erreur.
 
 ## Dépannage
 
@@ -53,11 +53,11 @@ Ou rouvrez l'application de bureau et sélectionnez les mêmes répertoires d'ex
 
 Vérifiez ces éléments :
 
-- Vous avez supprimé le bon fichier : `{config-date}/install.lock`
+- Vous avez supprimé le bon fichier : `{runtime-dir}/install.lock`
 - Vous avez redémarré le même déploiement
-- Les répertoires d'exécution passés via `-c/--config-date` et `-A/--AppDataDir` sont corrects
+- Le répertoire d'exécution passé via `-R/--runtime-dir` est correct
 
-### Je ne connais pas mon répertoire de configuration
+### Je ne connais pas mon répertoire d'exécution
 
 Vous pouvez le récupérer depuis :
 

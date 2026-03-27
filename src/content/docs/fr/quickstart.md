@@ -12,7 +12,7 @@ Ce guide est basé sur la structure actuelle de l'espace de travail et le modèl
 
 FileUni a actuellement deux points d'entrée principaux :
 
-- `fileuni` CLI : utilisé pour démarrer le serveur, exécuter le mode de configuration, gérer les services et exporter ou importer des sauvegardes.
+- `fileuni` CLI : utilisé pour démarrer le serveur, ouvrir l'assistant de configuration si nécessaire, gérer les services et exporter ou importer des sauvegardes.
 - `fileuni-gui` : un wrapper de bureau Tauri autour de la même bibliothèque de noyau, avec contrôle de service, édition de configuration et le même comportement de configuration au premier démarrage.
 
 Obtenez le paquet approprié sur la [page de téléchargement](https://fileuni.com/fr/download).
@@ -20,24 +20,23 @@ Obtenez le paquet approprié sur la [page de téléchargement](https://fileuni.c
 - Pour le déploiement serveur, choisissez le paquet CLI.
 - Pour l'utilisation locale sur ordinateur, choisissez le paquet GUI.
 
-## 2. Préparer les répertoires d'exécution
+## 2. Préparer le répertoire d'exécution
 
-Le projet actuel utilise un modèle d'exécution à deux répertoires :
+Le projet actuel utilise maintenant un seul répertoire d'exécution :
 
-- `-c` / `--config-date` : répertoire de configuration
-- `-A` / `--AppDataDir` : répertoire de données d'application
+- `-R` / `--runtime-dir` : répertoire d'exécution unique pour la configuration, le verrou d'installation, la base de données, le cache et les autres fichiers d'exécution
+- `--service-workdir` : alias de ce même répertoire d'exécution, uniquement pour `service install`
 
 Le chemin du fichier de configuration fixe est :
 
 ```text
-{config-dir}/config.toml
+{runtime-dir}/config.toml
 ```
 
 Exemple de structure de répertoires d'exécution :
 
 ```text
-./config
-./appdata
+./runtime
 ```
 
 Pour l'installation de service, utilisez des chemins absolus au lieu de chemins relatifs.
@@ -60,25 +59,25 @@ Le démarrage normal ne crée pas automatiquement de comptes privilégiés. Si l
 
 ## 4. Démarrer FileUni
 
-Si `{config-dir}/install.lock` est manquant, le CLI et le GUI ouvriront l'assistant de configuration avant le démarrage normal.
+Si `{runtime-dir}/install.lock` est manquant, le CLI et le GUI ouvriront l'assistant de configuration avant le démarrage normal.
 
-Si vous voulez rouvrir l'assistant plus tard, supprimez `{config-dir}/install.lock`, puis démarrez FileUni normalement :
+Si vous voulez rouvrir l'assistant plus tard, supprimez `{runtime-dir}/install.lock`, puis démarrez FileUni normalement :
 
 ```bash
-rm -f ./config/install.lock
-./fileuni -c ./config -A ./appdata
+rm -f ./runtime/install.lock
+./fileuni --runtime-dir ./runtime
 ```
 
 Pour valider la configuration sans démarrer le serveur complet :
 
 ```bash
-./fileuni --configtest -c ./config -A ./appdata
+./fileuni --configtest --runtime-dir ./runtime
 ```
 
 Pour démarrer le serveur normalement :
 
 ```bash
-./fileuni -c ./config -A ./appdata
+./fileuni --runtime-dir ./runtime
 ```
 
 ## 5. Ouvrir l'interface Web

@@ -55,18 +55,18 @@ Chat and Notes belong to the follow-up roadmap and should be presented as planne
 The current runtime model is intentionally explicit:
 
 - Configuration comes from `config.toml`, not environment variables
-- Runtime directories are separated into config and app data paths
+- Runtime state is anchored to one runtime directory that holds config and data together
 - Missing required config fields reject startup instead of silently falling back to defaults
-- Service installation persists the chosen runtime directories
+- Service installation persists the chosen runtime directory
 
 ## Operations and Maintenance
 
 Current built-in maintenance actions include:
 
-- Setup mode for first-run configuration
+- Setup wizard for first-run configuration
 - Config validation with `--configtest`
 - System service install, uninstall, start, stop, status, and reload
-- Admin password reset from the command line
+- Admin password recovery by reopening the setup wizard
 - Backup export and import from the command line
 
 ## Lightweight Positioning

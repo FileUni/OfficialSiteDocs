@@ -20,27 +20,26 @@ Get the appropriate package from the [download page](https://fileuni.com/downloa
 - For server deployment, choose the CLI package.
 - For local desktop use, choose the GUI package.
 
-## 2. Prepare Runtime Directories
+## 2. Prepare the Runtime Directory
 
-The current project uses a dual-directory runtime model:
+The current project now uses a single runtime directory:
 
-- `-c` / `--config-date`: configuration directory
-- `-A` / `--AppDataDir`: application data directory
+- `-R` / `--runtime-dir`: runtime directory for config, install lock, database, cache, and other runtime files
+- `--service-workdir`: service-install-only variant of the same runtime directory input
 
 The fixed configuration file path is:
 
 ```text
-{config-dir}/config.toml
+{runtime-dir}/config.toml
 ```
 
 Example runtime layout:
 
 ```text
-./config
-./appdata
+./runtime
 ```
 
-For service installation, use absolute paths instead of relative paths.
+For service installation, use an absolute runtime directory instead of a relative path.
 
 ## 3. Prepare the Services Referenced by Your Config
 
@@ -60,25 +59,25 @@ Normal startup does not auto-create privileged accounts. If the admin account is
 
 ## 4. Start FileUni
 
-If `{config-dir}/install.lock` is missing, both CLI and GUI will open the setup wizard before normal startup.
+If `{runtime-dir}/install.lock` is missing, both CLI and GUI will open the setup wizard before normal startup.
 
-To re-enter the setup wizard later, delete `{config-dir}/install.lock`, then start FileUni normally:
+To re-enter the setup wizard later, delete `{runtime-dir}/install.lock`, then start FileUni normally:
 
 ```bash
-rm -f ./config/install.lock
-./fileuni -c ./config -A ./appdata
+rm -f ./runtime/install.lock
+./fileuni --runtime-dir ./runtime
 ```
 
 To validate configuration without starting the full server:
 
 ```bash
-./fileuni --configtest -c ./config -A ./appdata
+./fileuni --configtest --runtime-dir ./runtime
 ```
 
 To start the server normally:
 
 ```bash
-./fileuni -c ./config -A ./appdata
+./fileuni --runtime-dir ./runtime
 ```
 
 ## 5. Open the Web UI

@@ -22,25 +22,24 @@ FileUni 目前主要有两个入口：
 
 ## 2. 准备运行目录
 
-当前项目采用双目录运行模型：
+当前项目已经收敛为单目录运行模型：
 
-- `-c` / `--config-date`：配置目录
-- `-A` / `--AppDataDir`：应用数据目录
+- `-R` / `--runtime-dir`：唯一运行目录，统一存放配置、安装锁、数据库、缓存和其他运行文件
+- `--service-workdir`：仅在 `service install` 场景下使用的同一运行目录参数
 
 固定配置文件位置为：
 
 ```text
-{config-dir}/config.toml
+{runtime-dir}/config.toml
 ```
 
 示例运行目录结构：
 
 ```text
-./config
-./appdata
+./runtime
 ```
 
-如果后续要安装成系统服务，请把这两个目录改成绝对路径。
+如果后续要安装成系统服务，请把运行目录改成绝对路径。
 
 ## 3. 准备 `config.toml` 里引用的依赖服务
 
@@ -52,7 +51,7 @@ FileUni 不允许把环境变量作为配置来源，运行参数都必须来自
 - KV 服务连接
 - VFS 所需的存储路径
 
-如果缺少 `config.toml` 或 `{config-dir}/install.lock`，FileUni 会进入设置向导。
+如果缺少 `config.toml` 或 `{runtime-dir}/install.lock`，FileUni 会进入设置向导。
 
 设置向导负责写入 `config.toml` 和 `install.lock`，并确保内置管理员账号已就绪。
 
@@ -60,25 +59,25 @@ FileUni 不允许把环境变量作为配置来源，运行参数都必须来自
 
 ## 4. 启动 FileUni
 
-如果 `{config-dir}/install.lock` 不存在，CLI 与 GUI 都会在正常启动前直接进入设置向导。
+如果 `{runtime-dir}/install.lock` 不存在，CLI 与 GUI 都会在正常启动前直接进入设置向导。
 
-如果你之后还想重新进入设置向导，删除 `{config-dir}/install.lock` 后再正常启动即可：
+如果你之后还想重新进入设置向导，删除 `{runtime-dir}/install.lock` 后再正常启动即可：
 
 ```bash
-rm -f ./config/install.lock
-./fileuni -c ./config -A ./appdata
+rm -f ./runtime/install.lock
+./fileuni --runtime-dir ./runtime
 ```
 
 只校验配置、不启动完整服务：
 
 ```bash
-./fileuni --configtest -c ./config -A ./appdata
+./fileuni --configtest --runtime-dir ./runtime
 ```
 
 正常启动：
 
 ```bash
-./fileuni -c ./config -A ./appdata
+./fileuni --runtime-dir ./runtime
 ```
 
 ## 5. 打开 WebUI
