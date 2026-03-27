@@ -12,7 +12,7 @@ This guide is based on the current workspace layout and runtime model.
 
 FileUni currently has two main entry points:
 
-- `fileuni` CLI: used to start the server, run setup mode, manage services, and export or import backups.
+- `fileuni` CLI: used to start the server, open the setup wizard when needed, manage services, and export or import backups.
 - `fileuni-gui`: a Tauri desktop wrapper around the same core library, with service control, configuration editing, and the same first-run setup behavior.
 
 Get the appropriate package from the [download page](https://fileuni.com/download).
@@ -58,14 +58,15 @@ The setup wizard is responsible for writing `config.toml` and `install.lock`, an
 
 Normal startup does not auto-create privileged accounts. If the admin account is missing while `install.lock` exists, startup will be rejected.
 
-## 4. Run Setup Mode or Start the Server
+## 4. Start FileUni
 
-If `{config-dir}/install.lock` is missing, both CLI and GUI will force the setup wizard before normal startup.
+If `{config-dir}/install.lock` is missing, both CLI and GUI will open the setup wizard before normal startup.
 
-To enter setup mode explicitly:
+To re-enter the setup wizard later, delete `{config-dir}/install.lock`, then start FileUni normally:
 
 ```bash
-./fileuni --setup -c ./config -A ./appdata
+rm -f ./config/install.lock
+./fileuni -c ./config -A ./appdata
 ```
 
 To validate configuration without starting the full server:

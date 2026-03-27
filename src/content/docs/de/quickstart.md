@@ -58,14 +58,15 @@ Der Setup-Assistent ist verantwortlich für das Schreiben von `config.toml` und 
 
 Der normale Start erstellt keine privilegierten Konten automatisch. Wenn das Admin-Konto fehlt, während `install.lock` existiert, wird der Start abgelehnt.
 
-## 4. Führen Sie den Setup-Modus aus oder starten Sie den Server
+## 4. Starten Sie FileUni
 
-Wenn `{config-dir}/install.lock` fehlt, erzwingen sowohl CLI als auch GUI den Setup-Assistenten vor dem normalen Start.
+Wenn `{config-dir}/install.lock` fehlt, öffnen sowohl CLI als auch GUI vor dem normalen Start den Setup-Assistenten.
 
-Um explizit in den Setup-Modus zu gelangen:
+Wenn Sie den Setup-Assistenten später erneut öffnen möchten, löschen Sie `{config-dir}/install.lock` und starten Sie FileUni dann normal:
 
 ```bash
-./fileuni --setup -c ./config -A ./appdata
+rm -f ./config/install.lock
+./fileuni -c ./config -A ./appdata
 ```
 
 Um die Konfiguration ohne Starten des vollständigen Servers zu validieren:

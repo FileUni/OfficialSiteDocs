@@ -58,14 +58,15 @@ FileUni は環境変数を設定ソースとして使用しません。ランタ
 
 通常の起動では特権アカウントは自動作成されません。`install.lock` が存在するのに管理者アカウントがない場合、起動は拒否されます。
 
-## 4. セットアップモードを実行するかサーバーを起動
+## 4. FileUni を起動する
 
-`{config-dir}/install.lock` がない場合、CLI と GUI の両方が通常の起動前にセットアップウィザードを強制します。
+`{config-dir}/install.lock` がない場合、CLI と GUI の両方が通常の起動前にセットアップウィザードを開きます。
 
-明示的にセットアップモードに入るには：
+あとで再びセットアップウィザードを開きたい場合は、`{config-dir}/install.lock` を削除してから通常どおり FileUni を起動してください：
 
 ```bash
-./fileuni --setup -c ./config -A ./appdata
+rm -f ./config/install.lock
+./fileuni -c ./config -A ./appdata
 ```
 
 完全なサーバーを起動せずに設定を検証するには：

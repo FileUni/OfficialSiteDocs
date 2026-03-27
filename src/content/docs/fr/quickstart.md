@@ -58,14 +58,15 @@ L'assistant de configuration est responsable de l'écriture de `config.toml` et 
 
 Le démarrage normal ne crée pas automatiquement de comptes privilégiés. Si le compte admin est manquant alors que `install.lock` existe, le démarrage sera rejeté.
 
-## 4. Exécuter le mode de configuration ou démarrer le serveur
+## 4. Démarrer FileUni
 
-Si `{config-dir}/install.lock` est manquant, le CLI et le GUI bloqueront le démarrage normal et forceront l'assistant de configuration.
+Si `{config-dir}/install.lock` est manquant, le CLI et le GUI ouvriront l'assistant de configuration avant le démarrage normal.
 
-Pour entrer explicitement en mode de configuration :
+Si vous voulez rouvrir l'assistant plus tard, supprimez `{config-dir}/install.lock`, puis démarrez FileUni normalement :
 
 ```bash
-./fileuni --setup -c ./config -A ./appdata
+rm -f ./config/install.lock
+./fileuni -c ./config -A ./appdata
 ```
 
 Pour valider la configuration sans démarrer le serveur complet :

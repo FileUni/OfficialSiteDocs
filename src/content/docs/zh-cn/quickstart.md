@@ -12,7 +12,7 @@ order: 2
 
 FileUni 目前主要有两个入口：
 
-- `fileuni` CLI：用于启动服务、进入设置模式、管理系统服务、导入导出备份。
+- `fileuni` CLI：用于启动服务、在需要时进入设置向导、管理系统服务，以及导入导出备份。
 - `fileuni-gui`：基于 Tauri 的桌面壳层，和 CLI 共用同一套核心能力，并遵循同样的首次启动设置逻辑。
 
 请先从[下载页面](https://fileuni.com/zh-cn/download)获取对应构建包。
@@ -58,14 +58,15 @@ FileUni 不允许把环境变量作为配置来源，运行参数都必须来自
 
 正常启动不会自动创建特权账号。如果在 `install.lock` 已存在的情况下管理员账号缺失，启动会被拒绝。
 
-## 4. 进入设置模式或直接启动
+## 4. 启动 FileUni
 
-如果 `{config-dir}/install.lock` 不存在，CLI 与 GUI 都会在正常启动前强制进入设置向导。
+如果 `{config-dir}/install.lock` 不存在，CLI 与 GUI 都会在正常启动前直接进入设置向导。
 
-显式进入设置模式：
+如果你之后还想重新进入设置向导，删除 `{config-dir}/install.lock` 后再正常启动即可：
 
 ```bash
-./fileuni --setup -c ./config -A ./appdata
+rm -f ./config/install.lock
+./fileuni -c ./config -A ./appdata
 ```
 
 只校验配置、不启动完整服务：
