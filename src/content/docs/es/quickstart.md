@@ -13,7 +13,7 @@ Esta guia describe un arranque local minimo del servidor FileUni y como abrir la
 FileUni ahora usa un unico directorio de ejecucion para configuracion y datos.
 
 - `-R` / `--runtime-dir`: directorio unico para configuracion, install lock, base de datos, cache y otros archivos de ejecucion
-- `--service-workdir`: alias del mismo directorio solo para `service install`
+- `--service-workdir`: directorio de ejecucion solo para `service install`
 
 Ejemplo:
 
@@ -26,7 +26,7 @@ mkdir -p ./runtime
 Para validar la configuracion sin iniciar el servidor completo:
 
 ```bash
-./fileuni --configtest --runtime-dir ./runtime
+./fileuni --runtime-dir ./runtime config test
 ```
 
 ## 3. Iniciar el servidor

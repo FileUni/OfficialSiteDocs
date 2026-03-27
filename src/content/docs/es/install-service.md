@@ -24,24 +24,24 @@ fileuni service <ACCION> [OPCIONES]
 | `start` | Iniciar |
 | `stop` | Detener |
 | `status` | Estado |
-| `reload` | Recargar configuracion |
+| `restart` | Reiniciar el servicio con stop + start |
 
 ## Instalacion rapida
 
 Al instalar como servicio, especifica un unico directorio de ejecucion con una ruta absoluta.
 
 ```bash
-sudo ./fileuni --runtime-dir /srv/fileuni service install
+sudo ./fileuni service install --service-workdir /srv/fileuni
 ```
 
 En Windows (como Administrador):
 
 ```bash
-.\fileuni.exe --runtime-dir C:\FileUni\runtime service install
+.\fileuni.exe service install --service-workdir C:\FileUni\runtime
 ```
 
 ## Solucion de problemas
 
 - Permisos: normalmente requiere Root/Administrador.
-- Rutas: `service install` requiere un `--runtime-dir` valido.
+- Rutas: `service install` requiere un `--service-workdir` valido.
 - Logs: revisa `journalctl` (Linux) o Event Viewer (Windows).

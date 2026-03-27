@@ -51,7 +51,7 @@ Das aktuelle Laufzeitmodell ist absichtlich explizit:
 Aktuelle eingebaute Wartungsaktionen umfassen:
 
 - Setup-Assistent für die Erstkonfiguration
-- Konfigurationsvalidierung mit `--configtest`
+- Konfigurationsvalidierung mit `config test`
 - System-Service Installation, Deinstallation, Start, Stopp, Status und Neuladen
 - Admin-Passwort-Wiederherstellung durch erneutes Öffnen des Setup-Assistenten
 - Backup-Export und -Import über die Kommandozeile

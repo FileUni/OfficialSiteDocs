@@ -25,7 +25,7 @@ Holen Sie sich das entsprechende Paket von der [Download-Seite](https://fileuni.
 Das aktuelle Projekt verwendet jetzt ein einzelnes Laufzeitverzeichnis:
 
 - `-R` / `--runtime-dir`: gemeinsames Laufzeitverzeichnis für Konfiguration, Installationsstatus, Datenbank, Cache und andere Laufzeitdateien
-- `--service-workdir`: Nur für `service install` verfügbarer Alias desselben Laufzeitverzeichnisses
+- `--service-workdir`: Laufzeitverzeichnis nur für `service install`
 
 Der feste Konfigurationsdateipfad ist:
 
@@ -71,7 +71,7 @@ rm -f ./runtime/install.lock
 Um die Konfiguration ohne Starten des vollständigen Servers zu validieren:
 
 ```bash
-./fileuni --configtest --runtime-dir ./runtime
+./fileuni --runtime-dir ./runtime config test
 ```
 
 Um den Server normal zu starten:

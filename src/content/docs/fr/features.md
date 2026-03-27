@@ -51,7 +51,7 @@ Le modèle d'exécution actuel est intentionnellement explicite :
 Les actions de maintenance intégrées actuelles incluent :
 
 - Mode de configuration pour le premier démarrage
-- Validation de configuration avec `--configtest`
+- Validation de configuration avec `config test`
 - Installation, désinstallation, démarrage, arrêt, statut et rechargement du service système
 - Récupération du mot de passe admin en rouvrant l'assistant de configuration
 - Export et import de sauvegarde depuis la ligne de commande

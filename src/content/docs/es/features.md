@@ -51,7 +51,7 @@ El modelo de ejecucion es explicito:
 Acciones de mantenimiento incluidas:
 
 - Asistente de configuracion para el primer arranque
-- Validacion de config con `--configtest`
+- Validacion de config con `config test`
 - Instalacion y gestion del servicio del sistema
 - Recuperacion de contrasena de admin mediante el asistente de configuracion
 - Exportar e importar backups desde la linea de comandos

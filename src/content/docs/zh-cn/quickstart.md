@@ -25,7 +25,7 @@ FileUni 目前主要有两个入口：
 当前项目已经收敛为单目录运行模型：
 
 - `-R` / `--runtime-dir`：唯一运行目录，统一存放配置、安装锁、数据库、缓存和其他运行文件
-- `--service-workdir`：仅在 `service install` 场景下使用的同一运行目录参数
+- `--service-workdir`：仅在 `service install` 场景下使用的运行目录参数
 
 固定配置文件位置为：
 
@@ -71,7 +71,7 @@ rm -f ./runtime/install.lock
 只校验配置、不启动完整服务：
 
 ```bash
-./fileuni --configtest --runtime-dir ./runtime
+./fileuni --runtime-dir ./runtime config test
 ```
 
 正常启动：

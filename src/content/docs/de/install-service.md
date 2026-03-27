@@ -24,7 +24,7 @@ fileuni service <ACTION> [OPTIONS]
 | `start` | Den Dienst starten |
 | `stop` | Den Dienst stoppen |
 | `status` | Dienststatus überprüfen |
-| `reload` | Dienstkonfiguration neu laden |
+| `restart` | Dienst per Stop + Start neu starten |
 
 ## Schnellinstallation
 
@@ -33,10 +33,10 @@ Um FileUni als Dienst zu installieren, sollten Sie ein einzelnes Laufzeitverzeic
 ```bash
 # Beispiel für Linux/macOS
 # Verwenden Sie --runtime-dir für das gemeinsame Laufzeitverzeichnis
-sudo ./fileuni --runtime-dir /srv/fileuni service install
+sudo ./fileuni service install --service-workdir /srv/fileuni
 
 # Beispiel für Windows (Als Administrator ausführen)
-.\fileuni.exe --runtime-dir C:\FileUni\runtime service install
+.\fileuni.exe service install --service-workdir C:\FileUni\runtime
 ```
 
 > Wichtig: Verwenden Sie bei der Installation als Dienst immer einen absoluten Pfad für `--runtime-dir`. So kann der Dienst seine Daten nach einem Neustart korrekt wiederfinden.
@@ -49,16 +49,16 @@ FileUnis `service install` unterstützt zusätzliche Flags für feinkörnige Kon
 - `--service-user <USER>`: Angeben, welcher OS-Benutzer den Prozess ausführen soll (Nur System-Ebene).
 - `--service-level <system|user>`: Wählen zwischen einem globalen Systemdienst oder einem Benutzerdienst.
 - `--service-autostart <true|false>`: Automatischen Start beim Booten aktivieren oder deaktivieren.
-- `--service-workdir <DIR>`: Alias von `--runtime-dir`, nur für `service install`.
+- `--service-workdir <DIR>`: Laufzeitverzeichnis nur fur `service install`.
 
 ### Beispiel: Benutzerdefiniertes Dienst-Label
 
 ```bash
-sudo ./fileuni --runtime-dir /srv/fileuni service install --service-label custom.fileuni.node
+sudo ./fileuni service install --service-workdir /srv/fileuni --service-label custom.fileuni.node
 ```
 
 ## Fehlerbehebung
 
 - Berechtigungen: Die Installation von System-Diensten erfordert typischerweise Root- (Linux/macOS) oder Administrator- (Windows) Rechte.
-- Pfade: `service install` erfordert einen gultigen `--runtime-dir` Pfad.
+- Pfade: `service install` erfordert einen gultigen `--service-workdir` Pfad.
 - Protokolle: Wenn der Dienst nicht startet, überprüfen Sie Systemprotokolle wie `journalctl` unter Linux oder die Ereignisanzeige unter Windows.

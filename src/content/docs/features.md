@@ -64,8 +64,8 @@ The current runtime model is intentionally explicit:
 Current built-in maintenance actions include:
 
 - Setup wizard for first-run configuration
-- Config validation with `--configtest`
-- System service install, uninstall, start, stop, status, and reload
+- Config validation with `config test`
+- System service install, uninstall, start, stop, status, and restart
 - Admin password recovery by reopening the setup wizard
 - Backup export and import from the command line
 

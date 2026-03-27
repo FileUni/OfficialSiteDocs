@@ -25,7 +25,7 @@ Get the appropriate package from the [download page](https://fileuni.com/downloa
 The current project now uses a single runtime directory:
 
 - `-R` / `--runtime-dir`: runtime directory for config, install lock, database, cache, and other runtime files
-- `--service-workdir`: service-install-only variant of the same runtime directory input
+- `--service-workdir`: service-install-only runtime directory option
 
 The fixed configuration file path is:
 
@@ -71,7 +71,7 @@ rm -f ./runtime/install.lock
 To validate configuration without starting the full server:
 
 ```bash
-./fileuni --configtest --runtime-dir ./runtime
+./fileuni --runtime-dir ./runtime config test
 ```
 
 To start the server normally:

@@ -25,7 +25,7 @@ FileUni には現在 2 つのメインエントリポイントがあります：
 現在のプロジェクトは単一のランタイムディレクトリを使用します：
 
 - `-R` / `--runtime-dir`：設定、install lock、データベース、キャッシュ、その他のランタイムファイルをまとめて保存する単一のランタイムディレクトリ
-- `--service-workdir`：`service install` でのみ使える同じランタイムディレクトリの別名
+- `--service-workdir`：`service install` でのみ使うランタイムディレクトリ
 
 固定設定ファイルパスは：
 
@@ -71,7 +71,7 @@ rm -f ./runtime/install.lock
 完全なサーバーを起動せずに設定を検証するには：
 
 ```bash
-./fileuni --configtest --runtime-dir ./runtime
+./fileuni --runtime-dir ./runtime config test
 ```
 
 通常どおりサーバーを起動するには：

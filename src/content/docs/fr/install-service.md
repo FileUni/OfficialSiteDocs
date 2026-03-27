@@ -24,7 +24,7 @@ fileuni service <ACTION> [OPTIONS]
 | `start` | Démarrer le service |
 | `stop` | Arrêter le service |
 | `status` | Vérifier le statut du service |
-| `reload` | Recharger la configuration du service |
+| `restart` | Redemarrer le service via stop + start |
 
 ## Installation rapide
 
@@ -33,10 +33,10 @@ Pour installer FileUni comme service, vous devez indiquer un seul répertoire d'
 ```bash
 # Exemple pour Linux/macOS
 # Utilisez --runtime-dir pour le répertoire d'exécution unique
-sudo ./fileuni --runtime-dir /srv/fileuni service install
+sudo ./fileuni service install --service-workdir /srv/fileuni
 
 # Exemple pour Windows (Exécuter en tant qu'administrateur)
-.\fileuni.exe --runtime-dir C:\FileUni\runtime service install
+.\fileuni.exe service install --service-workdir C:\FileUni\runtime
 ```
 
 > Important : Utilisez toujours un chemin absolu pour `--runtime-dir` lors de l'installation comme service. Cela garantit que le service pourra retrouver correctement ses données après un redémarrage du système.
@@ -49,16 +49,16 @@ Le `service install` de FileUni supporte des flags supplémentaires pour un cont
 - `--service-user <USER>` : Spécifier quel utilisateur de l'OS doit exécuter le processus (Niveau système uniquement).
 - `--service-level <system|user>` : Choisir entre un service système global ou un service par utilisateur.
 - `--service-autostart <true|false>` : Activer ou désactiver le démarrage automatique au boot.
-- `--service-workdir <DIR>` : Alias de `--runtime-dir`, uniquement pour `service install`.
+- `--service-workdir <DIR>` : répertoire d'execution uniquement pour `service install`.
 
 ### Exemple : Label de service personnalisé
 
 ```bash
-sudo ./fileuni --runtime-dir /srv/fileuni service install --service-label custom.fileuni.node
+sudo ./fileuni service install --service-workdir /srv/fileuni --service-label custom.fileuni.node
 ```
 
 ## Dépannage
 
 - Permissions : L'installation de services système nécessite typiquement les privilèges Root (Linux/macOS) ou Administrator (Windows).
-- Chemins : `service install` nécessite un chemin `--runtime-dir` valide.
+- Chemins : `service install` nécessite un chemin `--service-workdir` valide.
 - Journaux : Si le service échoue à démarrer, vérifiez les journaux système comme `journalctl` sur Linux ou l'Observateur d'événements sur Windows.

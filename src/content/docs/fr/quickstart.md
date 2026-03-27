@@ -25,7 +25,7 @@ Obtenez le paquet approprié sur la [page de téléchargement](https://fileuni.c
 Le projet actuel utilise maintenant un seul répertoire d'exécution :
 
 - `-R` / `--runtime-dir` : répertoire d'exécution unique pour la configuration, le verrou d'installation, la base de données, le cache et les autres fichiers d'exécution
-- `--service-workdir` : alias de ce même répertoire d'exécution, uniquement pour `service install`
+- `--service-workdir` : répertoire d'exécution uniquement pour `service install`
 
 Le chemin du fichier de configuration fixe est :
 
@@ -71,7 +71,7 @@ rm -f ./runtime/install.lock
 Pour valider la configuration sans démarrer le serveur complet :
 
 ```bash
-./fileuni --configtest --runtime-dir ./runtime
+./fileuni --runtime-dir ./runtime config test
 ```
 
 Pour démarrer le serveur normalement :
