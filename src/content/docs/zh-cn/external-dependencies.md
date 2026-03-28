@@ -10,26 +10,35 @@ FileUni 在预览、缩略图和压缩等功能上依赖少量外部可执行程
 
 ## 1. 外部可执行程序
 
-这些工具用于预览、缩略图与压缩。如果某个功能不需要，可以不安装对应工具，但需要同步调整相关配置项以避免启动失败或功能不可用。
+这些工具用于预览、缩略图与压缩。常见图片缩略图现在已经内置在 VFS 层，因此外部工具主要用于 PDF、Office、文本、桌面端视频，以及可选的外部回退链路。如果某个功能不需要，可以不安装对应工具，但需要同步调整相关配置项以避免启动失败或功能不可用。
 
 - 7-Zip（`7z` / `7z-full`）
- - 作用：提供 7z 格式与多线程压缩/解压能力。
- - 需要安装的情况：希望使用 7z 格式或提升压缩性能。
+  - 作用：提供 7z 格式与多线程压缩/解压能力。
+  - 需要安装的情况：希望使用 7z 格式或提升压缩性能。
 - libvips
- - 作用：高性能图片/PDF 缩略图渲染。
- - 需要安装的情况：开启图片或 PDF 缩略图（首选引擎）。
+  - 作用：高性能外部图片/PDF 缩略图渲染。
+  - 需要安装的情况：启用 PDF 缩略图，或把图片缩略图切换到 external 后端。
 - ImageMagick
- - 作用：缩略图回退渲染与文本缩略图生成。
- - 需要安装的情况：启用文本缩略图，或作为 PDF/图片缩略图回退。
+  - 作用：外部缩略图回退渲染与文本缩略图生成。
+  - 需要安装的情况：启用文本缩略图，或希望为 PDF/图片缩略图提供 external 路径回退。
 - FFmpeg
- - 作用：视频缩略图（抽帧）与视频信息解析。
- - 需要安装的情况：启用视频缩略图。
+  - 作用：视频缩略图（抽帧）与视频信息解析。
+  - 需要安装的情况：在 Linux、Windows、macOS、FreeBSD 上启用视频缩略图。
 - LibreOffice（`soffice`）
- - 作用：Office 文档缩略图（先转 PDF，再走缩略图流程）。
- - 需要安装的情况：启用 Office 文档缩略图。
+  - 作用：Office 文档缩略图（先转 PDF，再走缩略图流程）。
+  - 需要安装的情况：启用 Office 文档缩略图。
 - LaTeX 工具链（`latexmk` + `xelatex`）
- - 作用：LaTeX 预览与 LaTeX 缩略图（编译为 PDF）。
- - 需要安装的情况：启用 LaTeX 预览或 LaTeX 缩略图。
+  - 作用：LaTeX 预览与 LaTeX 缩略图（编译为 PDF）。
+  - 需要安装的情况：启用 LaTeX 预览或 LaTeX 缩略图。
+
+## 1.1 内置 Rust 图片缩略图覆盖范围
+
+- FileUni 现在在 VFS 层内置了 Rust 图片缩略图后端，这也是默认图片缩略图路径。
+- 支持的输入格式：`jpg`、`jpeg`、`png`、`webp`、`gif`、`bmp`、`tiff`、`tif`、`svg`
+- 支持的输出格式：`jpg`、`png`、`webp`
+- 当 `vfs_storage_hub.thumbnail.image.backend = "builtin"` 时，这些图片缩略图不依赖 libvips 或 ImageMagick。
+- 视频缩略图在 Linux、Windows、macOS、FreeBSD 上继续使用 FFmpeg；Android 与 iOS 改走系统媒体框架。
+- PDF、Office、文本、LaTeX 缩略图仍然依赖外部工具；在移动端作为服务器的部署场景中，PDF、Office、文本缩略图默认关闭。
 
 ## 2. 可选外部服务（KV 与 SQL）
 
@@ -47,22 +56,23 @@ FileUni 在预览、缩略图和压缩等功能上依赖少量外部可执行程
 
 ## 3. Docker 集成策略
 
-默认 Docker 镜像只内置预览/缩略图/压缩所需的轻量可执行程序，不内置 LibreOffice（体积过大），也不内置 KeyDB/Redis/Valkey/PostgreSQL（均为可选外部服务）。这些服务应由部署方按需独立提供。
+默认 Docker 镜像只内置当前仍对预览、缩略图、压缩有价值的轻量可执行程序。常见图片缩略图已经可以直接使用内置 Rust 后端；LibreOffice 仍然不内置（体积过大），KeyDB/Redis/Valkey/PostgreSQL 也仍然是外部服务。
 
 ## 4. 安装后需要修改的配置项
 
 外部可执行程序：
-- `thumbnail.tools.vips_path`
-- `thumbnail.tools.imagemagick_path`
-- `thumbnail.tools.ffmpeg_path`
-- `thumbnail.tools.libreoffice_path`
+- `vfs_storage_hub.thumbnail.tools.vips_path`
+- `vfs_storage_hub.thumbnail.tools.imagemagick_path`
+- `vfs_storage_hub.thumbnail.tools.ffmpeg_path`
+- `vfs_storage_hub.thumbnail.tools.libreoffice_path`
 - `latex_preview.latexmk_path`
 - `file_compress.exe_7zip_path`
 
 功能开关与限制（与上面工具常配套使用）：
 - `latex_preview.enable_latexmk`
-- `thumbnail.enabled`
-- `thumbnail.<image|video|pdf|office|text>.enabled`
+- `vfs_storage_hub.thumbnail.enabled`
+- `vfs_storage_hub.thumbnail.image.backend`
+- `vfs_storage_hub.thumbnail.<image|video|pdf|office|text>.enabled`
 
 可选 KV 服务：
 - `fast_kv_storage_hub.kv_type`

@@ -10,26 +10,35 @@ FileUni verwendet einen kleinen Satz externer ausführbarer Dateien für Vorscha
 
 ## 1. Externe ausführbare Dateien
 
-Diese Tools ermöglichen Vorschau-, Thumbnail- und Komprimierungsfunktionen. Wenn Sie eine Funktion nicht benötigen, können Sie das entsprechende Tool überspringen, aber stellen Sie sicher, dass die zugehörigen Konfigurationselemente entsprechend angepasst werden.
+Diese Tools ermöglichen Vorschau-, Thumbnail- und Komprimierungsfunktionen. Gängige Bild-Thumbnails sind jetzt bereits in der VFS-Schicht eingebaut, daher werden externe Tools hauptsächlich für PDF, Office, Text, Desktop-Video und optionale Fallback-Pfade benötigt. Wenn Sie eine Funktion nicht benötigen, können Sie das entsprechende Tool überspringen, aber stellen Sie sicher, dass die zugehörigen Konfigurationselemente entsprechend angepasst werden.
 
 - 7-Zip (`7z` / `7z-full`)
   - Zweck: Hochkomprimierungsformate und Multi-Thread-Komprimierung/Dekomprimierung.
   - Benötigt wenn: Sie 7z-Format-Unterstützung oder beschleunigte Komprimierung über natives ZIP/TAR hinaus wünschen.
 - libvips
-  - Zweck: Schnelles Bild-/PDF-Thumbnail-Rendering.
-  - Benötigt wenn: Sie Bild- oder PDF-Thumbnails aktivieren (bevorzugte Engine).
+  - Zweck: Schnelles externes Bild-/PDF-Thumbnail-Rendering.
+  - Benötigt wenn: Sie PDF-Thumbnails aktivieren oder Bild-Thumbnails auf das externe Backend umstellen.
 - ImageMagick
-  - Zweck: Fallback-Thumbnail-Rendering und Text-Thumbnail-Generierung.
-  - Benötigt wenn: Sie Text-Thumbnails aktivieren oder einen Fallback für PDF-/Bild-Thumbnails wünschen.
+  - Zweck: Externes Fallback-Thumbnail-Rendering und Text-Thumbnail-Generierung.
+  - Benötigt wenn: Sie Text-Thumbnails aktivieren oder für PDF-/Bild-Thumbnails einen externen Fallback wünschen.
 - FFmpeg
   - Zweck: Video-Thumbnails (Frame-Extraktion) und Video-Metadaten.
-  - Benötigt wenn: Sie Video-Thumbnails aktivieren.
+  - Benötigt wenn: Sie Video-Thumbnails unter Linux, Windows, macOS oder FreeBSD aktivieren.
 - LibreOffice (`soffice`)
   - Zweck: Office-Dokument-Thumbnails (Konvertierung zu PDF, dann Thumbnailing).
   - Benötigt wenn: Sie Office-Dokument-Thumbnails aktivieren.
 - LaTeX-Toolchain (`latexmk` + `xelatex`)
   - Zweck: LaTeX-Vorschau und LaTeX-Thumbnails (Kompilierung zu PDF).
   - Benötigt wenn: Sie LaTeX-Vorschau oder LaTeX-Thumbnails aktivieren.
+
+## 1.1 Integrierte Rust-Bild-Thumbnails
+
+- FileUni enthält jetzt ein integriertes Rust-Backend für Bild-Thumbnails in der VFS-Schicht. Das ist der Standardpfad für Bild-Thumbnails.
+- Unterstützte Eingabeformate: `jpg`, `jpeg`, `png`, `webp`, `gif`, `bmp`, `tiff`, `tif`, `svg`
+- Unterstützte Ausgabeformate: `jpg`, `png`, `webp`
+- Wenn `vfs_storage_hub.thumbnail.image.backend = "builtin"` gesetzt ist, benötigen diese Bild-Thumbnails weder libvips noch ImageMagick.
+- Video-Thumbnails verwenden weiterhin FFmpeg unter Linux, Windows, macOS und FreeBSD. Unter Android und iOS werden stattdessen die System-Medienframeworks verwendet.
+- PDF-, Office-, Text- und LaTeX-Thumbnails benötigen weiterhin externe Tools. Bei mobilen Server-Deployments sind PDF-, Office- und Text-Thumbnails standardmäßig deaktiviert.
 
 ## 2. Optionale externe Dienste (KV und SQL)
 
@@ -47,22 +56,23 @@ Diese Dienste sind optional und werden durch Konfiguration ausgewählt. Sie sind
 
 ## 3. Docker-Paketrichtlinie
 
-Das Standard-Docker-Image enthält nur leichtgewichtige ausführbare Dateien, die für Vorschau/Thumbnail/Komprimierung erforderlich sind. Es enthält nicht LibreOffice (zu groß) oder KV/SQL-Dienste (KeyDB/Redis/Valkey/PostgreSQL), da diese optional sind und als externe Dienste betrieben werden sollten.
+Das Standard-Docker-Image enthält nur leichtgewichtige ausführbare Dateien, die weiterhin für Vorschau-, Thumbnail- und Komprimierungsabläufe sinnvoll sind. Gängige Bild-Thumbnails funktionieren bereits mit dem integrierten Rust-Backend. LibreOffice ist weiterhin ausgeschlossen, weil es zu groß ist, und KV/SQL-Dienste (KeyDB/Redis/Valkey/PostgreSQL) bleiben externe Dienste.
 
 ## 4. Nach der Installation zu aktualisierende Konfigurationselemente
 
 Externe ausführbare Dateien:
-- `thumbnail.tools.vips_path`
-- `thumbnail.tools.imagemagick_path`
-- `thumbnail.tools.ffmpeg_path`
-- `thumbnail.tools.libreoffice_path`
+- `vfs_storage_hub.thumbnail.tools.vips_path`
+- `vfs_storage_hub.thumbnail.tools.imagemagick_path`
+- `vfs_storage_hub.thumbnail.tools.ffmpeg_path`
+- `vfs_storage_hub.thumbnail.tools.libreoffice_path`
 - `latex_preview.latexmk_path`
 - `file_compress.exe_7zip_path`
 
 Funktionsschalter und Limits (häufig mit den oben genannten Tools verwendet):
 - `latex_preview.enable_latexmk`
-- `thumbnail.enabled`
-- `thumbnail.<image|video|pdf|office|text>.enabled`
+- `vfs_storage_hub.thumbnail.enabled`
+- `vfs_storage_hub.thumbnail.image.backend`
+- `vfs_storage_hub.thumbnail.<image|video|pdf|office|text>.enabled`
 
 Optionale KV-Dienste:
 - `fast_kv_storage_hub.kv_type`

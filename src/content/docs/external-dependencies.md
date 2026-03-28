@@ -10,26 +10,35 @@ FileUni uses a small set of external executables for preview/thumbnail/compressi
 
 ## 1. External Executables
 
-These tools enable preview, thumbnail, and compression features. If you do not need a feature, you can skip the corresponding tool, but make sure the related config items are adjusted accordingly.
+These tools enable preview, thumbnail, and compression features. Common image thumbnails are now built into the VFS layer, so external tools are mainly needed for PDF, Office, text, desktop video, and optional fallback paths. If you do not need a feature, you can skip the corresponding tool, but make sure the related config items are adjusted accordingly.
 
 - 7-Zip (`7z` / `7z-full`)
- - Purpose: High-compression formats and multi-threaded compression/decompression.
- - Needed when: You want 7z format support or accelerated compression beyond native ZIP/TAR.
+  - Purpose: High-compression formats and multi-threaded compression/decompression.
+  - Needed when: You want 7z format support or accelerated compression beyond native ZIP/TAR.
 - libvips
- - Purpose: Fast image/PDF thumbnail rendering.
- - Needed when: You enable image or PDF thumbnails (preferred engine).
+  - Purpose: Fast external image/PDF thumbnail rendering.
+  - Needed when: You enable PDF thumbnails or switch image thumbnails to the external backend.
 - ImageMagick
- - Purpose: Fallback thumbnail rendering and text thumbnail generation.
- - Needed when: You enable text thumbnails or want a fallback for PDF/image thumbnails.
+  - Purpose: Fallback external thumbnail rendering and text thumbnail generation.
+  - Needed when: You enable text thumbnails or want a fallback for PDF/image thumbnails while using the external path.
 - FFmpeg
- - Purpose: Video thumbnails (frame extraction) and video metadata.
- - Needed when: You enable video thumbnails.
+  - Purpose: Video thumbnails (frame extraction) and video metadata.
+  - Needed when: You enable video thumbnails on Linux, Windows, macOS, or FreeBSD.
 - LibreOffice (`soffice`)
- - Purpose: Office document thumbnails (convert to PDF, then thumbnail).
- - Needed when: You enable Office document thumbnails.
+  - Purpose: Office document thumbnails (convert to PDF, then thumbnail).
+  - Needed when: You enable Office document thumbnails.
 - LaTeX toolchain (`latexmk` + `xelatex`)
- - Purpose: LaTeX preview and LaTeX thumbnails (compile to PDF).
- - Needed when: You enable LaTeX preview or LaTeX thumbnails.
+  - Purpose: LaTeX preview and LaTeX thumbnails (compile to PDF).
+  - Needed when: You enable LaTeX preview or LaTeX thumbnails.
+
+## 1.1 Built-in Rust Image Thumbnail Coverage
+
+- FileUni now ships a built-in Rust image thumbnail backend inside the VFS layer. This is the default image thumbnail path.
+- Supported source formats: `jpg`, `jpeg`, `png`, `webp`, `gif`, `bmp`, `tiff`, `tif`, `svg`
+- Supported output formats: `jpg`, `png`, `webp`
+- When `vfs_storage_hub.thumbnail.image.backend = "builtin"`, these image thumbnails do not require libvips or ImageMagick.
+- Video thumbnails still use FFmpeg on Linux, Windows, macOS, and FreeBSD. Android and iOS use the system media framework instead.
+- PDF, Office, text, and LaTeX thumbnails still rely on external tools. On mobile server deployments, PDF, Office, and text thumbnails are disabled by default.
 
 ## 2. Optional External Services (KV and SQL)
 
@@ -47,22 +56,23 @@ These services are optional and selected by configuration. They are not bundled 
 
 ## 3. Docker Packaging Policy
 
-The default Docker image only bundles lightweight executables required for preview/thumbnail/compression. It does not bundle LibreOffice (too large) or any KV/SQL services (KeyDB/Redis/Valkey/PostgreSQL), because these are optional and should be operated as external services.
+The default Docker image only bundles lightweight executables still useful for preview, thumbnail, and compression flows. Common image thumbnails already work with the built-in Rust backend. LibreOffice is still excluded because it is too large, and KV/SQL services (KeyDB/Redis/Valkey/PostgreSQL) are still external by design.
 
 ## 4. Configuration Items to Update After Installation
 
 External executables:
-- `thumbnail.tools.vips_path`
-- `thumbnail.tools.imagemagick_path`
-- `thumbnail.tools.ffmpeg_path`
-- `thumbnail.tools.libreoffice_path`
+- `vfs_storage_hub.thumbnail.tools.vips_path`
+- `vfs_storage_hub.thumbnail.tools.imagemagick_path`
+- `vfs_storage_hub.thumbnail.tools.ffmpeg_path`
+- `vfs_storage_hub.thumbnail.tools.libreoffice_path`
 - `latex_preview.latexmk_path`
 - `file_compress.exe_7zip_path`
 
 Feature switches and limits (commonly used with the tools above):
 - `latex_preview.enable_latexmk`
-- `thumbnail.enabled`
-- `thumbnail.<image|video|pdf|office|text>.enabled`
+- `vfs_storage_hub.thumbnail.enabled`
+- `vfs_storage_hub.thumbnail.image.backend`
+- `vfs_storage_hub.thumbnail.<image|video|pdf|office|text>.enabled`
 
 Optional KV services:
 - `fast_kv_storage_hub.kv_type`

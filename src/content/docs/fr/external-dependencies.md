@@ -10,26 +10,35 @@ FileUni utilise un petit ensemble d'exécutables externes pour les fonctionnalit
 
 ## 1. Exécutables externes
 
-Ces outils activent les fonctionnalités de prévisualisation, vignette et compression. Si vous n'avez pas besoin d'une fonctionnalité, vous pouvez sauter l'outil correspondant, mais assurez-vous que les éléments de configuration associés sont ajustés en conséquence.
+Ces outils activent les fonctionnalités de prévisualisation, vignette et compression. Les vignettes d'image courantes sont désormais intégrées dans la couche VFS, donc les outils externes servent surtout pour PDF, Office, texte, vidéo sur desktop et les chemins de secours optionnels. Si vous n'avez pas besoin d'une fonctionnalité, vous pouvez sauter l'outil correspondant, mais assurez-vous que les éléments de configuration associés sont ajustés en conséquence.
 
 - 7-Zip (`7z` / `7z-full`)
   - Objectif : Formats de haute compression et compression/décompression multi-thread.
   - Nécessaire quand : Vous souhaitez le support du format 7z ou une compression accélérée au-delà du ZIP/TAR natif.
 - libvips
-  - Objectif : Rendu rapide de vignettes d'images/PDF.
-  - Nécessaire quand : Vous activez les vignettes d'images ou PDF (moteur préféré).
+  - Objectif : Rendu externe rapide de vignettes d'images/PDF.
+  - Nécessaire quand : Vous activez les vignettes PDF ou basculez les vignettes d'image vers le backend externe.
 - ImageMagick
-  - Objectif : Rendu de vignettes de secours et génération de vignettes de texte.
-  - Nécessaire quand : Vous activez les vignettes de texte ou souhaitez un fallback pour les vignettes PDF/images.
+  - Objectif : Rendu externe de secours pour les vignettes et génération de vignettes de texte.
+  - Nécessaire quand : Vous activez les vignettes de texte ou souhaitez un fallback externe pour les vignettes PDF/images.
 - FFmpeg
   - Objectif : Vignettes vidéo (extraction de frames) et métadonnées vidéo.
-  - Nécessaire quand : Vous activez les vignettes vidéo.
+  - Nécessaire quand : Vous activez les vignettes vidéo sur Linux, Windows, macOS ou FreeBSD.
 - LibreOffice (`soffice`)
   - Objectif : Vignettes de documents Office (conversion en PDF, puis vignettisation).
   - Nécessaire quand : Vous activez les vignettes de documents Office.
 - Chaîne d'outils LaTeX (`latexmk` + `xelatex`)
   - Objectif : Prévisualisation LaTeX et vignettes LaTeX (compilation en PDF).
   - Nécessaire quand : Vous activez la prévisualisation LaTeX ou les vignettes LaTeX.
+
+## 1.1 Couverture des vignettes d'image Rust intégrées
+
+- FileUni inclut désormais un backend Rust intégré pour les vignettes d'image dans la couche VFS. C'est le chemin par défaut pour les vignettes d'image.
+- Formats source pris en charge : `jpg`, `jpeg`, `png`, `webp`, `gif`, `bmp`, `tiff`, `tif`, `svg`
+- Formats de sortie pris en charge : `jpg`, `png`, `webp`
+- Lorsque `vfs_storage_hub.thumbnail.image.backend = "builtin"`, ces vignettes d'image n'ont pas besoin de libvips ni d'ImageMagick.
+- Les vignettes vidéo continuent d'utiliser FFmpeg sur Linux, Windows, macOS et FreeBSD. Android et iOS utilisent à la place les frameworks multimédia du système.
+- Les vignettes PDF, Office, texte et LaTeX dépendent toujours d'outils externes. Sur les déploiements serveur mobiles, les vignettes PDF, Office et texte sont désactivées par défaut.
 
 ## 2. Services externes optionnels (KV et SQL)
 
@@ -47,22 +56,23 @@ Ces services sont optionnels et sélectionnés par configuration. Ils ne sont pa
 
 ## 3. Politique de packaging Docker
 
-L'image Docker par défaut inclut uniquement les exécutables légers requis pour prévisualisation/vignette/compression. Elle n'inclut pas LibreOffice (trop volumineux) ni aucun service KV/SQL (KeyDB/Redis/Valkey/PostgreSQL), car ils sont optionnels et doivent être exploités comme services externes.
+L'image Docker par défaut inclut uniquement les exécutables légers encore utiles pour les flux de prévisualisation, vignette et compression. Les vignettes d'image courantes fonctionnent déjà avec le backend Rust intégré. LibreOffice reste exclu car trop volumineux, et les services KV/SQL (KeyDB/Redis/Valkey/PostgreSQL) restent des services externes.
 
 ## 4. Éléments de configuration à mettre à jour après installation
 
 Exécutables externes :
-- `thumbnail.tools.vips_path`
-- `thumbnail.tools.imagemagick_path`
-- `thumbnail.tools.ffmpeg_path`
-- `thumbnail.tools.libreoffice_path`
+- `vfs_storage_hub.thumbnail.tools.vips_path`
+- `vfs_storage_hub.thumbnail.tools.imagemagick_path`
+- `vfs_storage_hub.thumbnail.tools.ffmpeg_path`
+- `vfs_storage_hub.thumbnail.tools.libreoffice_path`
 - `latex_preview.latexmk_path`
 - `file_compress.exe_7zip_path`
 
 Commutateurs de fonctionnalités et limites (couramment utilisés avec les outils ci-dessus) :
 - `latex_preview.enable_latexmk`
-- `thumbnail.enabled`
-- `thumbnail.<image|video|pdf|office|text>.enabled`
+- `vfs_storage_hub.thumbnail.enabled`
+- `vfs_storage_hub.thumbnail.image.backend`
+- `vfs_storage_hub.thumbnail.<image|video|pdf|office|text>.enabled`
 
 Services KV optionnels :
 - `fast_kv_storage_hub.kv_type`
