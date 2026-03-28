@@ -33,10 +33,10 @@ fileuni service <ACTION> [OPTIONS]
 ```bash
 # Пример для Linux/macOS
 # Используйте --runtime-dir для единого каталога выполнения
-sudo ./fileuni service install --service-workdir /srv/fileuni
+sudo ./fileuni service install --runtime-dir /srv/fileuni
 
 # Пример для Windows (Запуск от имени администратора)
-.\fileuni.exe service install --service-workdir C:\FileUni\runtime
+.\fileuni.exe service install --runtime-dir C:\FileUni\runtime
 ```
 
 > Важно: При установке как сервиса всегда используйте абсолютный путь для `--runtime-dir`. Это гарантирует, что сервис сможет правильно найти свои данные после перезагрузки системы.
@@ -49,16 +49,16 @@ sudo ./fileuni service install --service-workdir /srv/fileuni
 - `--service-user <USER>`: Указать, какой пользователь ОС должен запускать процесс (Только на уровне системы).
 - `--service-level <system|user>`: Выбрать между глобальным системным сервисом или пользовательским сервисом.
 - `--service-autostart <true|false>`: Включить или отключить автоматический запуск при загрузке.
-- `--service-workdir <DIR>`: каталог выполнения только для `service install`.
+- `--runtime-dir <DIR>`: каталог выполнения только для `service install`.
 
 ### Пример: Пользовательская метка сервиса
 
 ```bash
-sudo ./fileuni service install --service-workdir /srv/fileuni --service-label custom.fileuni.node
+sudo ./fileuni service install --runtime-dir /srv/fileuni --service-label custom.fileuni.node
 ```
 
 ## Устранение неполадок
 
 - Разрешения: Для установки системных сервисов обычно требуются права Root (Linux/macOS) или Administrator (Windows).
-- Пути: `service install` требует корректный путь `--service-workdir`.
+- Пути: `service install` требует корректный путь `--runtime-dir`.
 - Логи: Если сервис не запускается, проверьте системные логи, такие как `journalctl` на Linux или Просмотр событий на Windows.

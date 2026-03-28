@@ -31,17 +31,17 @@ fileuni service <ACCION> [OPCIONES]
 Al instalar como servicio, especifica un unico directorio de ejecucion con una ruta absoluta.
 
 ```bash
-sudo ./fileuni service install --service-workdir /srv/fileuni
+sudo ./fileuni service install --runtime-dir /srv/fileuni
 ```
 
 En Windows (como Administrador):
 
 ```bash
-.\fileuni.exe service install --service-workdir C:\FileUni\runtime
+.\fileuni.exe service install --runtime-dir C:\FileUni\runtime
 ```
 
 ## Solucion de problemas
 
 - Permisos: normalmente requiere Root/Administrador.
-- Rutas: `service install` requiere un `--service-workdir` valido.
+- Rutas: `service install` requiere un `--runtime-dir` valido.
 - Logs: revisa `journalctl` (Linux) o Event Viewer (Windows).

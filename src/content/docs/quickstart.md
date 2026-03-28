@@ -25,7 +25,7 @@ Get the appropriate package from the [download page](https://fileuni.com/downloa
 The current project now uses a single runtime directory:
 
 - `-R` / `--runtime-dir`: runtime directory for config, install lock, database, cache, and other runtime files
-- `--service-workdir`: service-install-only runtime directory option
+- `--runtime-dir`: service-install-only runtime directory option
 
 The fixed configuration file path is:
 

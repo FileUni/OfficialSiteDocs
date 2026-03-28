@@ -25,7 +25,7 @@ Obtenez le paquet approprié sur la [page de téléchargement](https://fileuni.c
 Le projet actuel utilise maintenant un seul répertoire d'exécution :
 
 - `-R` / `--runtime-dir` : répertoire d'exécution unique pour la configuration, le verrou d'installation, la base de données, le cache et les autres fichiers d'exécution
-- `--service-workdir` : répertoire d'exécution uniquement pour `service install`
+- `--runtime-dir` : répertoire d'exécution uniquement pour `service install`
 
 Le chemin du fichier de configuration fixe est :
 

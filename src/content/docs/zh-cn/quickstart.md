@@ -25,7 +25,7 @@ FileUni 目前主要有两个入口：
 当前项目已经收敛为单目录运行模型：
 
 - `-R` / `--runtime-dir`：唯一运行目录，统一存放配置、安装锁、数据库、缓存和其他运行文件
-- `--service-workdir`：仅在 `service install` 场景下使用的运行目录参数
+- `--runtime-dir`：仅在 `service install` 场景下使用的运行目录参数
 
 固定配置文件位置为：
 

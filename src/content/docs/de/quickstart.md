@@ -25,7 +25,7 @@ Holen Sie sich das entsprechende Paket von der [Download-Seite](https://fileuni.
 Das aktuelle Projekt verwendet jetzt ein einzelnes Laufzeitverzeichnis:
 
 - `-R` / `--runtime-dir`: gemeinsames Laufzeitverzeichnis für Konfiguration, Installationsstatus, Datenbank, Cache und andere Laufzeitdateien
-- `--service-workdir`: Laufzeitverzeichnis nur für `service install`
+- `--runtime-dir`: Laufzeitverzeichnis nur für `service install`
 
 Der feste Konfigurationsdateipfad ist:
 

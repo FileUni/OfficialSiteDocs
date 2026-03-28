@@ -28,18 +28,18 @@ fileuni service <ACTION> [OPTIONS]
 
 ## Quick Installation
 
-To install FileUni as a service, you must pass the runtime directory through `--service-workdir`. The install step persists that single path into the service definition.
+To install FileUni as a service, you must pass the runtime directory through `--runtime-dir`. The install step persists that single path into the service definition.
 
 ```bash
 # Example for Linux/macOS
-# Use --service-workdir for service install
-sudo ./fileuni service install --service-workdir /srv/fileuni
+# Use --runtime-dir for service install
+sudo ./fileuni service install --runtime-dir /srv/fileuni
 
 # Example for Windows (Run as Administrator)
-.\fileuni.exe service install --service-workdir C:\FileUni\runtime
+.\fileuni.exe service install --runtime-dir C:\FileUni\runtime
 ```
 
-> Important: Always use an absolute path for `--service-workdir` when installing as a service. This ensures the service can correctly locate its data upon system reboot.
+> Important: Always use an absolute path for `--runtime-dir` when installing as a service. This ensures the service can correctly locate its data upon system reboot.
 
 ## Advanced Service Options
 
@@ -49,16 +49,16 @@ FileUni's `service install` supports additional flags for fine-grained control:
 - `--service-user <USER>`: Specify which OS user should run the process (System-level only).
 - `--service-level <system|user>`: Choose between a global system service or a per-user service.
 - `--service-autostart <true|false>`: Enable or disable automatic start on boot.
-- `--service-workdir <DIR>`: Runtime directory used only by `service install`.
+- `--runtime-dir <DIR>`: Runtime directory used only by `service install`.
 
 ### Example: Custom Service Label
 
 ```bash
-sudo ./fileuni service install --service-workdir /srv/fileuni --service-label custom.fileuni.node
+sudo ./fileuni service install --runtime-dir /srv/fileuni --service-label custom.fileuni.node
 ```
 
 ## Troubleshooting
 
 - Permissions: Installing system-level services typically requires Root (Linux/macOS) or Administrator (Windows) privileges.
-- Paths: `service install` requires a valid `--service-workdir` path.
+- Paths: `service install` requires a valid `--runtime-dir` path.
 - Logs: If the service fails to start, check system logs such as `journalctl` on Linux or Event Viewer on Windows.
