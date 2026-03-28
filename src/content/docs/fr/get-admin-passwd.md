@@ -13,7 +13,7 @@ FileUni traite maintenant `{runtime-dir}/install.lock` comme marqueur de fin d'i
 - Si `install.lock` est manquant, le CLI et le GUI bloquent le demarrage normal et ouvrent le centre de parametres.
 - Terminer le centre de parametres ecrit a nouveau `install.lock` et permet au systeme de continuer le demarrage.
 
-- Cela signifie que la recuperation du mot de passe administrateur se fait maintenant en rouvrant le centre de parametres.
+Cela signifie que la recuperation du mot de passe administrateur se fait maintenant en rouvrant le centre de parametres.
 
 ## Étapes de récupération
 
