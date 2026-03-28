@@ -12,7 +12,7 @@ Ce guide est basé sur la structure actuelle de l'espace de travail et le modèl
 
 FileUni a actuellement deux points d'entrée principaux :
 
-- `fileuni` CLI : utilisé pour démarrer le serveur, ouvrir l'assistant de configuration si nécessaire, gérer les services et exporter ou importer des sauvegardes.
+- `fileuni` CLI : utilisé pour démarrer le serveur, ouvrir le centre de parametres si necessaire, gerer les services et exporter ou importer des sauvegardes.
 - `fileuni-gui` : un wrapper de bureau Tauri autour de la même bibliothèque de noyau, avec contrôle de service, édition de configuration et le même comportement de configuration au premier démarrage.
 
 Obtenez le paquet approprié sur la [page de téléchargement](https://fileuni.com/fr/download).
@@ -51,17 +51,17 @@ Dans le projet actuel, le déploiement signifie généralement préparer les ser
 - Une connexion au service KV
 - Les emplacements de stockage requis par la configuration VFS
 
-Si `config.toml` ou `install.lock` est manquant, FileUni entrera dans l'assistant de configuration.
+Si `{runtime-dir}/install.lock` est manquant, FileUni ouvrira le centre de parametres avant le demarrage normal.
 
-L'assistant de configuration est responsable de l'écriture de `config.toml` et `install.lock`, ainsi que de s'assurer que le compte administrateur intégré existe.
+Le centre de parametres ecrit `config.toml` et `install.lock` et verifie que le compte administrateur integre existe.
 
 Le démarrage normal ne crée pas automatiquement de comptes privilégiés. Si le compte admin est manquant alors que `install.lock` existe, le démarrage sera rejeté.
 
 ## 4. Démarrer FileUni
 
-Si `{runtime-dir}/install.lock` est manquant, le CLI et le GUI ouvriront l'assistant de configuration avant le démarrage normal.
+Si `{runtime-dir}/install.lock` est manquant, le CLI et le GUI ouvriront le centre de parametres avant le demarrage normal.
 
-Si vous voulez rouvrir l'assistant plus tard, supprimez `{runtime-dir}/install.lock`, puis démarrez FileUni normalement :
+Si vous voulez rouvrir le centre de parametres plus tard, supprimez `{runtime-dir}/install.lock`, puis demarrez FileUni normalement :
 
 ```bash
 rm -f ./runtime/install.lock

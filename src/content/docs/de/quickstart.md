@@ -12,7 +12,7 @@ Diese Anleitung basiert auf dem aktuellen Workspace-Layout und Laufzeitmodell.
 
 FileUni hat derzeit zwei Haupteinstiegspunkte:
 
-- `fileuni` CLI: Wird verwendet, um den Server zu starten, den Setup-Assistenten bei Bedarf zu öffnen, Dienste zu verwalten und Backups zu exportieren oder zu importieren.
+- `fileuni` CLI: Wird verwendet, um den Server zu starten, die Einstellungszentrale bei Bedarf zu öffnen, Dienste zu verwalten und Backups zu exportieren oder zu importieren.
 - `fileuni-gui`: Ein Tauri-Desktop-Wrapper um dieselbe Kernbibliothek, mit Dienststeuerung, Konfigurationsbearbeitung und demselben Erst-Setup-Verhalten.
 
 Holen Sie sich das entsprechende Paket von der [Download-Seite](https://fileuni.com/de/download).
@@ -51,17 +51,17 @@ Im aktuellen Projekt bedeutet die Bereitstellung normalerweise die Vorbereitung 
 - Eine KV-Service-Verbindung
 - Speicherorte, die von der VFS-Konfiguration benötigt werden
 
-Wenn `config.toml` oder `install.lock` fehlt, tritt FileUni in den Setup-Assistenten ein.
+Wenn `{runtime-dir}/install.lock` fehlt, öffnet FileUni vor dem normalen Start die Einstellungszentrale.
 
-Der Setup-Assistent ist verantwortlich für das Schreiben von `config.toml` und `install.lock` sowie für das Sicherstellen, dass das eingebaute Administrator-Konto existiert.
+Die Einstellungszentrale schreibt `config.toml` und `install.lock` und stellt sicher, dass das integrierte Administrator-Konto existiert.
 
 Der normale Start erstellt keine privilegierten Konten automatisch. Wenn das Admin-Konto fehlt, während `install.lock` existiert, wird der Start abgelehnt.
 
 ## 4. Starten Sie FileUni
 
-Wenn `{runtime-dir}/install.lock` fehlt, öffnen sowohl CLI als auch GUI vor dem normalen Start den Setup-Assistenten.
+Wenn `{runtime-dir}/install.lock` fehlt, öffnen sowohl CLI als auch GUI vor dem normalen Start die Einstellungszentrale.
 
-Wenn Sie den Setup-Assistenten später erneut öffnen möchten, löschen Sie `{runtime-dir}/install.lock` und starten Sie FileUni dann normal:
+Wenn Sie die Einstellungszentrale später erneut öffnen möchten, löschen Sie `{runtime-dir}/install.lock` und starten Sie FileUni dann normal:
 
 ```bash
 rm -f ./runtime/install.lock

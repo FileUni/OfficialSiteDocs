@@ -1,6 +1,6 @@
 ---
 title: Admin-Passwort zurücksetzen
-description: Administrator-Zugriff durch erneutes Aufrufen des Setup-Assistenten für die aktuelle FileUni-Bereitstellung wiederherstellen.
+description: Administrator-Zugriff durch erneutes Öffnen der Einstellungszentrale für die aktuelle FileUni-Bereitstellung wiederherstellen.
 ---
 
 # Admin-Passwort zurücksetzen
@@ -10,10 +10,10 @@ Wenn Sie das eingebaute Administrator-Passwort verlieren, ist der unterstützte 
 FileUni behandelt `{runtime-dir}/install.lock` jetzt als Installations-Abschluss-Marker:
 
 - Wenn `install.lock` existiert, startet FileUni normal.
-- Wenn `install.lock` fehlt, blockieren sowohl CLI als auch GUI den normalen Start und erzwingen den Setup-Assistenten.
-- Das Abschließen des Setup-Assistenten schreibt `install.lock` erneut und ermöglicht dem System, den Start fortzusetzen.
+- Wenn `install.lock` fehlt, blockieren sowohl CLI als auch GUI den normalen Start und öffnen die Einstellungszentrale.
+- Das Abschließen der Einstellungszentrale schreibt `install.lock` erneut und ermöglicht dem System, den Start fortzusetzen.
 
-Das bedeutet, dass die Administrator-Passwort-Wiederherstellung jetzt durch erneutes Öffnen des Setup-Assistenten erfolgt.
+Das bedeutet, dass die Administrator-Passwort-Wiederherstellung jetzt durch erneutes Öffnen der Einstellungszentrale erfolgt.
 
 ## Wiederherstellungsschritte
 
@@ -21,8 +21,8 @@ Das bedeutet, dass die Administrator-Passwort-Wiederherstellung jetzt durch erne
 2. Lokalisieren Sie Ihr Laufzeitverzeichnis.
 3. Löschen Sie `{runtime-dir}/install.lock`.
 4. Starten Sie FileUni erneut über CLI oder GUI.
-5. FileUni tritt automatisch in den Setup-Assistenten ein.
-6. Setzen Sie im Setup-Assistenten ein neues Administrator-Passwort und schließen Sie das Setup ab.
+5. FileUni öffnet automatisch die Einstellungszentrale.
+6. Setzen Sie in der Einstellungszentrale ein neues Administrator-Passwort und schließen Sie die Ersteinrichtung ab.
 
 ## Beispiel
 
@@ -49,7 +49,7 @@ Oder öffnen Sie die Desktop-App erneut und wählen Sie dasselbe Laufzeitverzeic
 
 ## Fehlerbehebung
 
-### Setup-Assistent erschien nicht
+### Einstellungszentrale erschien nicht
 
 Überprüfen Sie diese Punkte:
 

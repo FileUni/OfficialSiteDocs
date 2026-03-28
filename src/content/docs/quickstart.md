@@ -12,7 +12,7 @@ This guide is based on the current workspace layout and runtime model.
 
 FileUni currently has two main entry points:
 
-- `fileuni` CLI: used to start the server, open the setup wizard when needed, manage services, and export or import backups.
+- `fileuni` CLI: used to start the server, open Settings Center when needed, manage services, and export or import backups.
 - `fileuni-gui`: a Tauri desktop wrapper around the same core library, with service control, configuration editing, and the same first-run setup behavior.
 
 Get the appropriate package from the [download page](https://fileuni.com/download).
@@ -51,17 +51,17 @@ In the current project, deployment usually means preparing the backing services 
 - A KV service connection
 - Storage locations required by the VFS configuration
 
-If `config.toml` or `install.lock` is missing, FileUni will enter the setup wizard.
+If `{runtime-dir}/install.lock` is missing, FileUni will open Settings Center before normal startup.
 
-The setup wizard is responsible for writing `config.toml` and `install.lock`, and for ensuring the built-in administrator account exists.
+Settings Center is responsible for writing `config.toml` and `install.lock`, and for ensuring the built-in administrator account exists.
 
 Normal startup does not auto-create privileged accounts. If the admin account is missing while `install.lock` exists, startup will be rejected.
 
 ## 4. Start FileUni
 
-If `{runtime-dir}/install.lock` is missing, both CLI and GUI will open the setup wizard before normal startup.
+If `{runtime-dir}/install.lock` is missing, both CLI and GUI will open Settings Center before normal startup.
 
-To re-enter the setup wizard later, delete `{runtime-dir}/install.lock`, then start FileUni normally:
+To reopen Settings Center later, delete `{runtime-dir}/install.lock`, then start FileUni normally:
 
 ```bash
 rm -f ./runtime/install.lock

@@ -12,7 +12,7 @@ order: 2
 
 FileUni には現在 2 つのメインエントリポイントがあります：
 
-- `fileuni` CLI：サーバーの起動、必要に応じたセットアップウィザードの起動、サービスの管理、バックアップのエクスポート/インポートに使用されます。
+- `fileuni` CLI：サーバーの起動、必要に応じた設定センターの起動、サービスの管理、バックアップのエクスポート/インポートに使用されます。
 - `fileuni-gui`：同じコアライブラリをラップする Tauri デスクトップラッパーで、サービス制御、設定編集、同じ初回実行セットアップ動作を備えています。
 
 [ダウンロードページ](https://fileuni.com/ja/download)から適切なパッケージを入手してください。
@@ -51,17 +51,17 @@ FileUni は環境変数を設定ソースとして使用しません。ランタ
 - KV サービス接続
 - VFS 設定で必要なストレージロケーション
 
-`config.toml` または `install.lock` がない場合、FileUni はセットアップウィザードに入ります。
+`{runtime-dir}/install.lock` がない場合、FileUni は通常起動の前に設定センターを開きます。
 
-セットアップウィザードは `config.toml` と `install.lock` の書き込み、および組み込み管理者アカウントの確保を担当します。
+設定センターは `config.toml` と `install.lock` を書き込み、組み込み管理者アカウントを確保します。
 
 通常の起動では特権アカウントは自動作成されません。`install.lock` が存在するのに管理者アカウントがない場合、起動は拒否されます。
 
 ## 4. FileUni を起動する
 
-`{runtime-dir}/install.lock` がない場合、CLI と GUI の両方が通常の起動前にセットアップウィザードを開きます。
+`{runtime-dir}/install.lock` がない場合、CLI と GUI の両方が通常の起動前に設定センターを開きます。
 
-あとで再びセットアップウィザードを開きたい場合は、`{runtime-dir}/install.lock` を削除してから通常どおり FileUni を起動してください：
+あとで再び設定センターを開きたい場合は、`{runtime-dir}/install.lock` を削除してから通常どおり FileUni を起動してください：
 
 ```bash
 rm -f ./runtime/install.lock

@@ -1,16 +1,17 @@
 ---
 title: Restablecer contrasena de admin
-description: Recuperar acceso de administrador reabriendo el asistente de configuracion.
+description: Recuperar acceso de administrador reabriendo el centro de configuracion.
 ---
 
 # Restablecer contrasena de admin
 
-Si pierdes la contrasena del administrador integrado, la ruta soportada es reabrir el asistente de configuracion.
+Si pierdes la contrasena del administrador integrado, la ruta soportada es reabrir el centro de configuracion.
 
 FileUni usa `{runtime-dir}/install.lock` como marcador de instalacion completa:
 
 - Si existe `install.lock`, FileUni inicia normalmente.
-- Si falta `install.lock`, CLI y GUI bloquean el arranque normal y fuerzan el asistente.
+- Si falta `install.lock`, CLI y GUI bloquean el arranque normal y abren el centro de configuracion.
+- Completar el centro de configuracion vuelve a escribir `install.lock` y permite continuar con el arranque.
 
 ## Pasos de recuperacion
 
@@ -18,7 +19,15 @@ FileUni usa `{runtime-dir}/install.lock` como marcador de instalacion completa:
 2. Localiza el directorio de ejecucion.
 3. Borra `{runtime-dir}/install.lock`.
 4. Inicia FileUni otra vez.
-5. En el asistente, define una nueva contrasena de admin y finaliza.
+5. FileUni abrira automaticamente el centro de configuracion.
+6. En el centro de configuracion, define una nueva contrasena de admin y completa la configuracion inicial.
+
+## Solucion de problemas
+
+### El centro de configuracion no aparecio
+
+- Verifica que eliminaste `{runtime-dir}/install.lock`.
+- Reinicia exactamente el mismo despliegue de FileUni.
 
 ## Ejemplo
 

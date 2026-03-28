@@ -1,6 +1,6 @@
 ---
 title: Réinitialiser le mot de passe admin
-description: Récupérer l'accès administrateur en réentrant dans l'assistant de configuration pour le déploiement FileUni actuel.
+description: Recuperer l'acces administrateur en rouvrant le centre de parametres pour le deploiement FileUni actuel.
 ---
 
 # Réinitialiser le mot de passe admin
@@ -10,10 +10,10 @@ Si vous perdez le mot de passe administrateur intégré, le chemin de récupéra
 FileUni traite maintenant `{runtime-dir}/install.lock` comme marqueur de fin d'installation :
 
 - Si `install.lock` existe, FileUni démarre normalement.
-- Si `install.lock` est manquant, le CLI et le GUI bloquent le démarrage normal et forcent l'assistant de configuration.
-- Terminer l'assistant de configuration écrit à nouveau `install.lock` et permet au système de continuer le démarrage.
+- Si `install.lock` est manquant, le CLI et le GUI bloquent le demarrage normal et ouvrent le centre de parametres.
+- Terminer le centre de parametres ecrit a nouveau `install.lock` et permet au systeme de continuer le demarrage.
 
-Cela signifie que la récupération du mot de passe administrateur se fait maintenant en rouvrant l'assistant de configuration.
+- Cela signifie que la recuperation du mot de passe administrateur se fait maintenant en rouvrant le centre de parametres.
 
 ## Étapes de récupération
 
@@ -21,8 +21,8 @@ Cela signifie que la récupération du mot de passe administrateur se fait maint
 2. Localisez votre répertoire d'exécution.
 3. Supprimez `{runtime-dir}/install.lock`.
 4. Démarrez FileUni à nouveau depuis le CLI ou le GUI.
-5. FileUni entrera automatiquement dans l'assistant de configuration.
-6. Dans l'assistant de configuration, définissez un nouveau mot de passe administrateur et terminez la configuration.
+5. FileUni ouvrira automatiquement le centre de parametres.
+6. Dans le centre de parametres, definissez un nouveau mot de passe administrateur et terminez la configuration initiale.
 
 ## Exemple
 
@@ -49,7 +49,7 @@ Ou rouvrez l'application de bureau et sélectionnez le même répertoire d'exéc
 
 ## Dépannage
 
-### L'assistant de configuration n'est pas apparu
+### Le centre de parametres n'est pas apparu
 
 Vérifiez ces éléments :
 

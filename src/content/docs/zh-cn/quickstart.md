@@ -12,7 +12,7 @@ order: 2
 
 FileUni 目前主要有两个入口：
 
-- `fileuni` CLI：用于启动服务、在需要时进入设置向导、管理系统服务，以及导入导出备份。
+- `fileuni` CLI：用于启动服务、在需要时打开设置中心、管理系统服务，以及导入导出备份。
 - `fileuni-gui`：基于 Tauri 的桌面壳层，和 CLI 共用同一套核心能力，并遵循同样的首次启动设置逻辑。
 
 请先从[下载页面](https://fileuni.com/zh-cn/download)获取对应构建包。
@@ -51,17 +51,17 @@ FileUni 不允许把环境变量作为配置来源，运行参数都必须来自
 - KV 服务连接
 - VFS 所需的存储路径
 
-如果缺少 `config.toml` 或 `{runtime-dir}/install.lock`，FileUni 会进入设置向导。
+如果 `{runtime-dir}/install.lock` 缺失，FileUni 会在正常启动前打开设置中心。
 
-设置向导负责写入 `config.toml` 和 `install.lock`，并确保内置管理员账号已就绪。
+设置中心负责写入 `config.toml` 和 `install.lock`，并确保内置管理员账号已就绪。
 
 正常启动不会自动创建特权账号。如果在 `install.lock` 已存在的情况下管理员账号缺失，启动会被拒绝。
 
 ## 4. 启动 FileUni
 
-如果 `{runtime-dir}/install.lock` 不存在，CLI 与 GUI 都会在正常启动前直接进入设置向导。
+如果 `{runtime-dir}/install.lock` 不存在，CLI 与 GUI 都会在正常启动前直接进入设置中心。
 
-如果你之后还想重新进入设置向导，删除 `{runtime-dir}/install.lock` 后再正常启动即可：
+如果你之后还想重新打开设置中心，删除 `{runtime-dir}/install.lock` 后再正常启动即可：
 
 ```bash
 rm -f ./runtime/install.lock

@@ -31,9 +31,9 @@ Para validar la configuracion sin iniciar el servidor completo:
 
 ## 3. Iniciar el servidor
 
-Si falta `config.toml` o `{runtime-dir}/install.lock`, FileUni abrira el asistente de configuracion antes del arranque normal.
+Si falta `{runtime-dir}/install.lock`, FileUni abrira el centro de configuracion antes del arranque normal.
 
-Para reabrir el asistente mas tarde, elimina `{runtime-dir}/install.lock` y vuelve a iniciar FileUni:
+Para reabrir el centro de configuracion mas tarde, elimina `{runtime-dir}/install.lock` y vuelve a iniciar FileUni:
 
 ```bash
 rm -f ./runtime/install.lock

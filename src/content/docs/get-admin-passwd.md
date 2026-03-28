@@ -1,6 +1,6 @@
 ---
 title: Reset Admin Password
-description: Recover administrator access by re-entering the setup wizard for the current FileUni deployment.
+description: Recover administrator access by reopening Settings Center for the current FileUni deployment.
 ---
 
 # Reset Admin Password
@@ -10,10 +10,10 @@ If you lose the built-in administrator password, the supported recovery path is 
 FileUni now treats `{runtime-dir}/install.lock` as the installation completion marker:
 
 - If `install.lock` exists, FileUni starts normally.
-- If `install.lock` is missing, both CLI and GUI block normal startup and force the setup wizard.
-- Completing the setup wizard writes `install.lock` again and lets the system continue startup.
+- If `install.lock` is missing, both CLI and GUI block normal startup and open Settings Center.
+- Completing Settings Center writes `install.lock` again and lets the system continue startup.
 
-That means administrator password recovery is now done by reopening the setup wizard.
+That means administrator password recovery is now done by reopening Settings Center.
 
 ## Recovery Steps
 
@@ -21,8 +21,8 @@ That means administrator password recovery is now done by reopening the setup wi
 2. Locate your runtime directory.
 3. Delete `{runtime-dir}/install.lock`.
 4. Start FileUni again from CLI or GUI.
-5. FileUni will enter the setup wizard automatically.
-6. In the setup wizard, set a new administrator password and finish setup.
+5. FileUni will open Settings Center automatically.
+6. In Settings Center, set a new administrator password and finish the initial settings.
 
 ## Example
 
@@ -49,7 +49,7 @@ Or reopen the desktop app and select the same runtime directory.
 
 ## Troubleshooting
 
-### Setup wizard did not appear
+### Settings Center did not appear
 
 Check these items:
 
