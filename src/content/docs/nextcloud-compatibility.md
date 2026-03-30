@@ -39,6 +39,6 @@ Actual client behavior may vary depending on your configuration, enabled modules
 
 ## Related Pages
 
-- [Features](./features)
+- [Features](https://fileuni.com/features/)
 - [Access and File Operations](./file-management)
 - [Quick Start](./quickstart)

@@ -21,7 +21,7 @@ order: 0
 - [系统最低要求](./system-requirements)
 - [快速开始](./quickstart)
 - [下载与安装](https://fileuni.com/zh-cn/download)
-- [功能特性](./features)
+- [功能特性](https://fileuni.com/zh-cn/features/)
 - [Nextcloud 兼容性](./nextcloud-compatibility)
 - [访问方式与文件操作](./file-management)
 - [安装为系统服务](./install-service)

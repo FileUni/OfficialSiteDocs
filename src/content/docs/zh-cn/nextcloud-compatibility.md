@@ -39,6 +39,6 @@ FileUni 已具备 Nextcloud 客户端兼容所需的基础功能：
 
 ## 相关页面
 
-- [功能特性](./features)
+- [功能特性](https://fileuni.com/zh-cn/features/)
 - [访问方式与文件操作](./file-management)
 - [快速开始](./quickstart)

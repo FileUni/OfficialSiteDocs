@@ -98,6 +98,6 @@ Selon votre configuration, les points de terminaison S3, FTP et SFTP peuvent ég
 
 ## Prochaines étapes
 
-- [Fonctionnalités](./features)
+- [Fonctionnalités](https://fileuni.com/fr/features/)
 - [Accès et opérations sur les fichiers](./file-management)
 - [Installer comme service](./install-service)

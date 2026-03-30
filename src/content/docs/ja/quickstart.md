@@ -98,6 +98,6 @@ http://localhost:19000/
 
 ## 次のステップ
 
-- [機能](./features)
+- [機能](https://fileuni.com/ja/features/)
 - [アクセスとファイル操作](./file-management)
 - [サービスとしてインストール](./install-service)

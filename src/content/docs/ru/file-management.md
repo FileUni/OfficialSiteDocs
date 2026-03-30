@@ -91,5 +91,5 @@ order: 4
 ## Следующие шаги
 
 - [Быстрый старт](./quickstart)
-- [Возможности](./features)
+- [Возможности](https://fileuni.com/ru/features/)
 - [Установить как сервис](./install-service)

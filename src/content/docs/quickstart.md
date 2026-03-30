@@ -98,6 +98,6 @@ Depending on your configuration, S3, FTP, and SFTP endpoints may also be enabled
 
 ## Next Steps
 
-- [Features](./features)
+- [Features](https://fileuni.com/features/)
 - [Access and File Operations](./file-management)
 - [Install as Service](./install-service)

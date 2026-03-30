@@ -39,6 +39,6 @@ El comportamiento exacto del cliente puede variar según la configuración, los 
 
 ## Páginas relacionadas
 
-- [Funciones](./features)
+- [Funciones](https://fileuni.com/es/features/)
 - [Acceso y operaciones de archivos](./file-management)
 - [Guía rápida](./quickstart)

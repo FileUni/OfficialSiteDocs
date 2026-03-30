@@ -98,6 +98,6 @@ http://localhost:19000/
 
 ## 下一步
 
-- [功能特性](./features)
+- [功能特性](https://fileuni.com/zh-cn/features/)
 - [访问方式与文件操作](./file-management)
 - [安装为系统服务](./install-service)

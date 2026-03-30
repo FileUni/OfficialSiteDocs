@@ -64,6 +64,6 @@ Segun tu configuracion, tambien pueden habilitarse endpoints S3, FTP y SFTP.
 
 ## Siguientes pasos
 
-- [Funciones](./features)
+- [Funciones](https://fileuni.com/es/features/)
 - [Acceso y operaciones de archivos](./file-management)
 - [Instalar como servicio](./install-service)

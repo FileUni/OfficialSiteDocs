@@ -21,7 +21,7 @@ FileUni ist eine Rust-basierte Dateiplattform mit:
 - [Systemanforderungen](./system-requirements)
 - [Schnellstart](./quickstart)
 - [FileUni herunterladen](https://fileuni.com/de/download)
-- [Funktionen](./features)
+- [Funktionen](https://fileuni.com/de/features/)
 - [Nextcloud-Kompatibilität](./nextcloud-compatibility)
 - [Zugriff und Dateioperationen](./file-management)
 - [Als Dienst installieren](./install-service)

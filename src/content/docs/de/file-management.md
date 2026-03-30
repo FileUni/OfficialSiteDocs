@@ -91,5 +91,5 @@ Verwenden Sie WebDAV, S3, FTP oder SFTP, wenn Sie benötigen:
 ## Nächste Schritte
 
 - [Schnellstart](./quickstart)
-- [Funktionen](./features)
+- [Funktionen](https://fileuni.com/de/features/)
 - [Als Dienst installieren](./install-service)

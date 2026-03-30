@@ -39,6 +39,6 @@ Das genaue Client-Verhalten kann je nach Konfiguration, aktivierten Modulen und 
 
 ## Verwandte Seiten
 
-- [Funktionen](./features)
+- [Funktionen](https://fileuni.com/de/features/)
 - [Zugriff und Dateioperationen](./file-management)
 - [Schnellstart](./quickstart)

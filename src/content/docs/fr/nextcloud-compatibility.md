@@ -39,6 +39,6 @@ Le comportement exact du client peut varier selon la configuration, les modules 
 
 ## Pages liées
 
-- [Fonctionnalités](./features)
+- [Fonctionnalités](https://fileuni.com/fr/features/)
 - [Accès et opérations sur les fichiers](./file-management)
 - [Démarrage rapide](./quickstart)

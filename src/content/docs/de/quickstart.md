@@ -98,6 +98,6 @@ Je nach Ihrer Konfiguration können auch S3-, FTP- und SFTP-Endpunkte aktiviert 
 
 ## Nächste Schritte
 
-- [Funktionen](./features)
+- [Funktionen](https://fileuni.com/de/features/)
 - [Zugriff und Dateioperationen](./file-management)
 - [Als Dienst installieren](./install-service)

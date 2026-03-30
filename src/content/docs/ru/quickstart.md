@@ -98,6 +98,6 @@ http://localhost:19000/
 
 ## Следующие шаги
 
-- [Возможности](./features)
+- [Возможности](https://fileuni.com/ru/features/)
 - [Доступ и операции с файлами](./file-management)
 - [Установить как сервис](./install-service)

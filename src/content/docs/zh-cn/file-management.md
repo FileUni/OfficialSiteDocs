@@ -91,5 +91,5 @@ WebUI 是当前最主要的人机交互入口，负责：
 ## 下一步
 
 - [快速开始](./quickstart)
-- [功能特性](./features)
+- [功能特性](https://fileuni.com/zh-cn/features/)
 - [安装为系统服务](./install-service)
