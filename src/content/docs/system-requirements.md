@@ -75,6 +75,15 @@ This document may lag behind actual development and contain discrepancies; FileU
 | --- | --- | --- |
 | Proxmox VE CT | PVE 8.x | PVE 7.x |
 
+## Memory and Load Expectations
+
+FileUni's core process can complete baseline startup with about 15MB of available RAM.
+
+- 64MB-class devices usually provide a reasonably smooth baseline experience in lean OS environments.
+- 32MB-class devices are not a general guarantee. Whether they remain usable depends on OS overhead, enabled features, and real load.
+- In Alpine, OpenWrt, or tightly constrained container setups, 32MB may still be enough for a reduced baseline configuration.
+- Low-memory deployments must disable heavier features and use lower concurrency. They are not a target for full functionality, heavy preview pipelines, or high-throughput workloads.
+
 ## Notes
 
 - If you are unsure, start with the recommended versions above.

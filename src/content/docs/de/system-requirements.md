@@ -75,6 +75,15 @@ Dieses Dokument kann hinter der tatsächlichen Entwicklung zurückbleiben und Un
 | --- | --- | --- |
 | Proxmox VE CT | PVE 8.x | PVE 7.x |
 
+## Speicher- und Lastprofil
+
+Der Kernprozess von FileUni kann den Basisstart mit etwa 15MB verfugbarem RAM abschliessen.
+
+- Gerate der 64MB-Klasse bieten in schlanken Systemumgebungen meist eine recht flussige Basiserfahrung.
+- Gerate der 32MB-Klasse sind kein allgemein garantierter Einsatzbereich. Nutzbarkeit und Stabilitat hangen von System-Overhead, aktivierten Funktionen und realer Last ab.
+- Unter Alpine, OpenWrt oder streng begrenzten Container-Umgebungen konnen 32MB fur eine reduzierte Basiskonfiguration trotzdem ausreichen.
+- Low-Memory-Deployments mussen schwerere Funktionen abschalten und die Parallelitat deutlich senken. Sie sind kein Ziel fur vollen Funktionsumfang, schwere Vorschaupfade oder hohen Durchsatz.
+
 ## Hinweise
 
 - Wenn Sie unsicher sind, beginnen Sie mit den empfohlenen Versionen oben.

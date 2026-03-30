@@ -75,6 +75,15 @@ Ce document peut être en retard sur le développement réel et contenir des div
 | --- | --- | --- |
 | Proxmox VE CT | PVE 8.x | PVE 7.x |
 
+## Memoire et charge
+
+Le processus central de FileUni peut realiser un demarrage de base avec environ 15MB de RAM disponible.
+
+- Les appareils de la classe 64MB offrent generalement une experience de base assez fluide dans un environnement systeme leger.
+- Les appareils de la classe 32MB ne constituent pas un scenario garanti. La stabilite depend de l'empreinte du systeme, des fonctions activees et de la charge reelle.
+- Sous Alpine, OpenWrt ou dans des conteneurs tres contraints, 32MB peuvent encore suffire pour une configuration de base reduite.
+- Les deploiements a tres faible memoire doivent desactiver les fonctions lourdes et reduire la concurrence. Ils ne constituent pas une reference pour les fonctionnalites completes, les apercus lourds ou les charges a haut debit.
+
 ## Notes
 
 - Si vous n'êtes pas sûr, commencez avec les versions recommandées ci-dessus.
