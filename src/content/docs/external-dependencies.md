@@ -19,25 +19,32 @@ These tools enable preview, thumbnail, and compression features. Common image th
   - Purpose: Fast external image/PDF thumbnail rendering.
   - Needed when: You enable PDF thumbnails or switch image thumbnails to the external backend.
 - ImageMagick
-  - Purpose: Fallback external thumbnail rendering and text thumbnail generation.
+  - Purpose: Fallback external thumbnail rendering, text thumbnail generation, and rasterization for formats such as `psd` and `ai`.
   - Needed when: You enable text thumbnails or want a fallback for PDF/image thumbnails while using the external path.
 - FFmpeg
-  - Purpose: Video thumbnails (frame extraction) and video metadata.
-  - Needed when: You enable video thumbnails on Linux, Windows, macOS, or FreeBSD.
+  - Purpose: Video thumbnails (frame extraction), WebUI video transcoding, and video metadata.
+  - Needed when: You enable video thumbnails or video transcoding on Linux, Windows, macOS, or FreeBSD.
 - LibreOffice (`soffice`)
   - Purpose: Office document thumbnails (convert to PDF, then thumbnail).
   - Needed when: You enable Office document thumbnails.
 - LaTeX toolchain (`latexmk` + `xelatex`)
   - Purpose: LaTeX preview and LaTeX thumbnails (compile to PDF).
   - Needed when: You enable LaTeX preview or LaTeX thumbnails.
+- Blender
+  - Purpose: 3D model thumbnails (`obj`, `stl`, `gltf`, `glb`).
+  - Needed when: You enable 3D model thumbnails.
 
 ## 1.1 Built-in Rust Image Thumbnail Coverage
 
 - FileUni now ships a built-in Rust image thumbnail backend inside the VFS layer. This is the default image thumbnail path.
 - Supported source formats: `jpg`, `jpeg`, `png`, `webp`, `gif`, `bmp`, `tiff`, `tif`, `svg`
+- Additional common formats handled through the external raster toolchain: `psd`, `ai`
+- Additional 3D model formats handled through Blender: `obj`, `stl`, `gltf`, `glb`
 - Supported output formats: `jpg`, `png`, `webp`
 - When `vfs_storage_hub.thumbnail.image.backend = "builtin"`, these image thumbnails do not require libvips or ImageMagick.
+- If the built-in image backend cannot decode a source format and libvips or ImageMagick is configured, FileUni falls back to the external raster path automatically.
 - Video thumbnails still use FFmpeg on Linux, Windows, macOS, and FreeBSD. Android and iOS use the system media framework instead.
+- When `vfs_storage_hub.media_transcoding.hardware.enabled = true`, desktop video thumbnails try the same hardware backend first for frame extraction and automatically fall back to software extraction if that path fails.
 - PDF, Office, text, and LaTeX thumbnails still rely on external tools. On mobile server deployments, PDF, Office, and text thumbnails are disabled by default.
 
 ## 2. Optional External Services (KV and SQL)
@@ -63,16 +70,23 @@ The default Docker image only bundles lightweight executables still useful for p
 External executables:
 - `vfs_storage_hub.thumbnail.tools.vips_path`
 - `vfs_storage_hub.thumbnail.tools.imagemagick_path`
-- `vfs_storage_hub.thumbnail.tools.ffmpeg_path`
+- `vfs_storage_hub.external_tools.ffmpeg_path`
 - `vfs_storage_hub.thumbnail.tools.libreoffice_path`
-- `latex_preview.latexmk_path`
-- `file_compress.exe_7zip_path`
+- `vfs_storage_hub.thumbnail.tools.blender_path`
+- `file_manager_api.latex_preview.latexmk_path`
+- `vfs_storage_hub.file_compress.exe_7zip_path`
+
+Video transcoding:
+- `vfs_storage_hub.media_transcoding.enabled`
+- `vfs_storage_hub.media_transcoding.video.*`
+- `vfs_storage_hub.media_transcoding.hardware.*`
 
 Feature switches and limits (commonly used with the tools above):
 - `latex_preview.enable_latexmk`
 - `vfs_storage_hub.thumbnail.enabled`
 - `vfs_storage_hub.thumbnail.image.backend`
 - `vfs_storage_hub.thumbnail.<image|video|pdf|office|text>.enabled`
+- `vfs_storage_hub.thumbnail.model3d.enabled`
 
 Optional KV services:
 - `fast_kv_storage_hub.kv_type`

@@ -19,25 +19,32 @@ FileUni 在预览、缩略图和压缩等功能上依赖少量外部可执行程
   - 作用：高性能外部图片/PDF 缩略图渲染。
   - 需要安装的情况：启用 PDF 缩略图，或把图片缩略图切换到 external 后端。
 - ImageMagick
-  - 作用：外部缩略图回退渲染与文本缩略图生成。
+  - 作用：外部缩略图回退渲染、文本缩略图生成，以及 `psd` / `ai` 这类需要外部光栅化的格式。
   - 需要安装的情况：启用文本缩略图，或希望为 PDF/图片缩略图提供 external 路径回退。
 - FFmpeg
-  - 作用：视频缩略图（抽帧）与视频信息解析。
-  - 需要安装的情况：在 Linux、Windows、macOS、FreeBSD 上启用视频缩略图。
+  - 作用：视频缩略图（抽帧）、WebUI 视频转码与视频信息解析。
+  - 需要安装的情况：在 Linux、Windows、macOS、FreeBSD 上启用视频缩略图或视频转码。
 - LibreOffice（`soffice`）
   - 作用：Office 文档缩略图（先转 PDF，再走缩略图流程）。
   - 需要安装的情况：启用 Office 文档缩略图。
 - LaTeX 工具链（`latexmk` + `xelatex`）
   - 作用：LaTeX 预览与 LaTeX 缩略图（编译为 PDF）。
   - 需要安装的情况：启用 LaTeX 预览或 LaTeX 缩略图。
+- Blender
+  - 作用：3D 模型缩略图（`obj`、`stl`、`gltf`、`glb`）。
+  - 需要安装的情况：启用 3D 模型缩略图。
 
 ## 1.1 内置 Rust 图片缩略图覆盖范围
 
 - FileUni 现在在 VFS 层内置了 Rust 图片缩略图后端，这也是默认图片缩略图路径。
 - 支持的输入格式：`jpg`、`jpeg`、`png`、`webp`、`gif`、`bmp`、`tiff`、`tif`、`svg`
+- 额外可通过外部 raster 工具链处理的常见格式：`psd`、`ai`
+- 额外可通过 Blender 处理的 3D 模型格式：`obj`、`stl`、`gltf`、`glb`
 - 支持的输出格式：`jpg`、`png`、`webp`
 - 当 `vfs_storage_hub.thumbnail.image.backend = "builtin"` 时，这些图片缩略图不依赖 libvips 或 ImageMagick。
+- 当内置图片缩略图后端无法解析某些格式时，如果已经配置 libvips 或 ImageMagick，FileUni 会自动回退到外部光栅化工具链。
 - 视频缩略图在 Linux、Windows、macOS、FreeBSD 上继续使用 FFmpeg；Android 与 iOS 改走系统媒体框架。
+- 当 `vfs_storage_hub.media_transcoding.hardware.enabled = true` 时，桌面端视频缩略图会优先复用同一套硬件后端尝试硬件抽帧，失败时自动回退到软件方式。
 - PDF、Office、文本、LaTeX 缩略图仍然依赖外部工具；在移动端作为服务器的部署场景中，PDF、Office、文本缩略图默认关闭。
 
 ## 2. 可选外部服务（KV 与 SQL）
@@ -63,16 +70,23 @@ FileUni 在预览、缩略图和压缩等功能上依赖少量外部可执行程
 外部可执行程序：
 - `vfs_storage_hub.thumbnail.tools.vips_path`
 - `vfs_storage_hub.thumbnail.tools.imagemagick_path`
-- `vfs_storage_hub.thumbnail.tools.ffmpeg_path`
+- `vfs_storage_hub.external_tools.ffmpeg_path`
 - `vfs_storage_hub.thumbnail.tools.libreoffice_path`
-- `latex_preview.latexmk_path`
-- `file_compress.exe_7zip_path`
+- `vfs_storage_hub.thumbnail.tools.blender_path`
+- `file_manager_api.latex_preview.latexmk_path`
+- `vfs_storage_hub.file_compress.exe_7zip_path`
+
+视频转码相关：
+- `vfs_storage_hub.media_transcoding.enabled`
+- `vfs_storage_hub.media_transcoding.video.*`
+- `vfs_storage_hub.media_transcoding.hardware.*`
 
 功能开关与限制（与上面工具常配套使用）：
 - `latex_preview.enable_latexmk`
 - `vfs_storage_hub.thumbnail.enabled`
 - `vfs_storage_hub.thumbnail.image.backend`
 - `vfs_storage_hub.thumbnail.<image|video|pdf|office|text>.enabled`
+- `vfs_storage_hub.thumbnail.model3d.enabled`
 
 可选 KV 服务：
 - `fast_kv_storage_hub.kv_type`
