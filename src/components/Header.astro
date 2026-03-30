@@ -23,6 +23,7 @@ const LOCALE_META: Record<LocaleKey, {
     getStarted: string;
   };
   homeHref: string;
+  featuresHref: string;
   downloadHref: string;
   docsHref: string;
   loginHref: string;
@@ -38,6 +39,7 @@ const LOCALE_META: Record<LocaleKey, {
       getStarted: 'Get Started',
     },
     homeHref: 'https://fileuni.com/',
+    featuresHref: 'https://fileuni.com/features/',
     downloadHref: 'https://fileuni.com/download',
     docsHref: '/',
     loginHref: 'https://fileuni.com/user/login',
@@ -53,6 +55,7 @@ const LOCALE_META: Record<LocaleKey, {
       getStarted: '立即开始',
     },
     homeHref: 'https://fileuni.com/zh-cn/',
+    featuresHref: 'https://fileuni.com/zh-cn/features/',
     downloadHref: 'https://fileuni.com/zh-cn/download',
     docsHref: '/zh-cn/',
     loginHref: 'https://fileuni.com/user/login#zh-cn',
@@ -68,6 +71,7 @@ const LOCALE_META: Record<LocaleKey, {
       getStarted: 'Empezar',
     },
     homeHref: 'https://fileuni.com/es/',
+    featuresHref: 'https://fileuni.com/es/features/',
     downloadHref: 'https://fileuni.com/es/download',
     docsHref: '/es/',
     loginHref: 'https://fileuni.com/user/login#es',
@@ -83,6 +87,7 @@ const LOCALE_META: Record<LocaleKey, {
       getStarted: 'Get Started',
     },
     homeHref: 'https://fileuni.com/de/',
+    featuresHref: 'https://fileuni.com/de/features/',
     downloadHref: 'https://fileuni.com/de/download',
     docsHref: '/de/',
     loginHref: 'https://fileuni.com/user/login#de',
@@ -98,6 +103,7 @@ const LOCALE_META: Record<LocaleKey, {
       getStarted: 'Get Started',
     },
     homeHref: 'https://fileuni.com/fr/',
+    featuresHref: 'https://fileuni.com/fr/features/',
     downloadHref: 'https://fileuni.com/fr/download',
     docsHref: '/fr/',
     loginHref: 'https://fileuni.com/user/login#fr',
@@ -113,6 +119,7 @@ const LOCALE_META: Record<LocaleKey, {
       getStarted: 'Get Started',
     },
     homeHref: 'https://fileuni.com/ru/',
+    featuresHref: 'https://fileuni.com/ru/features/',
     downloadHref: 'https://fileuni.com/ru/download',
     docsHref: '/ru/',
     loginHref: 'https://fileuni.com/user/login#ru',
@@ -128,6 +135,7 @@ const LOCALE_META: Record<LocaleKey, {
       getStarted: 'Get Started',
     },
     homeHref: 'https://fileuni.com/ja/',
+    featuresHref: 'https://fileuni.com/ja/features/',
     downloadHref: 'https://fileuni.com/ja/download',
     docsHref: '/ja/',
     loginHref: 'https://fileuni.com/user/login#ja',
@@ -139,7 +147,7 @@ const meta = LOCALE_META[(locale as LocaleKey)] ?? LOCALE_META.root;
 
 const homeHref = meta.homeHref;
 const downloadHref = meta.downloadHref;
-const featuresHref = `${homeHref}#features`;
+const featuresHref = meta.featuresHref;
 const docsHref = meta.docsHref;
 const loginHref = meta.loginHref;
 const registerHref = meta.registerHref;
