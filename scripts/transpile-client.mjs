@@ -9,6 +9,10 @@ const DIST_DIR = new URL('./dist/', ROOT);
 
 const JS_TARGET = 'es2019';
 
+/**
+ * Check if a script type attribute value represents JavaScript that should be transpiled.
+ * Returns true for empty, 'module', 'text/javascript', or 'application/javascript'.
+ */
 const isJavaScriptType = (typeValue) => {
   if (!typeValue) return true;
   const normalized = String(typeValue).trim().toLowerCase();
@@ -20,6 +24,9 @@ const isJavaScriptType = (typeValue) => {
   );
 };
 
+/**
+ * Recursively walk a directory tree and return all file paths.
+ */
 const walk = async (dirPath) => {
   const entries = await fs.readdir(dirPath, { withFileTypes: true });
   const results = [];
@@ -34,6 +41,9 @@ const walk = async (dirPath) => {
   return results;
 };
 
+/**
+ * Transpile JavaScript code to the es2019 target using ESBuild.
+ */
 const transformJs = async (code, sourcefile) => {
   const result = await esbuild.transform(code, {
     loader: 'js',
@@ -45,6 +55,10 @@ const transformJs = async (code, sourcefile) => {
   return result.code;
 };
 
+/**
+ * Find and rewrite all inline <script> tags in an HTML file to the es2019 target.
+ * Skips external scripts (with src attribute) and non-JavaScript types.
+ */
 const rewriteInlineScripts = async (htmlPath) => {
   const original = await fs.readFile(htmlPath, 'utf8');
   let changed = false;
@@ -99,6 +113,9 @@ const rewriteInlineScripts = async (htmlPath) => {
   }
 };
 
+/**
+ * Walk the dist directory and transpile all .js files and inline scripts in .html files to es2019.
+ */
 const main = async () => {
   const distPath = path.resolve(fileURLToPath(DIST_DIR));
   const files = await walk(distPath);

@@ -25,10 +25,16 @@ export const DOCS_LOCALE_OPTIONS: DocsLocaleOption[] = SUPPORTED_LOCALES.map((lo
   pathPrefix: LOCALE_METADATA[locale].pathPrefix,
 }));
 
+/**
+ * Derive the docs locale from a URL pathname.
+ */
 export function getDocsLocaleFromPath(pathname: string): DocsLocale {
   return getLocaleFromPathname(pathname);
 }
 
+/**
+ * Translate a pathname to the specified docs locale.
+ */
 export function toDocsLocalePath(pathname: string, locale: DocsLocale): string {
   return translatePathWithLocale(pathname, locale);
 }

@@ -3,6 +3,11 @@ import starlight from '@astrojs/starlight';
 import cloudflare from '@astrojs/cloudflare';
 import { getSiteUrl } from './src/i18n/site-links';
 
+/**
+ * OfficialSiteDocs Astro configuration.
+ * Defines Starlight multi-locale setup (7 languages), sidebar navigation per locale,
+ * custom component overrides, and Cloudflare adapter for SSG deployment.
+ */
 export default defineConfig({
   site: 'https://docs.fileuni.com',
   output: 'static',
