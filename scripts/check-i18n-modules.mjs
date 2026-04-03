@@ -27,6 +27,20 @@ function assert(condition, message) {
   }
 }
 
+function extractPlaceholders(value) {
+  const placeholders = new Set();
+  if (typeof value !== 'string') {
+    return placeholders;
+  }
+  for (const match of value.matchAll(/\{\{\s*([a-zA-Z0-9_.-]+)\s*\}\}/g)) {
+    placeholders.add(match[1]);
+  }
+  for (const match of value.matchAll(/(?<!\{)\{([a-zA-Z0-9_.-]+)\}(?!\})/g)) {
+    placeholders.add(match[1]);
+  }
+  return placeholders;
+}
+
 function importLocalModule(relativePath) {
   const absolutePath = path.join(projectRoot, relativePath);
   return import(pathToFileURL(absolutePath).href);
@@ -59,6 +73,10 @@ for (const locale of core.SUPPORTED_LOCALES) {
   assert(option.label === core.LOCALE_METADATA[locale].label, `docs locale label mismatch for ${locale}`);
   assert(option.flag === core.LOCALE_METADATA[locale].flag, `docs locale flag mismatch for ${locale}`);
   assert(option.pathPrefix === core.LOCALE_METADATA[locale].pathPrefix, `docs locale path prefix mismatch for ${locale}`);
+  assert(
+    [...extractPlaceholders(option.label)].join('|') === [...extractPlaceholders(core.LOCALE_METADATA[locale].label)].join('|'),
+    `docs locale label placeholder mismatch for ${locale}`,
+  );
 
   const docsUrl = siteLinks.getDocsUrl(locale, '/quickstart');
   const siteUrl = siteLinks.getSiteUrl(locale, '/download');
