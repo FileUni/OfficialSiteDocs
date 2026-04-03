@@ -1,21 +1,11 @@
 ---
-import config from 'virtual:starlight/user-config';
-
-const localeEntries = Object.entries(config.locales ?? {});
-const localeOptions = localeEntries.map(([key, value]) => ({
-  code: key === 'root' ? value.lang.toLowerCase() : key.toLowerCase(),
-  pathPrefix: key === 'root' ? '' : `/${key.toLowerCase()}`,
-}));
+import { DOCS_DEFAULT_LOCALE, DOCS_LOCALE_OPTIONS } from '../i18n/locales';
 ---
 
-<script is:inline define:vars={{ FILEUNI_LOCALES: localeOptions }}>
+<script is:inline define:vars={{ FILEUNI_LOCALES: DOCS_LOCALE_OPTIONS, FILEUNI_DEFAULT_LOCALE: DOCS_DEFAULT_LOCALE }}>
   const FILEUNI_THEME_KEY = 'theme';
   const FILEUNI_LANG_KEY = 'lang';
   const COOKIE_MAX_AGE_SECONDS = 60 * 60 * 24 * 365;
-  const defaultLocaleOption =
-    FILEUNI_LOCALES.find((locale) => locale.pathPrefix === '') || FILEUNI_LOCALES[0];
-  const FILEUNI_DEFAULT_LOCALE =
-    defaultLocaleOption && defaultLocaleOption.code ? defaultLocaleOption.code : 'en';
   const FILEUNI_LOCALE_PREFIXES = FILEUNI_LOCALES
     .map((locale) => locale.pathPrefix)
     .filter(Boolean)

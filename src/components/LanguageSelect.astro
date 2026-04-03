@@ -1,29 +1,15 @@
 ---
-import config from 'virtual:starlight/user-config';
+import { DOCS_LOCALE_OPTIONS } from '../i18n/locales';
 
 type LocaleOption = {
   code: string;
   label: string;
+  flag: string;
   pathPrefix: string;
 };
 
-const FLAG_BY_CODE: Record<string, string> = {
-  en: '🇬🇧',
-  'zh-cn': '🇨🇳',
-  es: '🇪🇸',
-  de: '🇩🇪',
-  fr: '🇫🇷',
-  ru: '🇷🇺',
-  ja: '🇯🇵',
-};
-
 const currentPath = Astro.url.pathname;
-const localeEntries = Object.entries(config.locales ?? {});
-const localeOptions: LocaleOption[] = localeEntries.map(([key, value]) => ({
-  code: key === 'root' ? value.lang.toLowerCase() : key.toLowerCase(),
-  label: value.label,
-  pathPrefix: key === 'root' ? '' : `/${key.toLowerCase()}`,
-}));
+const localeOptions: LocaleOption[] = DOCS_LOCALE_OPTIONS;
 const currentLocale =
   localeOptions.find((option) =>
     option.pathPrefix
@@ -35,7 +21,7 @@ const currentLocale =
         ),
   ) ?? localeOptions[0];
 
-const currentFlag = FLAG_BY_CODE[currentLocale.code] ?? '🌐';
+const currentFlag = currentLocale.flag || '🌐';
 ---
 
 <starlight-lang-select>
