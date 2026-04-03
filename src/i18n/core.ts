@@ -9,4 +9,4 @@ export {
   normalizeLocale,
   translatePathWithLocale,
   type SupportedLocale,
-} from '../../../shared/i18n-core';
+} from '../../../ts_shared/i18n-core';
