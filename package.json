@@ -5,8 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "XDG_CONFIG_HOME=.wrangler-home astro dev",
+    "check:i18n": "bun scripts/check-i18n-modules.mjs",
     "build": "XDG_CONFIG_HOME=.wrangler-home astro build && node scripts/transpile-client.mjs && echo '_worker.js\n_routes.json' > dist/.assetsignore",
-    "preview": "XDG_CONFIG_HOME=.wrangler-home astro preview"
+    "preview": "XDG_CONFIG_HOME=.wrangler-home astro preview",
+    "verify": "bun run check:i18n && bun run build"
   },
 
   "dependencies": {
