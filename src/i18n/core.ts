@@ -30,4 +30,4 @@ export {
   type LocalePickerOption,
   type SiteChromeLocale,
   type SupportedLocale,
-} from '../../../ts_shared/i18n-core';
+} from '@fileuni/ts-shared/i18n-core';
