@@ -3,6 +3,7 @@ export {
   FILEUNI_LANG_COOKIE_KEY,
   FILEUNI_CONTROL_METRICS,
   FILEUNI_LANGUAGE_MENU_CLASSNAMES,
+  FILEUNI_TRANSLATION_ICON_PATHS,
   FILEUNI_THEME_TOGGLE_CLASSNAMES,
   LOCALE_PICKER_OPTIONS,
   LOCALE_METADATA,
@@ -13,6 +14,7 @@ export {
   detectLocale,
   detectLocaleFromNavigator,
   getNextBinaryTheme,
+  getSiteChromeMeta,
   getLocaleFromPath,
   getLocaleFromPathname,
   getPathBasedLocaleOptions,
@@ -26,5 +28,6 @@ export {
   translatePathWithLocale,
   type LocalePathOption,
   type LocalePickerOption,
+  type SiteChromeLocale,
   type SupportedLocale,
 } from '../../../ts_shared/i18n-core';

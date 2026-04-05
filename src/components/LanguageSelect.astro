@@ -3,13 +3,13 @@ import { DOCS_LOCALE_OPTIONS } from '../i18n/locales';
 import {
   FILEUNI_CONTROL_METRICS,
   FILEUNI_LANGUAGE_MENU_CLASSNAMES,
+  FILEUNI_TRANSLATION_ICON_PATHS,
   type SupportedLocale,
 } from '../i18n/core';
 
 type LocaleOption = {
   code: SupportedLocale;
   label: string;
-  flag: string;
   pathPrefix: string;
 };
 
@@ -26,7 +26,6 @@ const currentLocale =
         ),
   ) ?? localeOptions[0];
 
-const currentFlag = currentLocale.flag || '🌐';
 const controlStyle = [
   `--fu-control-size:${FILEUNI_CONTROL_METRICS.buttonSizePx}px`,
   `--fu-control-min-height:${FILEUNI_CONTROL_METRICS.buttonMinHeightPx}px`,
@@ -45,7 +44,14 @@ const controlStyle = [
     aria-haspopup="menu"
     aria-label={Astro.locals.t('languageSelect.accessibleLabel')}
   >
-    <span class="fu-lang-flag" aria-hidden="true">{currentFlag}</span>
+    <span class="fu-lang-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        {FILEUNI_TRANSLATION_ICON_PATHS.map((path) => (
+          <path d={path}></path>
+        ))}
+      </svg>
+    </span>
+    <span class="fu-lang-current-label">{currentLocale.label}</span>
   </button>
   <div class={`fu-lang-menu ${FILEUNI_LANGUAGE_MENU_CLASSNAMES.menu}`} style={controlStyle} hidden>
     {localeOptions.map((option) => (
