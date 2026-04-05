@@ -5,16 +5,16 @@
   "type": "module",
   "scripts": {
     "dev": "XDG_CONFIG_HOME=.wrangler-home astro dev",
-    "check:i18n": "bun scripts/check-i18n-modules.mjs",
+    "check:i18n": "bun ../script/check-canonical-locales.mjs && bun scripts/check-i18n-modules.mjs",
     "build": "XDG_CONFIG_HOME=.wrangler-home astro build && node scripts/transpile-client.mjs && echo '_worker.js\n_routes.json' > dist/.assetsignore",
     "preview": "XDG_CONFIG_HOME=.wrangler-home astro preview",
     "verify": "bun run check:i18n && bun run build"
   },
-
   "dependencies": {
     "@astrojs/cloudflare": "^12.1.2",
+    "@astrojs/starlight": "^0.32.0",
     "astro": "^5.2.5",
-    "@astrojs/starlight": "^0.32.0"
+    "opencc-js": "^1.0.5"
   },
   "devDependencies": {
     "wrangler": "^3.107.3"

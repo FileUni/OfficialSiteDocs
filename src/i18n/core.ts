@@ -1,5 +1,6 @@
 export {
   DEFAULT_LOCALE,
+  FILEUNI_LANG_COOKIE_KEY,
   FILEUNI_LANGUAGE_MENU_CLASSNAMES,
   LOCALE_PICKER_OPTIONS,
   LOCALE_METADATA,
@@ -12,8 +13,11 @@ export {
   getLocaleFromPath,
   getLocaleFromPathname,
   getPathBasedLocaleOptions,
+  initPathLocaleThemeBootstrap,
   isLocaleRootPath,
+  mountPathLocaleDropdown,
   normalizeLocale,
+  parseBrowserThemePreference,
   readCookieValue,
   writeCookieValue,
   translatePathWithLocale,
