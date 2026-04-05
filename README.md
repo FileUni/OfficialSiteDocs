@@ -21,7 +21,7 @@ This project automatically triggers Cloudflare build on Git push. No manual depl
 
 ## Starlight i18n Sidebar Configuration
 
-This project uses root locale mode (English files in `src/content/docs/` root, Chinese in `zh-cn/` subdirectory).
+This project uses root locale mode (English files in `src/content/docs/` root, Chinese in `zh-CN/` subdirectory).
 
 Important: `autogenerate: { directory: '.' }` does not work with root locale mode. You must manually specify sidebar items:
 

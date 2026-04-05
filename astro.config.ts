@@ -58,26 +58,50 @@ export default defineConfig({
             },
           ],
         },
-        'zh-cn': {
+        'zh-CN': {
           label: '🇨🇳 简体中文',
           lang: 'zh-CN',
           sidebar: [
             {
               label: '返回 FileUni 官网',
-              link: getSiteUrl('zh-cn'),
+              link: getSiteUrl('zh-CN'),
             },
             {
               label: '使用文档',
               items: [
-                { label: '快速开始', slug: 'zh-cn/quickstart' },
-                { label: '系统最低要求', slug: 'zh-cn/system-requirements' },
-                { label: '下载与安装', link: getSiteUrl('zh-cn', 'download') },
-                { label: '功能特性', slug: 'zh-cn/features' },
-                { label: 'Nextcloud 兼容性', slug: 'zh-cn/nextcloud-compatibility' },
-                { label: '访问方式与文件操作', slug: 'zh-cn/file-management' },
-                { label: '安装为系统服务', slug: 'zh-cn/install-service' },
-                { label: '重置管理员密码', slug: 'zh-cn/get-admin-passwd' },
-                { label: '外部依赖', slug: 'zh-cn/external-dependencies' },
+                { label: '快速开始', slug: 'zh-CN/quickstart' },
+                { label: '系统最低要求', slug: 'zh-CN/system-requirements' },
+                { label: '下载与安装', link: getSiteUrl('zh-CN', 'download') },
+                { label: '功能特性', slug: 'zh-CN/features' },
+                { label: 'Nextcloud 兼容性', slug: 'zh-CN/nextcloud-compatibility' },
+                { label: '访问方式与文件操作', slug: 'zh-CN/file-management' },
+                { label: '安装为系统服务', slug: 'zh-CN/install-service' },
+                { label: '重置管理员密码', slug: 'zh-CN/get-admin-passwd' },
+                { label: '外部依赖', slug: 'zh-CN/external-dependencies' },
+              ],
+            },
+          ],
+        },
+        'zh-Hant': {
+          label: '🇹🇼 繁體中文',
+          lang: 'zh-Hant',
+          sidebar: [
+            {
+              label: '返回 FileUni 官網',
+              link: getSiteUrl('zh-Hant'),
+            },
+            {
+              label: '使用文件',
+              items: [
+                { label: '快速開始', slug: 'zh-Hant/quickstart' },
+                { label: '系統最低要求', slug: 'zh-Hant/system-requirements' },
+                { label: '下載與安裝', link: getSiteUrl('zh-Hant', 'download') },
+                { label: '功能特性', slug: 'zh-Hant/features' },
+                { label: 'Nextcloud 相容性', slug: 'zh-Hant/nextcloud-compatibility' },
+                { label: '訪問方式與檔案操作', slug: 'zh-Hant/file-management' },
+                { label: '安裝為系統服務', slug: 'zh-Hant/install-service' },
+                { label: '重設管理員密碼', slug: 'zh-Hant/get-admin-passwd' },
+                { label: '外部依賴', slug: 'zh-Hant/external-dependencies' },
               ],
             },
           ],

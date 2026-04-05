@@ -1,6 +1,7 @@
 ---
 title: 重置管理员密码
 description: 通过重新打开当前 FileUni 部署的设置中心来恢复管理员访问权限。
+slug: zh-CN/get-admin-passwd
 ---
 
 # 重置管理员密码

@@ -1,5 +1,6 @@
 ---
 import config from 'virtual:starlight/user-config';
+import type { SupportedLocale } from '../i18n/core';
 
 import LanguageSelect from 'virtual:starlight/components/LanguageSelect';
 import Search from 'virtual:starlight/components/Search';
@@ -11,7 +12,7 @@ const shouldRenderSearch =
 
 const locale = Astro.locals.starlightRoute.locale;
 
-type LocaleKey = 'root' | 'zh-cn' | 'es' | 'de' | 'fr' | 'ru' | 'ja';
+type LocaleKey = 'root' | SupportedLocale;
 
 const LOCALE_META: Record<LocaleKey, {
   labels: {
@@ -41,7 +42,7 @@ const LOCALE_META: Record<LocaleKey, {
     loginHref: 'https://fileuni.com/user/login',
     registerHref: 'https://fileuni.com/user/register',
   },
-  'zh-cn': {
+  'zh-CN': {
     labels: {
       home: '首页',
       download: '下载',
@@ -49,11 +50,25 @@ const LOCALE_META: Record<LocaleKey, {
       login: '登录',
       getStarted: '立即开始',
     },
-    homeHref: 'https://fileuni.com/zh-cn/',
-    downloadHref: 'https://fileuni.com/zh-cn/download',
-    docsHref: '/zh-cn/',
-    loginHref: 'https://fileuni.com/user/login#zh-cn',
-    registerHref: 'https://fileuni.com/user/register#zh-cn',
+    homeHref: 'https://fileuni.com/zh-CN/',
+    downloadHref: 'https://fileuni.com/zh-CN/download',
+    docsHref: '/zh-CN/',
+    loginHref: 'https://fileuni.com/user/login#zh-CN',
+    registerHref: 'https://fileuni.com/user/register#zh-CN',
+  },
+  'zh-Hant': {
+    labels: {
+      home: '首頁',
+      download: '下載',
+      docs: '文件',
+      login: '登入',
+      getStarted: '立即開始',
+    },
+    homeHref: 'https://fileuni.com/zh-Hant/',
+    downloadHref: 'https://fileuni.com/zh-Hant/download',
+    docsHref: '/zh-Hant/',
+    loginHref: 'https://fileuni.com/user/login#zh-Hant',
+    registerHref: 'https://fileuni.com/user/register#zh-Hant',
   },
   es: {
     labels: {

@@ -1,6 +1,7 @@
 ---
 title: 外部依赖
 description: FileUni 使用的外部可执行程序与可选服务，安装场景与配置项。
+slug: zh-Hant/external-dependencies
 order: 8
 ---
 

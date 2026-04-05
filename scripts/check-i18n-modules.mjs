@@ -84,7 +84,7 @@ for (const locale of core.SUPPORTED_LOCALES) {
   assert(siteUrl.includes('/download'), `site download URL missing expected path for ${locale}`);
 }
 
-assert(docsLocales.getDocsLocaleFromPath('/zh-cn/quickstart') === 'zh-cn', 'docs path locale detection failed for zh-cn');
+assert(docsLocales.getDocsLocaleFromPath('/zh-CN/quickstart') === 'zh-CN', 'docs path locale detection failed for zh-CN');
 assert(docsLocales.getDocsLocaleFromPath('/quickstart') === 'en', 'docs path locale detection failed for default locale');
 assert(docsLocales.toDocsLocalePath('/quickstart', 'fr') === '/fr/quickstart/', 'docs locale path translation failed for fr');
 

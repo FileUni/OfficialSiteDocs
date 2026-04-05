@@ -1,6 +1,7 @@
 ---
 title: 系统最低要求
 description: FileUni 各类构建物的建议系统版本与可能最低版本说明。
+slug: zh-CN/system-requirements
 order: 1
 ---
 

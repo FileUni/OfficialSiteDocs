@@ -1,6 +1,7 @@
 ---
 title: 安装为系统服务
 description: 将 FileUni 安装并管理为操作系统服务。
+slug: zh-Hant/install-service
 ---
 
 # 将 FileUni 安装为服务

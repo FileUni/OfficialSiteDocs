@@ -1,6 +1,7 @@
 ---
 title: 访问方式与文件操作
 description: 当前 FileUni 项目的访问入口与已实现文件操作。
+slug: zh-Hant/file-management
 order: 4
 ---
 
@@ -91,5 +92,5 @@ WebUI 是当前最主要的人机交互入口，负责：
 ## 下一步
 
 - [快速开始](./quickstart)
-- [功能特性](https://fileuni.com/zh-cn/features/)
+- [功能特性](https://fileuni.com/zh-Hant/features/)
 - [安装为系统服务](./install-service)

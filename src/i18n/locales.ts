@@ -1,6 +1,6 @@
 import {
   DEFAULT_LOCALE,
-  LOCALE_METADATA,
+  LOCALE_PICKER_OPTIONS,
   SUPPORTED_LOCALES,
   getLocaleFromPathname,
   translatePathWithLocale,
@@ -18,11 +18,11 @@ export type DocsLocaleOption = {
 
 export const DOCS_DEFAULT_LOCALE = DEFAULT_LOCALE;
 
-export const DOCS_LOCALE_OPTIONS: DocsLocaleOption[] = SUPPORTED_LOCALES.map((locale) => ({
-  code: locale,
-  label: LOCALE_METADATA[locale].label,
-  flag: LOCALE_METADATA[locale].flag,
-  pathPrefix: LOCALE_METADATA[locale].pathPrefix,
+export const DOCS_LOCALE_OPTIONS: DocsLocaleOption[] = LOCALE_PICKER_OPTIONS.map((locale) => ({
+  code: locale.code,
+  label: locale.nativeLabel,
+  flag: locale.flag,
+  pathPrefix: locale.pathPrefix,
 }));
 
 /**

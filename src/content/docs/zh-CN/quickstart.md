@@ -1,6 +1,7 @@
 ---
 title: 快速开始
 description: 基于当前 FileUni 项目的启动说明。
+slug: zh-CN/quickstart
 order: 2
 ---
 
@@ -15,7 +16,7 @@ FileUni 目前主要有两个入口：
 - `fileuni` CLI：用于启动服务、在需要时打开设置中心、管理系统服务，以及导入导出备份。
 - `fileuni-gui`：基于 Tauri 的桌面壳层，和 CLI 共用同一套核心能力，并遵循同样的首次启动设置逻辑。
 
-请先从[下载页面](https://fileuni.com/zh-cn/download)获取对应构建包。
+请先从[下载页面](https://fileuni.com/zh-CN/download)获取对应构建包。
 
 - 服务器部署请选择 CLI 包。
 - 本机桌面使用请选择 GUI 包。
@@ -98,6 +99,6 @@ http://localhost:19000/
 
 ## 下一步
 
-- [功能特性](https://fileuni.com/zh-cn/features/)
+- [功能特性](https://fileuni.com/zh-CN/features/)
 - [访问方式与文件操作](./file-management)
 - [安装为系统服务](./install-service)

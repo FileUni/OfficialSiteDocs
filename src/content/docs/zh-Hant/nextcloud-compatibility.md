@@ -1,6 +1,7 @@
 ---
 title: Nextcloud 兼容性
 description: 说明 FileUni 与 Nextcloud 客户端生态的兼容性清单。
+slug: zh-Hant/nextcloud-compatibility
 order: 4
 ---
 
@@ -39,6 +40,6 @@ FileUni 已具备 Nextcloud 客户端兼容所需的基础功能：
 
 ## 相关页面
 
-- [功能特性](https://fileuni.com/zh-cn/features/)
+- [功能特性](https://fileuni.com/zh-Hant/features/)
 - [访问方式与文件操作](./file-management)
 - [快速开始](./quickstart)

@@ -54,8 +54,10 @@ import { DOCS_DEFAULT_LOCALE, DOCS_LOCALE_OPTIONS } from '../i18n/locales';
     if (!lang) {
       return null;
     }
-    const normalized = lang.toLowerCase();
-    const matchedLocale = FILEUNI_LOCALES.find((locale) => locale.code === normalized);
+    const normalized = String(lang).trim().replace(/_/g, '-');
+    const matchedLocale = FILEUNI_LOCALES.find(
+      (locale) => locale.code.toLowerCase() === normalized.toLowerCase(),
+    );
     return matchedLocale ? matchedLocale.code : null;
   };
 

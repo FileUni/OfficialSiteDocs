@@ -1,8 +1,9 @@
 ---
 import { DOCS_LOCALE_OPTIONS } from '../i18n/locales';
+import { FILEUNI_LANGUAGE_MENU_CLASSNAMES, type SupportedLocale } from '../i18n/core';
 
 type LocaleOption = {
-  code: string;
+  code: SupportedLocale;
   label: string;
   flag: string;
   pathPrefix: string;
@@ -27,7 +28,7 @@ const currentFlag = currentLocale.flag || '🌐';
 <starlight-lang-select>
   <button
     type="button"
-    class="fu-lang-toggle"
+    class={`fu-lang-toggle ${FILEUNI_LANGUAGE_MENU_CLASSNAMES.trigger}`}
     data-current-lang={currentLocale.code}
     aria-expanded="false"
     aria-haspopup="menu"
@@ -35,11 +36,15 @@ const currentFlag = currentLocale.flag || '🌐';
   >
     <span class="fu-lang-flag" aria-hidden="true">{currentFlag}</span>
   </button>
-  <div class="fu-lang-menu" hidden>
+  <div class={`fu-lang-menu ${FILEUNI_LANGUAGE_MENU_CLASSNAMES.menu}`} hidden>
     {localeOptions.map((option) => (
       <button
         type="button"
-        class:list={['fu-lang-menu-item', option.code === currentLocale.code && 'is-active']}
+        class:list={[
+          'fu-lang-menu-item',
+          FILEUNI_LANGUAGE_MENU_CLASSNAMES.item,
+          option.code === currentLocale.code && 'is-active',
+        ]}
         data-lang-value={option.code}
         data-lang-path-prefix={option.pathPrefix}
         role="menuitemradio"
