@@ -1,11 +1,24 @@
 ---
 import { Icon } from '@astrojs/starlight/components';
+import {
+  FILEUNI_CONTROL_METRICS,
+  getNextBinaryTheme,
+  parseBrowserThemePreference,
+} from '../i18n/core';
+
+const controlStyle = [
+  `--fu-control-size:${FILEUNI_CONTROL_METRICS.buttonSizePx}px`,
+  `--fu-control-min-height:${FILEUNI_CONTROL_METRICS.buttonMinHeightPx}px`,
+  `--fu-control-radius:${FILEUNI_CONTROL_METRICS.borderRadiusPx}px`,
+  `--fu-control-icon-size:${FILEUNI_CONTROL_METRICS.iconSizePx}px`,
+].join(';');
 ---
 
 <starlight-theme-select>
   <button
     type="button"
     class="fu-theme-toggle"
+    style={controlStyle}
     aria-label={Astro.locals.t('themeSelect.accessibleLabel')}
     title={Astro.locals.t('themeSelect.accessibleLabel')}
   >
@@ -17,15 +30,12 @@ import { Icon } from '@astrojs/starlight/components';
 <script>
   const THEME_COOKIE_KEY = 'theme';
 
-  const parseTheme = (theme) =>
-    theme === 'auto' || theme === 'dark' || theme === 'light' ? theme : null;
-
   const getCookieTheme = () => {
     const cookieApi = window.FileUniPreferenceCookie;
     if (!cookieApi || typeof cookieApi.read !== 'function') {
       return null;
     }
-    return parseTheme(cookieApi.read(THEME_COOKIE_KEY));
+    return parseBrowserThemePreference(cookieApi.read(THEME_COOKIE_KEY));
   };
 
   const saveCookieTheme = (theme) => {
@@ -40,7 +50,7 @@ import { Icon } from '@astrojs/starlight/components';
     matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 
   const resolveTheme = (theme) => {
-    const parsed = parseTheme(theme) || 'auto';
+    const parsed = parseBrowserThemePreference(theme) || 'auto';
     return parsed === 'auto' ? getPreferredColorScheme() : parsed;
   };
 
@@ -55,7 +65,7 @@ import { Icon } from '@astrojs/starlight/components';
 
   const toggleTheme = () => {
     const current = document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
-    const next = current === 'dark' ? 'light' : 'dark';
+    const next = getNextBinaryTheme(current);
     applyResolvedTheme(next);
     saveCookieTheme(next);
   };

@@ -1,6 +1,10 @@
 ---
 import { DOCS_LOCALE_OPTIONS } from '../i18n/locales';
-import { FILEUNI_LANGUAGE_MENU_CLASSNAMES, type SupportedLocale } from '../i18n/core';
+import {
+  FILEUNI_CONTROL_METRICS,
+  FILEUNI_LANGUAGE_MENU_CLASSNAMES,
+  type SupportedLocale,
+} from '../i18n/core';
 
 type LocaleOption = {
   code: SupportedLocale;
@@ -23,12 +27,19 @@ const currentLocale =
   ) ?? localeOptions[0];
 
 const currentFlag = currentLocale.flag || '🌐';
+const controlStyle = [
+  `--fu-control-size:${FILEUNI_CONTROL_METRICS.buttonSizePx}px`,
+  `--fu-control-min-height:${FILEUNI_CONTROL_METRICS.buttonMinHeightPx}px`,
+  `--fu-control-radius:${FILEUNI_CONTROL_METRICS.borderRadiusPx}px`,
+  `--fu-control-menu-width:${FILEUNI_CONTROL_METRICS.menuWidthPx}px`,
+].join(';');
 ---
 
 <starlight-lang-select>
   <button
     type="button"
     class={`fu-lang-toggle ${FILEUNI_LANGUAGE_MENU_CLASSNAMES.trigger}`}
+    style={controlStyle}
     data-current-lang={currentLocale.code}
     aria-expanded="false"
     aria-haspopup="menu"
@@ -36,7 +47,7 @@ const currentFlag = currentLocale.flag || '🌐';
   >
     <span class="fu-lang-flag" aria-hidden="true">{currentFlag}</span>
   </button>
-  <div class={`fu-lang-menu ${FILEUNI_LANGUAGE_MENU_CLASSNAMES.menu}`} hidden>
+  <div class={`fu-lang-menu ${FILEUNI_LANGUAGE_MENU_CLASSNAMES.menu}`} style={controlStyle} hidden>
     {localeOptions.map((option) => (
       <button
         type="button"

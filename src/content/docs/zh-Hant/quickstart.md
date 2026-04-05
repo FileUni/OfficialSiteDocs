@@ -1,104 +1,104 @@
 ---
-title: 快速开始
-description: 基于当前 FileUni 项目的启动说明。
+title: 快速開始
+description: 基於當前 FileUni 專案的啟動說明。
 slug: zh-Hant/quickstart
 order: 2
 ---
 
-# 快速开始
+# 快速開始
 
-本页只说明当前仓库里已经存在的运行方式和入口。
+本頁只說明當前倉庫裡已經存在的執行方式和入口。
 
-## 1. 选择运行入口
+## 1. 選擇執行入口
 
-FileUni 目前主要有两个入口：
+FileUni 目前主要有兩個入口：
 
-- `fileuni` CLI：用于启动服务、在需要时打开设置中心、管理系统服务，以及导入导出备份。
-- `fileuni-gui`：基于 Tauri 的桌面壳层，和 CLI 共用同一套核心能力，并遵循同样的首次启动设置逻辑。
+- `fileuni` CLI：用於啟動服務、在需要時開啟設定中心、管理系統服務，以及匯入匯出備份。
+- `fileuni-gui`：基於 Tauri 的桌面殼層，和 CLI 共用同一套核心能力，並遵循同樣的首次啟動設定邏輯。
 
-请先从[下载页面](https://fileuni.com/zh-Hant/download)获取对应构建包。
+請先從[下載頁面](https://fileuni.com/zh-Hant/download)獲取對應構建包。
 
-- 服务器部署请选择 CLI 包。
-- 本机桌面使用请选择 GUI 包。
+- 伺服器部署請選擇 CLI 包。
+- 本機桌面使用請選擇 GUI 包。
 
-## 2. 准备运行目录
+## 2. 準備執行目錄
 
-当前项目已经收敛为单目录运行模型：
+當前專案已經收斂為單目錄執行模型：
 
-- `-R` / `--runtime-dir`：唯一运行目录，统一存放配置、安装锁、数据库、缓存和其他运行文件
-- `--runtime-dir`：仅在 `service install` 场景下使用的运行目录参数
+- `-R` / `--runtime-dir`：唯一執行目錄，統一存放設定、安裝鎖、資料庫、快取和其他執行檔案
+- `--runtime-dir`：僅在 `service install` 場景下使用的執行目錄引數
 
-固定配置文件位置为：
+固定設定檔案位置為：
 
 ```text
 {runtime-dir}/config.toml
 ```
 
-示例运行目录结构：
+示例執行目錄結構：
 
 ```text
 ./runtime
 ```
 
-如果后续要安装成系统服务，请把运行目录改成绝对路径。
+如果後續要安裝成系統服務，請把執行目錄改成絕對路徑。
 
-## 3. 准备 `config.toml` 里引用的依赖服务
+## 3. 準備 `config.toml` 裡引用的依賴服務
 
-FileUni 不允许把环境变量作为配置来源，运行参数都必须来自 `config.toml`。
+FileUni 不允許把環境變數作為設定來源，執行引數都必須來自 `config.toml`。
 
-按当前项目的实现，部署时通常需要先准备好该文件里引用的依赖，尤其是：
+按當前專案的實現，部署時通常需要先準備好該檔案裡引用的依賴，尤其是：
 
-- 数据库连接
-- KV 服务连接
-- VFS 所需的存储路径
+- 資料庫連線
+- KV 服務連線
+- VFS 所需的儲存路徑
 
-如果 `{runtime-dir}/install.lock` 缺失，FileUni 会在正常启动前打开设置中心。
+如果 `{runtime-dir}/install.lock` 缺失，FileUni 會在正常啟動前開啟設定中心。
 
-设置中心负责写入 `config.toml` 和 `install.lock`，并确保内置管理员账号已就绪。
+設定中心負責寫入 `config.toml` 和 `install.lock`，並確保內建管理員賬號已就緒。
 
-正常启动不会自动创建特权账号。如果在 `install.lock` 已存在的情况下管理员账号缺失，启动会被拒绝。
+正常啟動不會自動建立特權賬號。如果在 `install.lock` 已存在的情況下管理員賬號缺失，啟動會被拒絕。
 
-## 4. 启动 FileUni
+## 4. 啟動 FileUni
 
-如果 `{runtime-dir}/install.lock` 不存在，CLI 与 GUI 都会在正常启动前直接进入设置中心。
+如果 `{runtime-dir}/install.lock` 不存在，CLI 與 GUI 都會在正常啟動前直接進入設定中心。
 
-如果你之后还想重新打开设置中心，删除 `{runtime-dir}/install.lock` 后再正常启动即可：
+如果你之後還想重新開啟設定中心，刪除 `{runtime-dir}/install.lock` 後再正常啟動即可：
 
 ```bash
 rm -f ./runtime/install.lock
 ./fileuni --runtime-dir ./runtime
 ```
 
-只校验配置、不启动完整服务：
+只校驗設定、不啟動完整服務：
 
 ```bash
 ./fileuni --runtime-dir ./runtime config test
 ```
 
-正常启动：
+正常啟動：
 
 ```bash
 ./fileuni --runtime-dir ./runtime
 ```
 
-## 5. 打开 WebUI
+## 5. 開啟 WebUI
 
-启动成功后，FileUni 会输出当前可用地址，包括：
+啟動成功後，FileUni 會輸出當前可用地址，包括：
 
 - WebUI：`http://<host>:<port>/`
 - HTTP API：`http://<host>:<port>`
 - OpenAPI JSON：`http://<host>:<port>/api/v1/openapi.json`
 
-当前项目内置使用的本地默认 WebUI 地址是：
+當前專案內建使用的本地預設 WebUI 地址是：
 
 ```text
 http://localhost:19000/
 ```
 
-如果配置里启用了相关协议，还会同时开放 S3、FTP、SFTP 等访问入口。
+如果設定裡啟用了相關協議，還會同時開放 S3、FTP、SFTP 等訪問入口。
 
 ## 下一步
 
 - [功能特性](https://fileuni.com/zh-Hant/features/)
-- [访问方式与文件操作](./file-management)
-- [安装为系统服务](./install-service)
+- [訪問方式與檔案操作](./file-management)
+- [安裝為系統服務](./install-service)

@@ -192,10 +192,10 @@ starlight-lang-select {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 2rem; /* 32px */
-  width: 2.5rem; /* 40px */
+  min-height: var(--fu-control-min-height, 32px);
+  width: var(--fu-control-size, 40px);
   border: 1px solid var(--sl-color-gray-6);
-  border-radius: 0.6rem;
+  border-radius: var(--fu-control-radius, 12px);
   padding: 0;
   background: transparent;
   color: var(--sl-color-gray-2);
@@ -221,10 +221,10 @@ starlight-lang-select {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 2rem; /* 32px */
-  width: 2.5rem; /* 40px */
+  min-height: var(--fu-control-min-height, 32px);
+  width: var(--fu-control-size, 40px);
   border: 1px solid var(--sl-color-gray-6);
-  border-radius: 0.6rem;
+  border-radius: var(--fu-control-radius, 12px);
   padding: 0;
   background: transparent;
   color: var(--sl-color-gray-2);
@@ -243,8 +243,8 @@ starlight-lang-select {
 }
 
 .fu-theme-icon svg {
-  width: 1.125rem;
-  height: 1.125rem;
+  width: var(--fu-control-icon-size, 18px);
+  height: var(--fu-control-icon-size, 18px);
 }
 
 html[data-theme='dark'] .fu-theme-icon--moon {
@@ -263,7 +263,7 @@ starlight-lang-select {
   position: absolute;
   top: calc(100% + 0.45rem);
   right: 0;
-  min-width: 10rem;
+  min-width: var(--fu-control-menu-width, 224px);
   padding: 0.35rem;
   border: 1px solid var(--sl-color-gray-6);
   border-radius: 0.85rem;

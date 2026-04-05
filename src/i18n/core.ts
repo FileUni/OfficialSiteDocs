@@ -1,7 +1,9 @@
 export {
   DEFAULT_LOCALE,
   FILEUNI_LANG_COOKIE_KEY,
+  FILEUNI_CONTROL_METRICS,
   FILEUNI_LANGUAGE_MENU_CLASSNAMES,
+  FILEUNI_THEME_TOGGLE_CLASSNAMES,
   LOCALE_PICKER_OPTIONS,
   LOCALE_METADATA,
   SUPPORTED_LOCALES,
@@ -10,6 +12,7 @@ export {
   buildLocalePath,
   detectLocale,
   detectLocaleFromNavigator,
+  getNextBinaryTheme,
   getLocaleFromPath,
   getLocaleFromPathname,
   getPathBasedLocaleOptions,
