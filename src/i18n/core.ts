@@ -11,6 +11,7 @@ export {
   attachDropdownMenu,
   buildLocaleUrl,
   buildLocalePath,
+  buildThemeHeadBootstrap,
   defineBinaryThemeToggleElement,
   definePathLocaleDropdownElement,
   detectLocale,
@@ -31,5 +32,7 @@ export {
   type LocalePathOption,
   type LocalePickerOption,
   type SiteChromeLocale,
+  type ThemeHeadBootstrap,
+  type ThemeHeadBootstrapOptions,
   type SupportedLocale,
 } from '@fileuni/ts-shared/i18n-core';

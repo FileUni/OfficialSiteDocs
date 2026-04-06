@@ -1,7 +1,24 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import cloudflare from '@astrojs/cloudflare';
+import { buildThemeHeadBootstrap } from '@fileuni/ts-shared/i18n-core';
 import { getSiteUrl } from './src/i18n/site-links';
+
+const docsThemeHeadBootstrap = buildThemeHeadBootstrap({
+  storage: {
+    type: 'cookie',
+    key: 'theme',
+    autoValues: ['auto'],
+  },
+  mode: {
+    type: 'data-theme',
+    attribute: 'data-theme',
+  },
+  lightBackground: '#f8fbff',
+  darkBackground: '#0a111c',
+  lightText: '#0f172a',
+  darkText: '#f3f8ff',
+});
 
 /**
  * OfficialSiteDocs Astro configuration.
@@ -25,6 +42,8 @@ export default defineConfig({
       description: 'Official documentation for FileUni.',
       favicon: '/favicon.svg',
       head: [
+        { tag: 'style', content: docsThemeHeadBootstrap.style },
+        { tag: 'script', content: docsThemeHeadBootstrap.script },
         { tag: 'link', attrs: { rel: 'icon', href: '/favicon.ico', sizes: 'any' } },
         { tag: 'link', attrs: { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' } },
         { tag: 'link', attrs: { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png' } },
