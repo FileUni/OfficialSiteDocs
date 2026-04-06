@@ -11,6 +11,8 @@ export {
   attachDropdownMenu,
   buildLocaleUrl,
   buildLocalePath,
+  defineBinaryThemeToggleElement,
+  definePathLocaleDropdownElement,
   detectLocale,
   detectLocaleFromNavigator,
   getNextBinaryTheme,

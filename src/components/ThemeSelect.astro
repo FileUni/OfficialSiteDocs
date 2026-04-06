@@ -1,10 +1,6 @@
 ---
 import { Icon } from '@astrojs/starlight/components';
-import {
-  FILEUNI_CONTROL_METRICS,
-  getNextBinaryTheme,
-  parseBrowserThemePreference,
-} from '../i18n/core';
+import { FILEUNI_CONTROL_METRICS } from '../i18n/core';
 
 const controlStyle = [
   `--fu-control-size:${FILEUNI_CONTROL_METRICS.buttonSizePx}px`,
@@ -28,67 +24,7 @@ const controlStyle = [
 </starlight-theme-select>
 
 <script>
-  const THEME_COOKIE_KEY = 'theme';
+  import { initDocsThemeSelect } from '../scripts/theme-select';
 
-  const getCookieTheme = () => {
-    const cookieApi = window.FileUniPreferenceCookie;
-    if (!cookieApi || typeof cookieApi.read !== 'function') {
-      return null;
-    }
-    return parseBrowserThemePreference(cookieApi.read(THEME_COOKIE_KEY));
-  };
-
-  const saveCookieTheme = (theme) => {
-    const cookieApi = window.FileUniPreferenceCookie;
-    if (!cookieApi || typeof cookieApi.write !== 'function') {
-      return;
-    }
-    cookieApi.write(THEME_COOKIE_KEY, theme);
-  };
-
-  const getPreferredColorScheme = () =>
-    matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-
-  const resolveTheme = (theme) => {
-    const parsed = parseBrowserThemePreference(theme) || 'auto';
-    return parsed === 'auto' ? getPreferredColorScheme() : parsed;
-  };
-
-  const applyResolvedTheme = (resolvedTheme) => {
-    document.documentElement.dataset.theme = resolvedTheme;
-  };
-
-  const initTheme = () => {
-    const cookieTheme = getCookieTheme() || 'auto';
-    applyResolvedTheme(resolveTheme(cookieTheme));
-  };
-
-  const toggleTheme = () => {
-    const current = document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
-    const next = getNextBinaryTheme(current);
-    applyResolvedTheme(next);
-    saveCookieTheme(next);
-  };
-
-  class StarlightThemeSelect extends HTMLElement {
-    constructor() {
-      super();
-      initTheme();
-
-      const button = this.querySelector('button.fu-theme-toggle');
-      if (button) {
-        button.addEventListener('click', () => toggleTheme());
-      }
-
-      matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-        if ((getCookieTheme() || 'auto') === 'auto') {
-          initTheme();
-        }
-      });
-    }
-  }
-
-  if (!customElements.get('starlight-theme-select')) {
-    customElements.define('starlight-theme-select', StarlightThemeSelect);
-  }
+  initDocsThemeSelect();
 </script>
