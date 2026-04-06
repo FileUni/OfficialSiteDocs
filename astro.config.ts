@@ -1,7 +1,7 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import cloudflare from '@astrojs/cloudflare';
-import { buildThemeHeadBootstrap } from '@fileuni/ts-shared/i18n-core';
+import { buildThemeHeadBootstrap } from '@fileuni/ts-shared/theme';
 import { getSiteUrl } from './src/i18n/site-links';
 
 const docsThemeHeadBootstrap = buildThemeHeadBootstrap({
