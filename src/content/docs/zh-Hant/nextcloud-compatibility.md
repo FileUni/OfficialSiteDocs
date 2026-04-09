@@ -9,6 +9,8 @@ order: 4
 
 FileUni 支援與 Nextcloud 客戶端配合使用，覆蓋檔案管理、收藏、分享、媒體瀏覽以及基於 WebDAV 的訪問。
 
+FileUni 在 Nextcloud 客戶端接入時會直接重用目前的 FileUni 帳號密碼，不需要另外設定獨立的 Nextcloud 應用密碼。
+
 ## 當前相容範圍
 
 FileUni 已具備 Nextcloud 客戶端相容所需的基礎功能：

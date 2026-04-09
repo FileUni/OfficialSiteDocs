@@ -8,6 +8,8 @@ order: 4
 
 FileUni は Nextcloud クライアントとの連携に対応し、ファイル管理、お気に入り、共有、メディア閲覧、WebDAV によるアクセスをサポートしています。
 
+FileUni の Nextcloud クライアント認可では、現在の FileUni アカウントのパスワードをそのまま再利用します。別個の Nextcloud アプリパスワードは不要です。
+
 ## 現在の対象範囲
 
 FileUni は Nextcloud クライアント互換に必要な基盤機能を提供しています：

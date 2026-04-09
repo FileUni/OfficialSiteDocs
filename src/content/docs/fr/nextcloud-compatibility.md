@@ -8,6 +8,8 @@ order: 4
 
 FileUni est conçu pour fonctionner avec les clients Nextcloud pour la gestion de fichiers, les favoris, le partage, la navigation média et l'accès via WebDAV.
 
+L'autorisation du client Nextcloud dans FileUni réutilise volontairement le mot de passe actuel du compte FileUni. Aucun mot de passe d'application Nextcloud séparé n'est nécessaire.
+
 ## Portée actuelle
 
 FileUni fournit les fonctionnalités de base pour la compatibilité avec les clients Nextcloud :
