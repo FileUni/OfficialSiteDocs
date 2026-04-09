@@ -5,10 +5,13 @@
   "type": "module",
   "scripts": {
     "dev": "XDG_CONFIG_HOME=.wrangler-home astro dev",
+    "lint": "eslint . --max-warnings=0",
+    "lint:fix": "eslint . --fix --max-warnings=0",
     "check:i18n": "bun ../script/check-canonical-locales.mjs && bun scripts/check-i18n-modules.mjs",
+    "typecheck": "bunx astro check",
     "build": "XDG_CONFIG_HOME=.wrangler-home astro build && node scripts/transpile-client.mjs && echo '_worker.js\n_routes.json' > dist/.assetsignore",
     "preview": "XDG_CONFIG_HOME=.wrangler-home astro preview",
-    "verify": "bun run check:i18n && bun run build"
+    "verify": "bun run lint && bun run check:i18n && bun run typecheck && bun run build"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^12.1.2",
@@ -17,6 +20,13 @@
     "@fileuni/ts-shared": "github:FileUni/ts_shared#main"
   },
   "devDependencies": {
+    "@eslint/js": "^9.39.4",
+    "astro-eslint-parser": "^1.4.0",
+    "eslint": "^9.39.4",
+    "eslint-plugin-astro": "^1.6.0",
+    "globals": "^15.15.0",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.57.2",
     "wrangler": "^3.107.3"
   }
 }

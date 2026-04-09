@@ -1,7 +1,6 @@
 import {
   DEFAULT_LOCALE,
   LOCALE_PICKER_OPTIONS,
-  SUPPORTED_LOCALES,
   getLocaleFromPathname,
   translatePathWithLocale,
   type SupportedLocale,
