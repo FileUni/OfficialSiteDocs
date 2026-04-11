@@ -42,7 +42,7 @@ order: 1
 | Windows Desktop | Windows 10 (1806)+ | Windows 10 (старые сборки могут работать) |
 | macOS Desktop (Intel) | macOS 11.0+ | macOS 10.12+ |
 | macOS Desktop (Apple Silicon) | macOS 11.0+ | macOS 11.0+ |
-| Linux Desktop (AppImage) | Текущие LTS дистрибутивы | Старые LTS + статическая сборка (если доступна) |
+| Linux Desktop (zip) | Текущие LTS дистрибутивы | Старые LTS + статическая сборка (если доступна) |
 
 ### CLI / Сервер
 

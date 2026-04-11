@@ -42,7 +42,7 @@ This document may lag behind actual development and contain discrepancies; FileU
 | Windows Desktop | Windows 10 (1806)+ | Windows 10 (older builds may work) |
 | macOS Desktop (Intel) | macOS 11.0+ | macOS 10.12+ |
 | macOS Desktop (Apple Silicon) | macOS 11.0+ | macOS 11.0+ |
-| Linux Desktop (AppImage) | Current LTS distributions | Older LTS + static build (if available) |
+| Linux Desktop (zip) | Current LTS distributions | Older LTS + static build (if available) |
 
 ### CLI / Server
 

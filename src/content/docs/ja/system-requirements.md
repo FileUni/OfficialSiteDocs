@@ -42,7 +42,7 @@ order: 1
 | Windows デスクトップ | Windows 10 (1806)+ | Windows 10（古いビルドは動作する可能性あり） |
 | macOS デスクトップ (Intel) | macOS 11.0+ | macOS 10.12+ |
 | macOS デスクトップ (Apple Silicon) | macOS 11.0+ | macOS 11.0+ |
-| Linux デスクトップ (AppImage) | 現在の LTS ディストリビューション | 古い LTS + 静的ビルド（利用可能な場合） |
+| Linux デスクトップ (zip) | 現在の LTS ディストリビューション | 古い LTS + 静的ビルド（利用可能な場合） |
 
 ### CLI / サーバー
 

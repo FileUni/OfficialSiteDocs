@@ -28,7 +28,7 @@ Sistemas mas antiguos a veces pueden ejecutar FileUni, pero el soporte es de mej
 | Windows Desktop | Windows 10 (1806)+ | Windows 10 (puede variar) |
 | macOS Desktop (Intel) | macOS 11.0+ | macOS 10.12+ |
 | macOS Desktop (Apple Silicon) | macOS 11.0+ | macOS 11.0+ |
-| Linux Desktop (AppImage) | LTS actuales | LTS antiguos + build estatica (si existe) |
+| Linux Desktop (zip) | LTS actuales | LTS antiguos + build estatica (si existe) |
 
 ### CLI / Servidor
 

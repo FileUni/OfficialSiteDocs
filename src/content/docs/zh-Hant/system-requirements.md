@@ -43,7 +43,7 @@ order: 1
 | Windows 桌面版 | Windows 10 (1806)+ | Windows 10（更早版本可能可用） |
 | macOS 桌面版（Intel） | macOS 11.0+ | macOS 10.12+ |
 | macOS 桌面版（Apple Silicon） | macOS 11.0+ | macOS 11.0+ |
-| Linux 桌面版（AppImage） | 當前 LTS 發行版 | 舊版 LTS + 靜態構建（如有） |
+| Linux 桌面版（zip） | 當前 LTS 發行版 | 舊版 LTS + 靜態構建（如有） |
 
 ### CLI / 伺服器
 

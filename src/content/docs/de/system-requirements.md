@@ -42,7 +42,7 @@ Dieses Dokument kann hinter der tatsächlichen Entwicklung zurückbleiben und Un
 | Windows Desktop | Windows 10 (1806)+ | Windows 10 (ältere Builds können funktionieren) |
 | macOS Desktop (Intel) | macOS 11.0+ | macOS 10.12+ |
 | macOS Desktop (Apple Silicon) | macOS 11.0+ | macOS 11.0+ |
-| Linux Desktop (AppImage) | Aktuelle LTS-Distributionen | Ältere LTS + statischer Build (falls verfügbar) |
+| Linux Desktop (zip) | Aktuelle LTS-Distributionen | Ältere LTS + statischer Build (falls verfügbar) |
 
 ### CLI / Server
 
