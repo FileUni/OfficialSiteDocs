@@ -1,6 +1,6 @@
 import {
   DEFAULT_LOCALE,
-  LOCALE_PICKER_OPTIONS,
+  LOCALE_MENU_OPTIONS,
   getLocaleFromPathname,
   translatePathWithLocale,
   type SupportedLocale,
@@ -17,7 +17,7 @@ export type DocsLocaleOption = {
 
 export const DOCS_DEFAULT_LOCALE = DEFAULT_LOCALE;
 
-export const DOCS_LOCALE_OPTIONS: DocsLocaleOption[] = LOCALE_PICKER_OPTIONS.map((locale) => ({
+export const DOCS_LOCALE_OPTIONS: DocsLocaleOption[] = LOCALE_MENU_OPTIONS.map((locale) => ({
   code: locale.code,
   label: locale.nativeLabel,
   flag: locale.flag,

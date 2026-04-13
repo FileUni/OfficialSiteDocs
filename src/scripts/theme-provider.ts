@@ -1,5 +1,5 @@
 import {
-  FILEUNI_LANG_COOKIE_KEY,
+  LANGUAGE_COOKIE_KEY,
   getLocaleFromPath,
   initPathLocaleThemeBootstrap,
   parseBrowserThemePreference,
@@ -13,7 +13,7 @@ export function initDocsThemeProvider(): void {
     currentLocale: getLocaleFromPath(window.location.pathname, DOCS_LOCALE_OPTIONS, DOCS_DEFAULT_LOCALE),
     defaultLocale: DOCS_DEFAULT_LOCALE,
     localeOptions: DOCS_LOCALE_OPTIONS,
-    langCookieKey: FILEUNI_LANG_COOKIE_KEY,
+    langCookieKey: LANGUAGE_COOKIE_KEY,
     themeCookieKey: 'theme',
     cookieMaxAgeSeconds: COOKIE_MAX_AGE_SECONDS,
     themeStrategy: 'data-theme',

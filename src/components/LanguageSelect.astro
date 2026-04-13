@@ -1,9 +1,9 @@
 ---
 import { DOCS_LOCALE_OPTIONS } from '../i18n/locales';
 import {
-  FILEUNI_CONTROL_METRICS,
-  FILEUNI_LANGUAGE_MENU_CLASSNAMES,
-  FILEUNI_TRANSLATION_ICON_PATHS,
+  LOCALE_MENU_CLASSNAMES,
+  LOCALE_MENU_METRICS,
+  LOCALE_MENU_TRANSLATION_ICON_PATHS,
   type SupportedLocale,
 } from '../i18n/core';
 
@@ -31,17 +31,17 @@ const currentLocale =
   ) ?? fallbackLocale;
 
 const controlStyle = [
-  `--fu-control-size:${FILEUNI_CONTROL_METRICS.buttonSizePx}px`,
-  `--fu-control-min-height:${FILEUNI_CONTROL_METRICS.buttonMinHeightPx}px`,
-  `--fu-control-radius:${FILEUNI_CONTROL_METRICS.borderRadiusPx}px`,
-  `--fu-control-menu-width:${FILEUNI_CONTROL_METRICS.menuWidthPx}px`,
+  `--fu-control-size:${LOCALE_MENU_METRICS.buttonSizePx}px`,
+  `--fu-control-min-height:${LOCALE_MENU_METRICS.buttonMinHeightPx}px`,
+  `--fu-control-radius:${LOCALE_MENU_METRICS.borderRadiusPx}px`,
+  `--fu-control-menu-width:${LOCALE_MENU_METRICS.menuWidthPx}px`,
 ].join(';');
 ---
 
 <starlight-lang-select>
   <button
     type="button"
-    class={`fu-lang-toggle ${FILEUNI_LANGUAGE_MENU_CLASSNAMES.trigger}`}
+    class={`fu-lang-toggle ${LOCALE_MENU_CLASSNAMES.trigger}`}
     style={controlStyle}
     data-current-lang={currentLocale.code}
     aria-expanded="false"
@@ -50,20 +50,20 @@ const controlStyle = [
   >
     <span class="fu-lang-icon" aria-hidden="true">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        {FILEUNI_TRANSLATION_ICON_PATHS.map((path) => (
+        {LOCALE_MENU_TRANSLATION_ICON_PATHS.map((path) => (
           <path d={path}></path>
         ))}
       </svg>
     </span>
     <span class="fu-lang-current-label">{currentLocale.label}</span>
   </button>
-  <div class={`fu-lang-menu ${FILEUNI_LANGUAGE_MENU_CLASSNAMES.menu}`} style={controlStyle} hidden>
+  <div class={`fu-lang-menu ${LOCALE_MENU_CLASSNAMES.menu}`} style={controlStyle} hidden>
     {localeOptions.map((option) => (
       <button
         type="button"
         class:list={[
           'fu-lang-menu-item',
-          FILEUNI_LANGUAGE_MENU_CLASSNAMES.item,
+          LOCALE_MENU_CLASSNAMES.item,
           option.code === currentLocale.code && 'is-active',
         ]}
         data-lang-value={option.code}
