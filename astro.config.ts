@@ -1,7 +1,6 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import cloudflare from '@astrojs/cloudflare';
-import { fileURLToPath } from 'node:url';
 import { buildThemeHeadBootstrap } from '@fileuni/ts-shared/theme';
 import { getSiteUrl } from './src/i18n/site-links';
 
@@ -215,8 +214,11 @@ export default defineConfig({
   vite: {
     resolve: {
       alias: {
-        '@fileuni/ts-shared/react-ui': fileURLToPath(new URL('../ts_shared/react-ui/index.ts', import.meta.url)),
+        '@fileuni/ts-shared/react-ui': new URL('../ts_shared/react-ui/index.ts', import.meta.url).pathname,
       },
+    },
+    build: {
+      chunkSizeWarningLimit: 1200,
     },
   },
   session: {
