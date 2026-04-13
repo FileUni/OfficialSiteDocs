@@ -15,6 +15,10 @@ type LocaleOption = {
 
 const currentPath = Astro.url.pathname;
 const localeOptions: LocaleOption[] = DOCS_LOCALE_OPTIONS;
+const fallbackLocale = localeOptions[0];
+if (!fallbackLocale) {
+  throw new Error('DOCS_LOCALE_OPTIONS must not be empty.');
+}
 const currentLocale =
   localeOptions.find((option) =>
     option.pathPrefix
@@ -24,7 +28,7 @@ const currentLocale =
             candidate.pathPrefix &&
             (currentPath === candidate.pathPrefix || currentPath.startsWith(`${candidate.pathPrefix}/`)),
         ),
-  ) ?? localeOptions[0];
+  ) ?? fallbackLocale;
 
 const controlStyle = [
   `--fu-control-size:${FILEUNI_CONTROL_METRICS.buttonSizePx}px`,
@@ -65,7 +69,7 @@ const controlStyle = [
         data-lang-value={option.code}
         data-lang-path-prefix={option.pathPrefix}
         role="menuitemradio"
-        aria-checked={String(option.code === currentLocale.code)}
+        aria-checked={option.code === currentLocale.code}
       >
         <span>{option.label}</span>
       </button>

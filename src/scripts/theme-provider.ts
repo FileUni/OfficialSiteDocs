@@ -39,7 +39,7 @@ export function initDocsThemeProvider(): void {
           if (!(option instanceof HTMLButtonElement)) {
             return;
           }
-          const isActive = option.dataset.themeValue === parsedTheme;
+          const isActive = option.dataset['themeValue'] === parsedTheme;
           option.classList.toggle('is-active', isActive);
           option.setAttribute('aria-pressed', String(isActive));
         });

@@ -1,6 +1,10 @@
 {
   "extends": "astro/tsconfigs/strictest",
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@fileuni/ts-shared/react-ui": ["../ts_shared/react-ui/index.ts"]
+    },
     "types": ["astro/client"],
     "strict": true,
     "noImplicitAny": true,
