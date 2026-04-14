@@ -1,25 +1,11 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import cloudflare from '@astrojs/cloudflare';
-let localTsSharedAlias: Record<string, string> = {};
-let themeSystemModule: { buildThemeHeadBootstrap: (options: unknown) => { script: string; style: string } };
-let localizationModule: { buildLocaleUrl: (origin: string, locale: string, pathname?: string) => string };
+import type { SupportedLocale } from '@fileuni/ts-shared/localization';
+import { buildLocaleUrl } from '@fileuni/ts-shared/localization';
+import { buildThemeHeadBootstrap } from '@fileuni/ts-shared/theme-system';
 
-try {
-  const localThemeSystemUrl = new URL('../ts_shared/theme-system/index.ts', import.meta.url).href;
-  const localLocalizationUrl = new URL('../ts_shared/localization/index.ts', import.meta.url).href;
-  themeSystemModule = await import(/* @vite-ignore */ localThemeSystemUrl);
-  localizationModule = await import(/* @vite-ignore */ localLocalizationUrl);
-  localTsSharedAlias = { '@fileuni/ts-shared': new URL('../ts_shared', import.meta.url).pathname };
-} catch {
-  themeSystemModule = await import(/* @vite-ignore */ ['@fileuni', 'ts-shared', 'theme-system'].join('/'));
-  localizationModule = await import(/* @vite-ignore */ ['@fileuni', 'ts-shared', 'localization'].join('/'));
-}
-
-const { buildThemeHeadBootstrap } = themeSystemModule;
-const { buildLocaleUrl } = localizationModule;
-
-const getSiteUrl = (locale: string, pathname = '/') => {
+const getSiteUrl = (locale: SupportedLocale, pathname = '/') => {
   return buildLocaleUrl('https://fileuni.com', locale, pathname);
 };
 
@@ -231,11 +217,6 @@ export default defineConfig({
   site: 'https://docs.fileuni.com',
   output: 'static',
   vite: {
-    resolve: {
-      alias: {
-        ...localTsSharedAlias,
-      },
-    },
     build: {
       chunkSizeWarningLimit: 1200,
     },
