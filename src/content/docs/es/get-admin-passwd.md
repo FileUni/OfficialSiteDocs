@@ -1,44 +1,31 @@
 ---
 title: Restablecer contrasena de admin
-description: Recuperar acceso de administrador reabriendo el centro de configuracion.
+description: Recuperar acceso de administrador con CLI o con el lanzador de escritorio.
 ---
 
 # Restablecer contrasena de admin
 
-Si pierdes la contrasena del administrador integrado, la ruta soportada es reabrir el centro de configuracion.
-
-FileUni usa `{runtime-dir}/install.lock` como marcador de instalacion completa:
-
-- Si existe `install.lock`, FileUni inicia normalmente.
-- Si falta `install.lock`, CLI y GUI bloquean el arranque normal y abren el centro de configuracion.
-- Completar el centro de configuracion vuelve a escribir `install.lock` y permite continuar con el arranque.
+Si pierdes la contrasena del administrador integrado, usa una accion explicita de reseteo de administrador.
 
 ## Pasos de recuperacion
 
-1. Deten la instancia/servicio de FileUni.
+1. Deten la instancia o el servicio de FileUni.
 2. Localiza el directorio de ejecucion.
-3. Borra `{runtime-dir}/install.lock`.
-4. Inicia FileUni otra vez.
-5. FileUni abrira automaticamente el centro de configuracion.
-6. En el centro de configuracion, define una nueva contrasena de admin y completa la configuracion inicial.
+3. Ejecuta un reseteo de administrador con CLI, o usa la accion de cambiar la contrasena de admin en el lanzador GUI.
+4. Introduce el nombre de usuario de destino y la nueva contrasena.
+5. Si el usuario ya existe, FileUni pedira confirmacion antes de promocionarlo a administrador y actualizar la contrasena.
 
 ## Solucion de problemas
 
-### El centro de configuracion no aparecio
+### El comando no cambio el despliegue correcto
 
-- Verifica que eliminaste `{runtime-dir}/install.lock`.
-- Reinicia exactamente el mismo despliegue de FileUni.
+- Verifica que `-R/--runtime-dir` apunta al despliegue correcto.
+- Verifica que la conexion de base de datos en `config.toml` es la del despliegue correcto.
 
 ## Ejemplo
 
 Si el directorio de ejecucion es `/srv/fileuni`:
 
 ```bash
-rm /srv/fileuni/install.lock
-```
-
-Luego reinicia:
-
-```bash
-fileuni --runtime-dir /srv/fileuni
+fileuni --runtime-dir /srv/fileuni reset-admin --user admin --password admin888
 ```

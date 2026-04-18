@@ -12,8 +12,8 @@ Ce guide est basé sur la structure actuelle de l'espace de travail et le modèl
 
 FileUni a actuellement deux points d'entrée principaux :
 
-- `fileuni` CLI : utilisé pour démarrer le serveur, ouvrir le centre de parametres si necessaire, gerer les services et exporter ou importer des sauvegardes.
-- `fileuni-gui` : un wrapper de bureau Tauri autour de la même bibliothèque de noyau, avec contrôle de service, édition de configuration et le même comportement de configuration au premier démarrage.
+- `fileuni` CLI : utilise pour demarrer le serveur, gerer les services, exporter ou importer des sauvegardes et recuperer l'acces administrateur.
+- `fileuni-gui` : un wrapper de bureau Tauri autour de la meme bibliotheque de noyau, avec controle de service, edition de configuration et recuperation du mot de passe administrateur.
 
 Obtenez le paquet approprié sur la [page de téléchargement](https://fileuni.com/fr/download).
 
@@ -24,7 +24,7 @@ Obtenez le paquet approprié sur la [page de téléchargement](https://fileuni.c
 
 Le projet actuel utilise maintenant un seul répertoire d'exécution :
 
-- `-R` / `--runtime-dir` : répertoire d'exécution unique pour la configuration, le verrou d'installation, la base de données, le cache et les autres fichiers d'exécution
+- `-R` / `--runtime-dir` : repertoire d'execution unique pour la configuration, la base de donnees, le cache et les autres fichiers d'execution
 - `--runtime-dir` : répertoire d'exécution uniquement pour `service install`
 
 Le chemin du fichier de configuration fixe est :
@@ -51,21 +51,24 @@ Dans le projet actuel, le déploiement signifie généralement préparer les ser
 - Une connexion au service KV
 - Les emplacements de stockage requis par la configuration VFS
 
-Si `{runtime-dir}/install.lock` est manquant, FileUni ouvrira le centre de parametres avant le demarrage normal.
+Si `{runtime-dir}/config.toml` est manquant, FileUni cree automatiquement une configuration d'exemple au premier demarrage et initialise le repertoire d'execution.
 
-Le centre de parametres ecrit `config.toml` et `install.lock` et verifie que le compte administrateur integre existe.
+Si la base de donnees ne contient pas encore `yh_users`, le demarrage cree aussi le compte administrateur par defaut `admin/admin888`.
 
-Le démarrage normal ne crée pas automatiquement de comptes privilégiés. Si le compte admin est manquant alors que `install.lock` existe, le démarrage sera rejeté.
+Si la base de donnees contient deja une table utilisateurs, le demarrage laisse les utilisateurs existants inchanges et ne reinitialise pas automatiquement l'acces administrateur.
 
 ## 4. Démarrer FileUni
 
-Si `{runtime-dir}/install.lock` est manquant, le CLI et le GUI ouvriront le centre de parametres avant le demarrage normal.
-
-Si vous voulez rouvrir le centre de parametres plus tard, supprimez `{runtime-dir}/install.lock`, puis demarrez FileUni normalement :
+Premier demarrage :
 
 ```bash
-rm -f ./runtime/install.lock
 ./fileuni --runtime-dir ./runtime
+```
+
+Pour recuperer l'acces administrateur plus tard :
+
+```bash
+./fileuni --runtime-dir ./runtime reset-admin --user admin --password admin888
 ```
 
 Pour valider la configuration sans démarrer le serveur complet :

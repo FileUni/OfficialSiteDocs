@@ -12,8 +12,8 @@ This guide is based on the current workspace layout and runtime model.
 
 FileUni currently has two main entry points:
 
-- `fileuni` CLI: used to start the server, open Settings Center when needed, manage services, and export or import backups.
-- `fileuni-gui`: a Tauri desktop wrapper around the same core library, with service control, configuration editing, and the same first-run setup behavior.
+- `fileuni` CLI: used to start the server, manage services, export or import backups, and reset administrator access.
+- `fileuni-gui`: a Tauri desktop wrapper around the same core library, with service control, configuration editing, and administrator password recovery.
 
 Get the appropriate package from the [download page](https://fileuni.com/download).
 
@@ -24,7 +24,7 @@ Get the appropriate package from the [download page](https://fileuni.com/downloa
 
 The current project now uses a single runtime directory:
 
-- `-R` / `--runtime-dir`: runtime directory for config, install lock, database, cache, and other runtime files
+- `-R` / `--runtime-dir`: runtime directory for config, database, cache, and other runtime files
 - `--runtime-dir`: service-install-only runtime directory option
 
 The fixed configuration file path is:
@@ -51,21 +51,24 @@ In the current project, deployment usually means preparing the backing services 
 - A KV service connection
 - Storage locations required by the VFS configuration
 
-If `{runtime-dir}/install.lock` is missing, FileUni will open Settings Center before normal startup.
+If `{runtime-dir}/config.toml` is missing, FileUni creates an example config automatically during the first startup and initializes the runtime directory.
 
-Settings Center is responsible for writing `config.toml` and `install.lock`, and for ensuring the built-in administrator account exists.
+If the database does not already contain `yh_users`, startup also creates the default administrator account `admin/admin888`.
 
-Normal startup does not auto-create privileged accounts. If the admin account is missing while `install.lock` exists, startup will be rejected.
+If the database already contains a users table, startup leaves existing users unchanged and does not auto-reset administrator access.
 
 ## 4. Start FileUni
 
-If `{runtime-dir}/install.lock` is missing, both CLI and GUI will open Settings Center before normal startup.
-
-To reopen Settings Center later, delete `{runtime-dir}/install.lock`, then start FileUni normally:
+First startup:
 
 ```bash
-rm -f ./runtime/install.lock
 ./fileuni --runtime-dir ./runtime
+```
+
+To recover administrator access later:
+
+```bash
+./fileuni --runtime-dir ./runtime reset-admin --user admin --password admin888
 ```
 
 To validate configuration without starting the full server:

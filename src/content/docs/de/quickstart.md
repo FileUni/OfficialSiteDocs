@@ -12,8 +12,8 @@ Diese Anleitung basiert auf dem aktuellen Workspace-Layout und Laufzeitmodell.
 
 FileUni hat derzeit zwei Haupteinstiegspunkte:
 
-- `fileuni` CLI: Wird verwendet, um den Server zu starten, die Einstellungszentrale bei Bedarf zu öffnen, Dienste zu verwalten und Backups zu exportieren oder zu importieren.
-- `fileuni-gui`: Ein Tauri-Desktop-Wrapper um dieselbe Kernbibliothek, mit Dienststeuerung, Konfigurationsbearbeitung und demselben Erst-Setup-Verhalten.
+- `fileuni` CLI: Wird verwendet, um den Server zu starten, Dienste zu verwalten, Backups zu exportieren oder zu importieren und Administratorzugriff wiederherzustellen.
+- `fileuni-gui`: Ein Tauri-Desktop-Wrapper um dieselbe Kernbibliothek mit Dienststeuerung, Konfigurationsbearbeitung und Administrator-Passwort-Wiederherstellung.
 
 Holen Sie sich das entsprechende Paket von der [Download-Seite](https://fileuni.com/de/download).
 
@@ -24,7 +24,7 @@ Holen Sie sich das entsprechende Paket von der [Download-Seite](https://fileuni.
 
 Das aktuelle Projekt verwendet jetzt ein einzelnes Laufzeitverzeichnis:
 
-- `-R` / `--runtime-dir`: gemeinsames Laufzeitverzeichnis für Konfiguration, Installationsstatus, Datenbank, Cache und andere Laufzeitdateien
+- `-R` / `--runtime-dir`: gemeinsames Laufzeitverzeichnis für Konfiguration, Datenbank, Cache und andere Laufzeitdateien
 - `--runtime-dir`: Laufzeitverzeichnis nur für `service install`
 
 Der feste Konfigurationsdateipfad ist:
@@ -51,21 +51,24 @@ Im aktuellen Projekt bedeutet die Bereitstellung normalerweise die Vorbereitung 
 - Eine KV-Service-Verbindung
 - Speicherorte, die von der VFS-Konfiguration benötigt werden
 
-Wenn `{runtime-dir}/install.lock` fehlt, öffnet FileUni vor dem normalen Start die Einstellungszentrale.
+Wenn `{runtime-dir}/config.toml` fehlt, erstellt FileUni beim ersten Start automatisch eine Beispielkonfiguration und initialisiert das Laufzeitverzeichnis.
 
-Die Einstellungszentrale schreibt `config.toml` und `install.lock` und stellt sicher, dass das integrierte Administrator-Konto existiert.
+Wenn die Datenbank noch keine `yh_users`-Tabelle enthält, erstellt der Start außerdem das Standard-Administratorkonto `admin/admin888`.
 
-Der normale Start erstellt keine privilegierten Konten automatisch. Wenn das Admin-Konto fehlt, während `install.lock` existiert, wird der Start abgelehnt.
+Wenn die Datenbank bereits eine Benutzertabelle enthält, bleiben bestehende Benutzer unverändert und der Administratorzugriff wird nicht automatisch zurückgesetzt.
 
 ## 4. Starten Sie FileUni
 
-Wenn `{runtime-dir}/install.lock` fehlt, öffnen sowohl CLI als auch GUI vor dem normalen Start die Einstellungszentrale.
-
-Wenn Sie die Einstellungszentrale später erneut öffnen möchten, löschen Sie `{runtime-dir}/install.lock` und starten Sie FileUni dann normal:
+Erster Start:
 
 ```bash
-rm -f ./runtime/install.lock
 ./fileuni --runtime-dir ./runtime
+```
+
+Administratorzugriff später wiederherstellen:
+
+```bash
+./fileuni --runtime-dir ./runtime reset-admin --user admin --password admin888
 ```
 
 Um die Konfiguration ohne Starten des vollständigen Servers zu validieren:

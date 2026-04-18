@@ -12,7 +12,7 @@ Esta guia describe un arranque local minimo del servidor FileUni y como abrir la
 
 FileUni ahora usa un unico directorio de ejecucion para configuracion y datos.
 
-- `-R` / `--runtime-dir`: directorio unico para configuracion, install lock, base de datos, cache y otros archivos de ejecucion
+- `-R` / `--runtime-dir`: directorio unico para configuracion, base de datos, cache y otros archivos de ejecucion
 - `--runtime-dir`: directorio de ejecucion solo para `service install`
 
 Ejemplo:
@@ -31,13 +31,20 @@ Para validar la configuracion sin iniciar el servidor completo:
 
 ## 3. Iniciar el servidor
 
-Si falta `{runtime-dir}/install.lock`, FileUni abrira el centro de configuracion antes del arranque normal.
+Si falta `{runtime-dir}/config.toml`, FileUni creara una configuracion de ejemplo automaticamente durante el primer arranque e inicializara el directorio de ejecucion.
 
-Para reabrir el centro de configuracion mas tarde, elimina `{runtime-dir}/install.lock` y vuelve a iniciar FileUni:
+Si la base de datos todavia no contiene `yh_users`, el primer arranque tambien crea la cuenta admin por defecto `admin/admin888`.
+
+Para el primer arranque:
 
 ```bash
-rm -f ./runtime/install.lock
 ./fileuni --runtime-dir ./runtime
+```
+
+Para recuperar acceso de administrador despues:
+
+```bash
+./fileuni --runtime-dir ./runtime reset-admin --user admin --password admin888
 ```
 
 Para iniciar normalmente:

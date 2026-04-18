@@ -13,8 +13,8 @@ order: 2
 
 FileUni 目前主要有兩個入口：
 
-- `fileuni` CLI：用於啟動服務、在需要時開啟設定中心、管理系統服務，以及匯入匯出備份。
-- `fileuni-gui`：基於 Tauri 的桌面殼層，和 CLI 共用同一套核心能力，並遵循同樣的首次啟動設定邏輯。
+- `fileuni` CLI：用於啟動服務、管理系統服務、匯入匯出備份，以及重置管理員密碼。
+- `fileuni-gui`：基於 Tauri 的桌面殼層，和 CLI 共用同一套核心能力，並提供啟動、停止、設定編輯和管理員密碼修改入口。
 
 請先從[下載頁面](https://fileuni.com/zh-Hant/download)獲取對應構建包。
 
@@ -25,7 +25,7 @@ FileUni 目前主要有兩個入口：
 
 當前專案已經收斂為單目錄執行模型：
 
-- `-R` / `--runtime-dir`：唯一執行目錄，統一存放設定、安裝鎖、資料庫、快取和其他執行檔案
+- `-R` / `--runtime-dir`：唯一執行目錄，統一存放設定、資料庫、快取和其他執行檔案
 - `--runtime-dir`：僅在 `service install` 場景下使用的執行目錄引數
 
 固定設定檔案位置為：
@@ -52,21 +52,24 @@ FileUni 不允許把環境變數作為設定來源，執行引數都必須來自
 - KV 服務連線
 - VFS 所需的儲存路徑
 
-如果 `{runtime-dir}/install.lock` 缺失，FileUni 會在正常啟動前開啟設定中心。
+如果 `{runtime-dir}/config.toml` 不存在，FileUni 會在首次啟動時自動寫入 example config 並完成資料庫初始化。
 
-設定中心負責寫入 `config.toml` 和 `install.lock`，並確保內建管理員賬號已就緒。
+如果資料庫中原本不存在 `yh_users` 表，初始化時會自動建立預設管理員 `admin/admin888`。
 
-正常啟動不會自動建立特權賬號。如果在 `install.lock` 已存在的情況下管理員賬號缺失，啟動會被拒絕。
+如果資料庫中已經存在使用者表，初始化不會改動管理員賬號。
 
 ## 4. 啟動 FileUni
 
-如果 `{runtime-dir}/install.lock` 不存在，CLI 與 GUI 都會在正常啟動前直接進入設定中心。
-
-如果你之後還想重新開啟設定中心，刪除 `{runtime-dir}/install.lock` 後再正常啟動即可：
+首次啟動：
 
 ```bash
-rm -f ./runtime/install.lock
 ./fileuni --runtime-dir ./runtime
+```
+
+如果需要找回管理員密碼：
+
+```bash
+./fileuni --runtime-dir ./runtime reset-admin --user admin --password admin888
 ```
 
 只校驗設定、不啟動完整服務：

@@ -1,61 +1,45 @@
 ---
 title: Reset Admin Password
-description: Recover administrator access by reopening Settings Center for the current FileUni deployment.
+description: Recover administrator access with the CLI or desktop launcher for the current FileUni deployment.
 ---
 
 # Reset Admin Password
 
-If you lose the built-in administrator password, the supported recovery path is no longer a dedicated CLI reset flag.
-
-FileUni now treats `{runtime-dir}/install.lock` as the installation completion marker:
-
-- If `install.lock` exists, FileUni starts normally.
-- If `install.lock` is missing, both CLI and GUI block normal startup and open Settings Center.
-- Completing Settings Center writes `install.lock` again and lets the system continue startup.
-
-That means administrator password recovery is now done by reopening Settings Center.
+If you lose the built-in administrator password, use an explicit administrator reset action.
 
 ## Recovery Steps
 
 1. Stop the running FileUni service or desktop instance.
 2. Locate your runtime directory.
-3. Delete `{runtime-dir}/install.lock`.
-4. Start FileUni again from CLI or GUI.
-5. FileUni will open Settings Center automatically.
-6. In Settings Center, set a new administrator password and finish the initial settings.
+3. Run an administrator reset command, or use the change-admin-password action in the GUI launcher.
+4. Enter the target username and new password.
+5. If that username already exists, FileUni will ask for confirmation before promoting that user to administrator and updating the password.
 
 ## Example
 
-If your runtime directory is `/srv/fileuni`, delete this file:
+If your runtime directory is `/srv/fileuni`, you can run:
 
 ```bash
-rm /srv/fileuni/install.lock
+fileuni --runtime-dir /srv/fileuni reset-admin --user admin --password admin888
 ```
 
-Then restart FileUni:
+If `admin` does not exist, the command creates an administrator.
 
-```bash
-fileuni --runtime-dir /srv/fileuni
-```
-
-Or reopen the desktop app and select the same runtime directory.
+If that username already exists but is not an administrator, the command can promote that user and update the password after confirmation.
 
 ## Important Notes
 
-- Deleting `install.lock` and restarting is effectively the system reset entry for that deployment.
-- This does not delete your existing database or app data by itself, but it does force you back through the initialization flow.
 - Use the same runtime directory as the deployment you are recovering.
 - If you point to a different runtime directory, you may initialize a different deployment by mistake.
 
 ## Troubleshooting
 
-### Settings Center did not appear
+### The command did not change the expected deployment
 
 Check these items:
 
-- You deleted the correct file: `{runtime-dir}/install.lock`
-- You restarted the same deployment
 - The runtime directory passed by `-R/--runtime-dir` is correct
+- The database connection in `config.toml` points to the deployment you meant to update
 
 ### I do not know my runtime directory
 
