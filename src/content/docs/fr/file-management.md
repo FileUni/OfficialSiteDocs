@@ -44,7 +44,7 @@ C'est la description publique la plus précise de la surface API actuellement mo
 
 Selon la configuration, FileUni peut également exposer un accès basé sur protocole :
 
-- WebDAV : monté sous `/@dav` par défaut (configurable)
+- WebDAV : monté sous `/dav` par défaut (configurable)
 - S3 : servi sur le port S3 configuré
 - FTP : servi sur le port FTP configuré
 - SFTP : servi sur le port SFTP configuré

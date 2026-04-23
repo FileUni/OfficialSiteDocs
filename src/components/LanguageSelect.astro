@@ -1,9 +1,12 @@
 ---
 import { DOCS_LOCALE_OPTIONS } from '../i18n/locales';
 import {
+  createLocaleMenuControlStyle,
+  createStaticLocaleMenuItems,
   LOCALE_MENU_CLASSNAMES,
-  LOCALE_MENU_METRICS,
   LOCALE_MENU_TRANSLATION_ICON_PATHS,
+  type StaticLocaleMenuItem,
+  resolveCurrentPathLocale,
   type SupportedLocale,
 } from '../i18n/core';
 
@@ -15,27 +18,9 @@ type LocaleOption = {
 
 const currentPath = Astro.url.pathname;
 const localeOptions: LocaleOption[] = DOCS_LOCALE_OPTIONS;
-const fallbackLocale = localeOptions[0];
-if (!fallbackLocale) {
-  throw new Error('DOCS_LOCALE_OPTIONS must not be empty.');
-}
-const currentLocale =
-  localeOptions.find((option) =>
-    option.pathPrefix
-      ? currentPath === option.pathPrefix || currentPath.startsWith(`${option.pathPrefix}/`)
-      : !localeOptions.some(
-          (candidate) =>
-            candidate.pathPrefix &&
-            (currentPath === candidate.pathPrefix || currentPath.startsWith(`${candidate.pathPrefix}/`)),
-        ),
-  ) ?? fallbackLocale;
-
-const controlStyle = [
-  `--fu-control-size:${LOCALE_MENU_METRICS.buttonSizePx}px`,
-  `--fu-control-min-height:${LOCALE_MENU_METRICS.buttonMinHeightPx}px`,
-  `--fu-control-radius:${LOCALE_MENU_METRICS.borderRadiusPx}px`,
-  `--fu-control-menu-width:${LOCALE_MENU_METRICS.menuWidthPx}px`,
-].join(';');
+const currentLocale = resolveCurrentPathLocale(currentPath, localeOptions);
+const menuItems = createStaticLocaleMenuItems(localeOptions, currentLocale);
+const controlStyle = createLocaleMenuControlStyle();
 ---
 
 <starlight-lang-select>
@@ -58,20 +43,20 @@ const controlStyle = [
     <span class="fu-lang-current-label">{currentLocale.label}</span>
   </button>
   <div class={`fu-lang-menu ${LOCALE_MENU_CLASSNAMES.menu}`} style={controlStyle} hidden>
-    {localeOptions.map((option) => (
+    {menuItems.map((option: StaticLocaleMenuItem) => (
       <button
         type="button"
         class:list={[
           'fu-lang-menu-item',
           LOCALE_MENU_CLASSNAMES.item,
-          option.code === currentLocale.code && 'is-active',
+          option.selected && 'is-active',
         ]}
         data-lang-value={option.code}
         data-lang-path-prefix={option.pathPrefix}
         role="menuitemradio"
-        aria-checked={option.code === currentLocale.code}
+        aria-checked={option.selected}
       >
-        <span>{option.label}</span>
+        <span class="fu-lang-label">{option.label}</span>
       </button>
     ))}
   </div>

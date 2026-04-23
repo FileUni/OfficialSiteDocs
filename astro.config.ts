@@ -1,9 +1,11 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import cloudflare from '@astrojs/cloudflare';
+import { existsSync } from 'node:fs';
 import type { SupportedLocale } from '@fileuni/ts-shared/localization';
 import { buildLocaleUrl } from '@fileuni/ts-shared/localization';
 import { buildThemeHeadBootstrap } from '@fileuni/ts-shared/theme-system';
+import { fileURLToPath } from 'node:url';
 
 const getSiteUrl = (locale: SupportedLocale, pathname = '/') => {
   return buildLocaleUrl('https://fileuni.com', locale, pathname);
@@ -24,6 +26,9 @@ const docsThemeHeadBootstrap = buildThemeHeadBootstrap({
   lightText: '#0f172a',
   darkText: '#f3f8ff',
 });
+
+const localTsSharedRoot = fileURLToPath(new URL('../ts_shared', import.meta.url));
+const localTsSharedAlias = existsSync(localTsSharedRoot) ? { '@fileuni/ts-shared': localTsSharedRoot } : {};
 
 const docsLocales = {
   root: {
@@ -217,6 +222,11 @@ export default defineConfig({
   site: 'https://docs.fileuni.com',
   output: 'static',
   vite: {
+    resolve: {
+      alias: {
+        ...localTsSharedAlias,
+      },
+    },
     build: {
       chunkSizeWarningLimit: 1200,
     },

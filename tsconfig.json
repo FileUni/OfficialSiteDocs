@@ -3,7 +3,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@fileuni/ts-shared/*": ["../ts_shared/*/index.ts"]
+      "@fileuni/ts-shared/*": ["../ts_shared/*/index.ts", "./node_modules/@fileuni/ts-shared/*"]
     },
     "types": ["astro/client", "node"],
     "strict": true,

@@ -1,13 +1,8 @@
 ---
 import { Icon } from '@astrojs/starlight/components';
-import { LOCALE_MENU_METRICS } from '../i18n/core';
+import { createThemeToggleControlStyle } from '../i18n/core';
 
-const controlStyle = [
-  `--fu-control-size:${LOCALE_MENU_METRICS.buttonSizePx}px`,
-  `--fu-control-min-height:${LOCALE_MENU_METRICS.buttonMinHeightPx}px`,
-  `--fu-control-radius:${LOCALE_MENU_METRICS.borderRadiusPx}px`,
-  `--fu-control-icon-size:${LOCALE_MENU_METRICS.iconSizePx}px`,
-].join(';');
+const controlStyle = createThemeToggleControlStyle();
 ---
 
 <starlight-theme-select>

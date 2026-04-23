@@ -42,7 +42,7 @@ Para inspeccion de API y generacion de clientes, tambien se expone:
 
 Segun la configuracion, FileUni tambien puede exponer:
 
-- WebDAV: montado bajo `/@dav`
+- WebDAV: montado bajo `/dav`
 - S3: en el puerto configurado
 - FTP: en el puerto configurado
 - SFTP: en el puerto configurado

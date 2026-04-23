@@ -44,7 +44,7 @@ Dies ist die genaueste öffentliche Beschreibung der aktuell gemounteten API-Obe
 
 Je nach Konfiguration kann FileUni auch protokollbasierten Zugriff bereitstellen:
 
-- WebDAV: standardmäßig unter `/@dav` eingehängt (konfigurierbar)
+- WebDAV: standardmäßig unter `/dav` eingehängt (konfigurierbar)
 - S3: bereitgestellt auf dem konfigurierten S3-Port
 - FTP: bereitgestellt auf dem konfigurierten FTP-Port
 - SFTP: bereitgestellt auf dem konfigurierten SFTP-Port
